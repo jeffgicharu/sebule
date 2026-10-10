@@ -37,9 +37,8 @@ class StockMovementsTable
                 TextColumn::make('balance_after')
                     ->label('Stock after')
                     ->numeric(),
-                TextColumn::make('reason'),
-                TextColumn::make('note')
-                    ->placeholder('No note')
+                TextColumn::make('reason')
+                    ->description(fn (StockMovement $record): ?string => $record->note)
                     ->wrap(),
                 TextColumn::make('user.name')
                     ->label('By')

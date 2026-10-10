@@ -11,6 +11,7 @@ use App\Inventory\StockLedger;
 use App\Models\ProductVariant;
 use App\Support\Money;
 use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
@@ -190,13 +191,15 @@ class VariantsRelationManager extends RelationManager
                             ->success()
                             ->send();
                     }),
-                Action::make('stockHistory')
-                    ->label('History')
-                    ->icon(Heroicon::OutlinedClipboardDocumentList)
-                    ->color('gray')
-                    ->url(fn (ProductVariant $record): string => StockMovementResource::getUrl('index', ['search' => $record->sku])),
-                EditAction::make(),
-                DeleteAction::make(),
+                // The less frequent actions sit in a menu so the row never runs off the side of the table.
+                ActionGroup::make([
+                    Action::make('stockHistory')
+                        ->label('Stock history')
+                        ->icon(Heroicon::OutlinedClipboardDocumentList)
+                        ->url(fn (ProductVariant $record): string => StockMovementResource::getUrl('index', ['search' => $record->sku])),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ]),
             ]);
     }
 }

@@ -34,6 +34,8 @@ class StockMovementResource extends Resource
 
     protected static ?string $slug = 'stock-history';
 
+    protected static ?string $breadcrumb = 'Stock history';
+
     public static function table(Table $table): Table
     {
         return StockMovementsTable::configure($table);
