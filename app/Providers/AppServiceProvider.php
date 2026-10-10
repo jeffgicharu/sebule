@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Filament\Tables\Table;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // On a phone a table row becomes a card, so staff never scroll sideways to reach a column or a button.
+        Table::configureUsing(fn (Table $table) => $table->stackedOnMobile());
     }
 }

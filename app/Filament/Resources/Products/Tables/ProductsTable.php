@@ -24,7 +24,8 @@ class ProductsTable
                     ->label('')
                     ->collection(Product::GALLERY)
                     ->conversion('thumb')
-                    ->limit(1),
+                    ->limit(1)
+                    ->width('1%'),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable()
