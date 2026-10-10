@@ -20,12 +20,30 @@ cp .env.example .env        # then set DB_PASSWORD
 composer install
 php artisan key:generate
 php artisan migrate
+php artisan db:seed         # creates the shop's categories
 npm install
 npm run build
 composer dev                # serves the app and rebuilds assets as you edit
 ```
 
 The shop is at http://localhost:8000 and the back office at http://localhost:8000/admin.
+
+## Staff accounts
+
+Staff sign in to the back office with their own accounts, which are separate from customer accounts. Create one from the command line:
+
+```sh
+php artisan staff:create "Wanjiru Kamau" wanjiru@example.com --role=manager
+```
+
+The roles are `owner`, `manager`, `fulfilment` and `support`. The command prints a generated password once; only its hash is stored.
+
+## How the catalogue is modelled
+
+- A **product** belongs to one category and has **options** such as Colour and Size, each with its own choices.
+- A **variant** is one buyable combination of those choices, with its own SKU, price and stock. The back office generates the combinations.
+- Prices are whole numbers of cents. Nothing in the application holds money as a float.
+- Stock changes only through `App\Inventory\StockLedger`. It locks the variant's row, refuses to go below zero, and writes a movement recording who changed it, why, and the balance left. The database has its own check constraint as a second line of defence.
 
 ## Tests
 
