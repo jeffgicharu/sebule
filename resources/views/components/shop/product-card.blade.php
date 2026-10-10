@@ -30,7 +30,7 @@
     </div>
 
     <h3 class="mt-4 text-[1.0625rem] leading-snug sm:text-lg">
-        <a href="{{ route('shop.product', $product) }}" class="after:absolute after:inset-0">{{ $product->name }}</a>
+        <a href="{{ route('shop.product', $product) }}" class="after:absolute after:inset-0">{{ \App\Support\Text::unbroken($product->name) }}</a>
     </h3>
 
     <p class="mt-1.5 flex flex-wrap items-baseline gap-x-2 text-[0.95rem]">

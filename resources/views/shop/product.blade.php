@@ -26,7 +26,8 @@
             <div class="lg:col-span-7">
                 <ul class="grid grid-cols-2 gap-3 lg:gap-4">
                     @forelse ($photos as $photo)
-                        <li class="tile {{ $loop->first ? 'col-span-2' : '' }} aspect-square">
+                        {{-- An odd one out at the end takes the full width, so no half of the grid is left empty. --}}
+                        <li class="tile {{ $loop->first || ($loop->last && $loop->count % 2 === 0) ? 'col-span-2' : '' }} aspect-square">
                             <x-shop.photo :media="$photo" :eager="$loop->first"
                                 :alt="$loop->first ? $product->name.($option ? ' in '.$selected->label() : '') : $product->name.', photo '.$loop->iteration"
                                 :sizes="$loop->first ? '(min-width: 64rem) 58vw, 100vw' : '(min-width: 64rem) 29vw, 50vw'"
@@ -48,7 +49,7 @@
                         <p class="eyebrow"><a href="{{ route('shop.collection', $collection) }}" class="hover:text-ink">{{ $collection->name }} collection</a></p>
                     @endif
 
-                    <h1 class="mt-2 text-4xl lg:text-5xl">{{ $product->name }}</h1>
+                    <h1 class="mt-2 text-4xl lg:text-5xl">{{ \App\Support\Text::unbroken($product->name) }}</h1>
 
                     @if ($product->summary)
                         <p class="mt-4 text-lg text-ink-soft">{{ $product->summary }}</p>

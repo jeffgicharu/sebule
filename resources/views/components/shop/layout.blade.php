@@ -41,12 +41,12 @@
                     <ul class="flex items-center gap-x-7 text-[0.95rem] font-medium">
                         @foreach ($menuRooms as $room)
                             <li class="group relative">
-                                <a href="{{ route('shop.category', $room) }}" class="block border-b-2 border-transparent py-2 transition-colors hover:border-ink group-focus-within:border-ink">{{ $room->name }}</a>
+                                <a href="{{ route('shop.category', $room['slug']) }}" class="block border-b-2 border-transparent py-2 transition-colors hover:border-ink group-focus-within:border-ink">{{ $room['name'] }}</a>
 
-                                @if ($room->children->isNotEmpty())
+                                @if ($room['children'])
                                     <ul class="invisible absolute left-1/2 top-full z-30 w-56 -translate-x-1/2 border border-rule bg-paper p-2 opacity-0 shadow-[0_18px_40px_-18px_rgb(31_29_26/0.35)] transition duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                                        @foreach ($room->children as $child)
-                                            <li><a href="{{ route('shop.category', $child) }}" class="block px-3 py-2 font-normal hover:bg-tile">{{ $child->name }}</a></li>
+                                        @foreach ($room['children'] as $child)
+                                            <li><a href="{{ route('shop.category', $child['slug']) }}" class="block px-3 py-2 font-normal hover:bg-tile">{{ $child['name'] }}</a></li>
                                         @endforeach
                                     </ul>
                                 @endif
@@ -66,10 +66,10 @@
                         <ul class="wrap divide-y divide-rule py-2">
                             @foreach ($menuRooms as $room)
                                 <li class="py-3">
-                                    <a href="{{ route('shop.category', $room) }}" class="font-display text-xl">{{ $room->name }}</a>
+                                    <a href="{{ route('shop.category', $room['slug']) }}" class="font-display text-xl">{{ $room['name'] }}</a>
                                     <ul class="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[0.95rem] text-ink-soft">
-                                        @foreach ($room->children as $child)
-                                            <li><a href="{{ route('shop.category', $child) }}" class="link py-1">{{ $child->name }}</a></li>
+                                        @foreach ($room['children'] as $child)
+                                            <li><a href="{{ route('shop.category', $child['slug']) }}" class="link py-1">{{ $child['name'] }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -95,7 +95,7 @@
                     <h2 class="eyebrow !text-sand">Rooms</h2>
                     <ul class="mt-4 space-y-2 text-paper/85">
                         @foreach ($menuRooms as $room)
-                            <li><a href="{{ route('shop.category', $room) }}" class="hover:text-paper hover:underline">{{ $room->name }}</a></li>
+                            <li><a href="{{ route('shop.category', $room['slug']) }}" class="hover:text-paper hover:underline">{{ $room['name'] }}</a></li>
                         @endforeach
                     </ul>
                 </nav>
@@ -104,7 +104,7 @@
                     <h2 class="eyebrow !text-sand">Collections</h2>
                     <ul class="mt-4 space-y-2 text-paper/85">
                         @foreach ($menuCollections as $collection)
-                            <li><a href="{{ route('shop.collection', $collection) }}" class="hover:text-paper hover:underline">{{ $collection->name }}</a></li>
+                            <li><a href="{{ route('shop.collection', $collection['slug']) }}" class="hover:text-paper hover:underline">{{ $collection['name'] }}</a></li>
                         @endforeach
                     </ul>
                 </nav>

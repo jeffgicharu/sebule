@@ -14,6 +14,8 @@
             </div>
         </div>
 
+        <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 z-[5] hidden w-[58%] bg-gradient-to-r from-paper/90 via-paper/60 to-transparent md:block"></div>
+
         <picture>
             <source media="(min-width: 48rem)" type="image/webp"
                 srcset="{{ asset('images/site/hero-living-1600.webp') }} 1600w, {{ asset('images/site/hero-living-2400.webp') }} 2400w" sizes="100vw">
@@ -31,14 +33,15 @@
             <p class="eyebrow hidden sm:block">{{ $rooms->count() }} rooms</p>
         </div>
 
-        <ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 lg:gap-x-6">
+        {{-- Seven rooms: one wide tile then pairs on a phone; three large then four smaller from tablet up. --}}
+        <ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-12 lg:gap-x-6">
             @foreach ($rooms as $room)
-                <li class="{{ $loop->first ? 'col-span-2 md:row-span-2' : '' }}">
+                <li class="{{ $loop->first ? 'col-span-2' : '' }} {{ $loop->index < 3 ? 'md:col-span-4' : 'md:col-span-3' }}">
                     <a href="{{ route('shop.category', $room) }}" class="group block h-full">
-                        <div class="tile {{ $loop->first ? 'aspect-square md:aspect-auto md:h-[calc(100%-4.25rem)]' : 'aspect-square' }}">
+                        <div class="tile {{ $loop->first ? 'aspect-[4/3] md:aspect-square' : 'aspect-square' }}">
                             @if ($room->lead?->mainPhoto())
                                 <x-shop.photo :media="$room->lead->mainPhoto()" alt="" :eager="$loop->first"
-                                    :sizes="$loop->first ? '(min-width: 48rem) 50vw, 100vw' : '(min-width: 48rem) 25vw, 50vw'"
+                                    :sizes="$loop->index < 3 ? '(min-width: 48rem) 33vw, '.($loop->first ? '100vw' : '50vw') : '(min-width: 48rem) 25vw, 50vw'"
                                     class="h-full w-full object-contain transition duration-500 ease-out group-hover:scale-[1.04]" />
                             @endif
                         </div>

@@ -19,6 +19,10 @@ class BrowsingTest extends TestCase
     {
         parent::setUp();
 
+        // A cache that serialises what it stores, as the live one does, so anything that
+        // cannot survive the round trip fails here and not in production.
+        config(['cache.default' => 'database']);
+
         $this->seed([CategorySeeder::class, CatalogueSeeder::class]);
         $this->withoutVite();
     }
