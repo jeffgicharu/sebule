@@ -147,8 +147,9 @@ jobs:
             release/ "$VPS_USER@$VPS_HOST:./$GITHUB_SHA/"
 
       # The activate key can run one script on the server and nothing else.
-      # It migrates the database, switches the site to this release and
-      # restarts the workers.
+      # It migrates the database, has the release open its own pages, and only
+      # then switches the site to it. A release that fails is never put live,
+      # and one that stops serving after the switch is taken back off.
       - name: Activate the release
         run: ssh -i ~/.ssh/activate_key -o IdentitiesOnly=yes "$VPS_USER@$VPS_HOST" "$GITHUB_SHA"
 
@@ -163,3 +164,14 @@ jobs:
           done
           echo "sebule.jeffgicharu.com is not serving ${GITHUB_SHA::7}"
           exit 1
+
+      # From outside, as a visitor arrives. The home page twice, because the
+      # second visit is the one that reads back what the first one cached.
+      - name: Check the pages load
+        run: |
+          for path in / / /c/living-room /sitemap.xml /admin/login; do
+            status=$(curl -sS -o /dev/null -w '%{http_code}' "https://sebule.jeffgicharu.com$path")
+            echo "$status $path"
+            [ "$status" = "200" ] || failed=1
+          done
+          [ -z "${failed:-}" ]

@@ -82,8 +82,10 @@ Every push to `main` runs `.github/workflows/deploy.yml`, which tests the code, 
 1. **Test.** Pint and the test suite run against PostgreSQL 16.
 2. **Build.** Composer dependencies without dev packages and the Vite assets are built in the workflow, so the server needs neither Composer nor Node.
 3. **Upload.** The release is copied to `releases/<commit>` on the server with a key that can only rsync into that directory.
-4. **Activate.** A second key can run one script, `deploy/activate.sh`, and nothing else. It links the shared storage and environment file, migrates the database, switches the `current` link to the new release, reloads PHP-FPM and restarts the queue worker.
-5. **Verify.** The workflow reads the `X-Release` header from the live site and fails unless it matches the commit.
+4. **Activate.** A second key can run one script, `deploy/activate.sh`, and nothing else. It links the shared storage and environment file and migrates the database. Then the release checks itself: `php artisan release:check` starts at the home page and opens the pages a visitor can reach, using the live configuration, database and cache. Only if every page loads is the `current` link switched to the new release. A release that fails is left where it is and the site carries on with the one before.
+5. **Verify.** The script fetches the pages again through nginx. If they do not load, it switches back to the previous release. The workflow then reads the `X-Release` header from the live site, fails unless it matches the commit, and loads the main pages from outside.
+
+Each release has its own cache entries (the cache prefix ends with the commit), so new code never reads data cached by older code.
 
 The last five releases are kept on the server. To go back to one of them, run `sudo -u deploy /usr/local/bin/sebule-activate <commit>` there.
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Support\Release;
 use Illuminate\Support\Str;
 
 return [
@@ -116,9 +117,12 @@ return [
     | stores, there might be other applications using the same cache. For
     | that reason, you may prefix every cache key to avoid collisions.
     |
+    | The prefix ends with the release, so each release keeps its own entries
+    | and code never reads what an earlier version of itself stored.
+    |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-cache-'),
+    'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-cache-').(($release = Release::id()) ? substr($release, 0, 12).':' : ''),
 
     /*
     |--------------------------------------------------------------------------
