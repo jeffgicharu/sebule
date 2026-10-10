@@ -66,6 +66,20 @@ class CatalogueModelsTest extends TestCase
         $this->assertSame(1, Product::published()->count());
     }
 
+    public function test_a_new_category_goes_after_its_siblings(): void
+    {
+        $decor = Category::factory()->create(['name' => 'Decor']);
+        Category::factory()->childOf($decor)->create(['name' => 'Rugs', 'position' => 1]);
+        Category::factory()->childOf($decor)->create(['name' => 'Baskets', 'position' => 4]);
+
+        $throws = Category::factory()->childOf($decor)->create(['name' => 'Throws', 'position' => 0]);
+        $placed = Category::factory()->childOf($decor)->create(['name' => 'Mirrors', 'position' => 2]);
+
+        $this->assertSame(5, $throws->position);
+        $this->assertSame(2, $placed->position);
+        $this->assertSame(2, Category::factory()->create(['name' => 'Lighting'])->position);
+    }
+
     public function test_a_category_with_children_cannot_be_deleted(): void
     {
         $parent = Category::factory()->create();

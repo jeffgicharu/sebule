@@ -39,7 +39,7 @@ class CategoryForm
                             ->disabled(fn (?Category $record): bool => (bool) $record?->children()->exists()),
                         TextInput::make('position')
                             ->label('Order')
-                            ->helperText('Lower numbers come first among categories at the same level.')
+                            ->helperText('Lower numbers come first among categories at the same level. Leave a new category at 0 to add it at the end.')
                             ->integer()
                             ->minValue(0)
                             ->default(0)

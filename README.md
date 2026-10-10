@@ -20,7 +20,7 @@ cp .env.example .env        # then set DB_PASSWORD
 composer install
 php artisan key:generate
 php artisan migrate
-php artisan db:seed         # creates the shop's categories
+php artisan db:seed         # creates the categories and the catalogue
 npm install
 npm run build
 composer dev                # serves the app and rebuilds assets as you edit
@@ -41,6 +41,10 @@ php artisan staff:create "Wanjiru Kamau" wanjiru@example.com --role=owner
 ```
 
 The command prints a generated password once; only its hash is stored.
+
+## Seeding
+
+`php artisan db:seed` creates the category tree and then the catalogue in `database/seeders/data/catalogue.json`: 8 collections and 80 products with their options, variants, prices and opening stock. Both seeders are safe to run again. Anything whose web address name already exists is left as it is, so changes made in the back office are never overwritten.
 
 ## How the catalogue is modelled
 

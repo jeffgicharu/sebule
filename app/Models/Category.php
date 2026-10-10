@@ -24,6 +24,18 @@ class Category extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        // A new category with no order given goes after its siblings, not in front of them.
+        static::creating(function (Category $category): void {
+            if (! $category->position) {
+                $category->position = (int) static::query()
+                    ->where('parent_id', $category->parent_id)
+                    ->max('position') + 1;
+            }
+        });
+    }
+
     /** @return BelongsTo<Category, $this> */
     public function parent(): BelongsTo
     {

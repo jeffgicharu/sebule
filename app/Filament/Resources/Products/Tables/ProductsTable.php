@@ -51,6 +51,8 @@ class ProductsTable
                     ->numeric(),
             ])
             ->defaultSort('name')
+            ->emptyStateHeading('No products yet')
+            ->emptyStateDescription('Add a product, give it its options such as colour, then generate the variants customers buy.')
             ->filters([
                 SelectFilter::make('status')
                     ->options(ProductStatus::class),

@@ -1,0 +1,2970 @@
+{
+  "collections": [
+    { "slug": "amani", "name": "Amani", "description": "Deep, low seating in a hard-wearing linen blend on oiled mvule legs. Made for long evenings in the sitting room." },
+    { "slug": "tana", "name": "Tana", "description": "Solid mvule dining furniture with softly rounded edges and tapered legs, finished by hand in oil." },
+    { "slug": "lamu", "name": "Lamu", "description": "Bedroom furniture in mahogany with woven cane panels, drawing on the carved doors and daybeds of the coast." },
+    { "slug": "karura", "name": "Karura", "description": "Desks and shelving in Meru oak on slim black steel frames, for working from home without the office look." },
+    { "slug": "ngong", "name": "Ngong", "description": "Low tables, shelving and media units in cypress with clean lines and open storage." },
+    { "slug": "diani", "name": "Diani", "description": "Outdoor seating and tables in oiled hardwood and woven rope that stand up to sun and coastal air." },
+    { "slug": "kito", "name": "Kito", "description": "Lamps with hand-thrown ceramic bases and linen shades, each one slightly different from the next." },
+    { "slug": "kilifi", "name": "Kilifi", "description": "Baskets, rugs and cushions woven by hand from sisal, wool and cotton." }
+  ],
+  "products": [
+    {
+      "slug": "amani-3-seater-sofa",
+      "image_id": "amani-sofa-3s",
+      "name": "Amani 3-seater sofa",
+      "category": "sofas",
+      "collection": "amani",
+      "summary": "A deep, low sofa in a tightly woven linen blend, on oiled mvule legs.",
+      "description": "Amani is built on a kiln-dried hardwood frame with two feather-wrapped seat cushions that keep their shape. The covers are a hard-wearing linen blend with piped edges, and the tapered legs are solid mvule finished in oil.",
+      "materials": "Kiln-dried hardwood frame. Linen-blend upholstery. Solid mvule legs, oiled.",
+      "care": "Vacuum weekly. Blot spills at once with a dry cloth. Plump the cushions after use.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 220, "d": 92, "h": 84 },
+      "weight_kg": 52,
+      "price": 98000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 6 },
+          { "slug": "forest", "label": "Forest", "hex": "#2F4A3A", "material": "woven linen blend", "price_delta": 0, "stock": 3 },
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "woven linen blend", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "sand",
+      "image": {
+        "parts": {
+          "upholstery": "tightly woven linen-blend fabric with a visible but fine weave",
+          "legs": "4 tapered solid mvule legs, oiled, about 15 cm high",
+          "frame": "kiln-dried hardwood, not visible"
+        },
+        "details": "low track arms, 2 seat cushions, 2 back cushions, piped edges, clean straight lines, no tufting and no buttons",
+        "second_angle": "studio-front",
+        "detail_part": "left arm, seat cushion corner and piping",
+        "room_note": "Kilimani flat living room, parquet floor, sisal rug, one plant, low coffee table. The sofa is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tana-6-seater-dining-table",
+      "image_id": "tana-dining-table-6",
+      "name": "Tana 6-seater dining table",
+      "category": "dining-tables",
+      "collection": "tana",
+      "summary": "A solid mvule table that seats six, with a softly rounded edge and tapered legs.",
+      "description": "The Tana top is made from full-length mvule planks, 4 cm thick, joined so the grain runs the length of the table. It is rubbed with oil by hand, which leaves the wood matte and easy to refresh at home.",
+      "materials": "Solid mvule top and legs. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use mats under hot dishes. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 180, "d": 90, "h": 76 },
+      "weight_kg": 58,
+      "price": 85000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 4 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 3000, "stock": 2 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "top": "solid mvule planks, 4 cm thick, with a softly rounded edge",
+          "legs": "4 tapered square legs set in slightly from the corners",
+          "finish": "hand-rubbed oil, matte"
+        },
+        "details": "rectangular top with visible grain running lengthwise, no apron visible from the front, no stretchers, no chairs in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "near corner of the top, its rounded edge and the top of the leg",
+        "room_note": "dining area of a Lavington flat, six simple wooden chairs, a ceramic bowl on the table, pendant light above, window to one side"
+      }
+    },
+    {
+      "slug": "kito-table-lamp",
+      "image_id": "kito-table-lamp",
+      "name": "Kito table lamp",
+      "category": "table-lamps",
+      "collection": "kito",
+      "summary": "A hand-thrown ceramic lamp with a natural linen shade and a brass neck.",
+      "description": "Each Kito base is thrown on the wheel in Nairobi and glazed matte, so no two are quite the same. The drum shade is natural linen, which gives a warm, even light.",
+      "materials": "Glazed stoneware base. Linen shade. Brushed brass fittings. Fabric-covered cord.",
+      "care": "Dust the shade with a soft brush. Wipe the base with a dry cloth. Takes an E27 bulb of up to 9 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 30, "d": 30, "h": 52 },
+      "weight_kg": 3,
+      "price": 8500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "ivory", "label": "Ivory", "hex": "#E9E1D2", "material": "matte ceramic glaze", "price_delta": 0, "stock": 12 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#2B2A28", "material": "matte ceramic glaze", "price_delta": 0, "stock": 8 }
+        ]
+      },
+      "default": "ivory",
+      "image": {
+        "parts": {
+          "base": "hand-thrown ceramic, rounded gourd shape, matte glaze with slight variation",
+          "shade": "natural linen drum shade, off-white",
+          "fittings": "brushed brass neck, fabric-covered cord"
+        },
+        "details": "the base is about 28 cm high and 20 cm wide, the shade about 30 cm wide and 20 cm high",
+        "second_angle": "studio-front",
+        "detail_part": "ceramic base and brass neck",
+        "room_note": "on a small wooden side table beside an armchair, early evening, lamp on"
+      }
+    },
+    {
+      "slug": "amani-2-seater-sofa",
+      "image_id": "amani-2-seater-sofa",
+      "name": "Amani 2-seater sofa",
+      "category": "sofas",
+      "collection": "amani",
+      "summary": "The Amani sofa at two-seat width, in a tightly woven linen blend on oiled mvule legs.",
+      "description": "Built like the 3-seater on a kiln-dried hardwood frame, with two feather-wrapped seat cushions and two back cushions. At 170 cm wide it fits a small sitting room, or sits across from the larger sofa in a big one. The covers are a hard-wearing linen blend with piped edges.",
+      "materials": "Kiln-dried hardwood frame. Linen-blend upholstery. Solid mvule legs, oiled.",
+      "care": "Vacuum weekly. Blot spills at once with a dry cloth. Plump the cushions after use.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 170, "d": 92, "h": 84 },
+      "weight_kg": 41,
+      "price": 72000,
+      "compare_at_price": 84000,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 4 },
+          { "slug": "forest", "label": "Forest", "hex": "#2F4A3A", "material": "woven linen blend", "price_delta": 0, "stock": 2 },
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "woven linen blend", "price_delta": 0, "stock": 5 }
+        ]
+      },
+      "default": "sand",
+      "image": {
+        "parts": {
+          "upholstery": "tightly woven linen-blend fabric with a visible but fine weave",
+          "legs": "4 tapered solid mvule legs, oiled, about 15 cm high",
+          "frame": "kiln-dried hardwood, not visible"
+        },
+        "details": "two-seat width, low track arms, 2 seat cushions, 2 back cushions, piped edges, clean straight lines, 4 legs, no tufting, no buttons, no scatter cushions",
+        "second_angle": "studio-front",
+        "detail_part": "left arm, seat cushion corner and piping",
+        "room_note": "Sitting room of a Westlands flat with white walls and a steel-framed window, parquet floor, a wool rug, a floor lamp and one potted plant. The sofa is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "naivasha-3-seater-sofa",
+      "image_id": "naivasha-3-seater-sofa",
+      "name": "Naivasha 3-seater sofa",
+      "category": "sofas",
+      "collection": null,
+      "summary": "A three-seat sofa with an exposed solid mvule frame and loose linen-blend cushions.",
+      "description": "Naivasha has a solid mvule frame that is left on show, with flat arms wide enough to rest a cup on. Three seat cushions and three back cushions sit loose inside the frame, and their covers zip off for cleaning. Each sofa is made to order.",
+      "materials": "Solid mvule frame, oiled. Webbed seat base. Foam and fibre cushions. Linen-blend covers with zips.",
+      "care": "Vacuum the cushions weekly and turn them once a month. Dry clean the covers. Wipe the frame with a dry cloth and re-oil once a year.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 205, "d": 85, "h": 78 },
+      "weight_kg": 58,
+      "price": 118000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 5,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven linen blend", "price_delta": 0, "stock": 0 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 0 },
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "woven linen blend", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "charcoal",
+      "image": {
+        "parts": {
+          "frame": "solid mvule, oiled, fully visible, with flat arms 8 cm wide and a straight base rail",
+          "cushions": "3 seat cushions and 3 back cushions in woven linen blend, loose and box-shaped",
+          "legs": "4 square mvule legs that continue up to carry the arms"
+        },
+        "details": "exposed wooden frame around loose cushions, 3 seat cushions, 3 back cushions, flat wooden arms with no padding, 4 legs, no stretchers, no tufting, no buttons, no piping, no scatter cushions",
+        "second_angle": "studio-side",
+        "detail_part": "left wooden arm, front left leg and the corner of the seat cushion",
+        "room_note": "Sitting room of a house in Karen with warm plaster walls, a polished concrete floor, a wool rug and a low table with a ceramic bowl. The sofa is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "naivasha-2-seater-sofa",
+      "image_id": "naivasha-2-seater-sofa",
+      "name": "Naivasha 2-seater sofa",
+      "category": "sofas",
+      "collection": null,
+      "summary": "The two-seat Naivasha, with the same exposed mvule frame and loose linen-blend cushions.",
+      "description": "A solid mvule frame left on show, holding two seat cushions and two back cushions. The flat arms are wide enough for a cup, and the zipped covers come off for cleaning. At 145 cm wide it suits a study, a bedroom or a small flat.",
+      "materials": "Solid mvule frame, oiled. Webbed seat base. Foam and fibre cushions. Linen-blend covers with zips.",
+      "care": "Vacuum the cushions weekly and turn them once a month. Dry clean the covers. Wipe the frame with a dry cloth and re-oil once a year.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 145, "d": 85, "h": 78 },
+      "weight_kg": 42,
+      "price": 84000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven linen blend", "price_delta": 0, "stock": 3 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 4 },
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "woven linen blend", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "charcoal",
+      "image": {
+        "parts": {
+          "frame": "solid mvule, oiled, fully visible, with flat arms 8 cm wide and a straight base rail",
+          "cushions": "2 seat cushions and 2 back cushions in woven linen blend, loose and box-shaped",
+          "legs": "4 square mvule legs that continue up to carry the arms"
+        },
+        "details": "exposed wooden frame around loose cushions, 2 seat cushions, 2 back cushions, flat wooden arms with no padding, 4 legs, no stretchers, no tufting, no buttons, no piping, no scatter cushions",
+        "second_angle": "studio-side",
+        "detail_part": "left wooden arm, front left leg and the corner of the seat cushion",
+        "room_note": "Study corner of a Kilimani flat with white walls, parquet floor, a sisal rug, a floor lamp and a tall potted plant. The sofa is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "elgon-3-seater-sofa",
+      "image_id": "elgon-3-seater-sofa",
+      "name": "Elgon 3-seater sofa",
+      "category": "sofas",
+      "collection": null,
+      "summary": "A three-seat leather sofa with a fixed back and slim arms, on oiled mvule legs.",
+      "description": "Elgon is covered in matte semi-aniline leather over a kiln-dried hardwood frame. The back is fixed and the seat has three loose cushions, so it stays tidy with no plumping. The leather softens and darkens a little with use, and each sofa is made to order.",
+      "materials": "Kiln-dried hardwood frame. Semi-aniline cowhide leather. Foam and fibre seat cushions. Solid mvule legs, oiled.",
+      "care": "Wipe with a soft dry cloth. Keep out of direct sun. Feed with leather conditioner twice a year.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 210, "d": 90, "h": 80 },
+      "weight_kg": 62,
+      "price": 138000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 6,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "tan", "label": "Tan", "hex": "#A5673A", "material": "matte semi-aniline leather", "price_delta": 0, "stock": 0 },
+          { "slug": "chocolate", "label": "Chocolate", "hex": "#4B2E20", "material": "matte semi-aniline leather", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "tan",
+      "image": {
+        "parts": {
+          "upholstery": "matte semi-aniline leather, smooth, with plain stitched seams",
+          "seat": "3 loose seat cushions and a fixed padded back in one piece",
+          "legs": "4 round tapered solid mvule legs, oiled, about 16 cm high"
+        },
+        "details": "slim straight arms level with the back, 3 seat cushions, fixed back with no loose cushions, 4 legs, no tufting, no buttons, no studs, no piping, no scatter cushions, matte leather with no gloss",
+        "second_angle": "studio-front",
+        "detail_part": "left arm, the front seam of the seat cushion and the front left leg",
+        "room_note": "Sitting room of a house in Karen with warm plaster walls, a polished concrete floor, a flat-woven wool rug and framed abstract art above. The sofa is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "watamu-2-seater-sofa",
+      "image_id": "watamu-2-seater-sofa",
+      "name": "Watamu 2-seater sofa",
+      "category": "sofas",
+      "collection": null,
+      "summary": "A compact two-seater with rounded arms and one long seat cushion, on a recessed plinth.",
+      "description": "Watamu is 150 cm wide and 82 cm deep, sized for small flats and bedrooms. It has a fixed padded back and a single bench cushion, so there is no gap to sink into in the middle. The frame is kiln-dried hardwood on a recessed mvule plinth.",
+      "materials": "Kiln-dried hardwood frame. Cotton-linen upholstery. Foam and fibre seat cushion. Solid mvule plinth, oiled.",
+      "care": "Vacuum weekly. Blot spills at once with a dry cloth. Turn the seat cushion once a month.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 150, "d": 82, "h": 78 },
+      "weight_kg": 38,
+      "price": 68000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "ocean", "label": "Ocean", "hex": "#2F5D73", "material": "woven cotton-linen", "price_delta": 0, "stock": 3 },
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "woven cotton-linen", "price_delta": 0, "stock": 4 },
+          { "slug": "oat", "label": "Oat", "hex": "#D8CDB8", "material": "woven cotton-linen", "price_delta": 0, "stock": 3 }
+        ]
+      },
+      "default": "ocean",
+      "image": {
+        "parts": {
+          "upholstery": "plain woven cotton-linen fabric with a fine weave",
+          "seat": "1 long bench seat cushion and a fixed padded back in one piece",
+          "base": "recessed solid mvule plinth, 8 cm high, oiled"
+        },
+        "details": "softly rounded arms slightly lower than the back, 1 seat cushion, fixed back with no loose cushions, plinth base with no visible legs, no tufting, no buttons, no piping, no skirt, no scatter cushions",
+        "second_angle": "studio-side",
+        "detail_part": "left rounded arm and the front edge of the seat cushion",
+        "room_note": "Sitting room of a Nyali flat with white walls, sliding windows with sheer curtains, a pale tiled floor and a sisal rug. The sofa is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "amani-armchair",
+      "image_id": "amani-armchair",
+      "name": "Amani armchair",
+      "category": "armchairs",
+      "collection": "amani",
+      "summary": "A deep, low armchair in a tightly woven linen blend, on oiled mvule legs.",
+      "description": "The Amani armchair has the same low track arms and feather-wrapped seat cushion as the sofas. It is built on a kiln-dried hardwood frame and stands on tapered mvule legs finished in oil. The seat is deep enough to curl up in.",
+      "materials": "Kiln-dried hardwood frame. Linen-blend upholstery. Solid mvule legs, oiled.",
+      "care": "Vacuum weekly. Blot spills at once with a dry cloth. Plump the cushions after use.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 88, "d": 90, "h": 84 },
+      "weight_kg": 24,
+      "price": 46000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "forest", "label": "Forest", "hex": "#2F4A3A", "material": "woven linen blend", "price_delta": 0, "stock": 4 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 5 },
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "woven linen blend", "price_delta": 0, "stock": 1 }
+        ]
+      },
+      "default": "forest",
+      "image": {
+        "parts": {
+          "upholstery": "tightly woven linen-blend fabric with a visible but fine weave",
+          "legs": "4 tapered solid mvule legs, oiled, about 15 cm high",
+          "frame": "kiln-dried hardwood, not visible"
+        },
+        "details": "low track arms, 1 seat cushion, 1 back cushion, piped edges, clean straight lines, 4 legs, no tufting, no buttons, no scatter cushion",
+        "second_angle": "studio-side",
+        "detail_part": "left arm, seat cushion corner and piping",
+        "room_note": "Corner of a sitting room in a Lavington flat, by a steel-framed window with sheer curtains, parquet floor, a small side table and a floor lamp. The armchair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "amani-high-back-armchair",
+      "image_id": "amani-high-back-armchair",
+      "name": "Amani high-back armchair",
+      "category": "armchairs",
+      "collection": "amani",
+      "summary": "A reading chair with a tall back and slim arms, in linen blend on oiled mvule legs.",
+      "description": "The tall back supports the head and shoulders, which makes this the chair for reading or an afternoon nap. It has a fixed padded back, one loose seat cushion and slim arms on a kiln-dried hardwood frame. The legs are solid mvule, tapered and oiled.",
+      "materials": "Kiln-dried hardwood frame. Linen-blend upholstery. Solid mvule legs, oiled.",
+      "care": "Vacuum weekly. Blot spills at once with a dry cloth. Turn the seat cushion once a month.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 78, "d": 86, "h": 102 },
+      "weight_kg": 22,
+      "price": 52000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "woven linen blend", "price_delta": 0, "stock": 3 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven linen blend", "price_delta": 0, "stock": 4 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "olive",
+      "image": {
+        "parts": {
+          "upholstery": "tightly woven linen-blend fabric with a visible but fine weave",
+          "seat": "1 loose seat cushion and a fixed padded high back in one piece",
+          "legs": "4 tapered solid mvule legs, oiled, about 18 cm high"
+        },
+        "details": "tall straight back rising about 60 cm above the seat, slim arms, 1 seat cushion, fixed back with no loose cushion, 4 legs, no wings, no tufting, no buttons, no headrest pillow",
+        "second_angle": "studio-side",
+        "detail_part": "left arm, the front of the seat cushion and the front left leg",
+        "room_note": "Bedroom corner of a house in Karen with a warm plaster wall, parquet floor, a floor lamp and a small round side table with a ceramic cup. The armchair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-cane-armchair",
+      "image_id": "lamu-cane-armchair",
+      "name": "Lamu cane armchair",
+      "category": "armchairs",
+      "collection": "lamu",
+      "summary": "A mahogany armchair with a woven cane back and a loose linen-blend seat cushion.",
+      "description": "The frame is solid mahogany with mortise and tenon joints, and the back is a single panel of hand-woven cane. Cane gives a little as you lean back and lets the air through, which is welcome at the coast. The seat cushion cover zips off for cleaning.",
+      "materials": "Solid mahogany frame, oiled. Hand-woven rattan cane back. Foam seat cushion with linen-blend cover.",
+      "care": "Dust the cane with a soft brush. Wipe the frame with a dry cloth. Keep the cane away from standing water.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 68, "d": 72, "h": 78 },
+      "weight_kg": 12,
+      "price": 42000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Fabric",
+        "values": [
+          { "slug": "forest", "label": "Forest", "hex": "#2F4A3A", "material": "woven linen blend", "price_delta": 0, "stock": 3 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 4 }
+        ]
+      },
+      "default": "forest",
+      "image": {
+        "parts": {
+          "frame": "solid mahogany, oiled, with slim square arms and 4 straight legs",
+          "back": "1 flat panel of natural woven cane set in the mahogany back frame",
+          "cushion": "1 loose box seat cushion in woven linen blend"
+        },
+        "details": "open wooden arms with no padding, 1 cane panel in the back only, no cane on the sides or under the seat, 1 seat cushion, no back cushion, 4 legs, no stretchers, no carving",
+        "second_angle": "studio-back",
+        "detail_part": "left arm, the edge of the cane back panel and the corner of the seat cushion",
+        "room_note": "Bedroom of a Nyali flat with white walls, a sliding window with sheer curtains, a sisal rug and a potted palm. The armchair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "laikipia-armchair",
+      "image_id": "laikipia-armchair",
+      "name": "Laikipia armchair",
+      "category": "armchairs",
+      "collection": null,
+      "summary": "A leather armchair with a fixed back and slim arms, on oiled mvule legs.",
+      "description": "Laikipia is upholstered in matte semi-aniline leather over a kiln-dried hardwood frame. The back is fixed and the single seat cushion is loose, so the chair keeps its shape with no plumping. Marks and creases build into a patina over the years.",
+      "materials": "Kiln-dried hardwood frame. Semi-aniline cowhide leather. Foam and fibre seat cushion. Solid mvule legs, oiled.",
+      "care": "Wipe with a soft dry cloth. Keep out of direct sun. Feed with leather conditioner twice a year.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 76, "d": 80, "h": 80 },
+      "weight_kg": 21,
+      "price": 58000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "chocolate", "label": "Chocolate", "hex": "#4B2E20", "material": "matte semi-aniline leather", "price_delta": 0, "stock": 3 },
+          { "slug": "tan", "label": "Tan", "hex": "#A5673A", "material": "matte semi-aniline leather", "price_delta": 0, "stock": 4 }
+        ]
+      },
+      "default": "chocolate",
+      "image": {
+        "parts": {
+          "upholstery": "matte semi-aniline leather, smooth, with plain stitched seams",
+          "seat": "1 loose seat cushion and a fixed padded back in one piece",
+          "legs": "4 round tapered solid mvule legs, oiled, about 16 cm high"
+        },
+        "details": "slim straight arms, 1 seat cushion, fixed back with no loose cushion, 4 legs, no tufting, no buttons, no studs, no piping, matte leather with no gloss",
+        "second_angle": "studio-side",
+        "detail_part": "left arm, the front seam of the seat cushion and the front left leg",
+        "room_note": "Study in a Lavington flat with white walls, parquet floor, a wool rug, a floor lamp and a plain wooden shelf of ceramics. The armchair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "ngong-coffee-table",
+      "image_id": "ngong-coffee-table",
+      "name": "Ngong coffee table",
+      "category": "coffee-tables",
+      "collection": "ngong",
+      "summary": "A low rectangular cypress table with an open shelf below the top.",
+      "description": "The top and shelf are solid cypress boards joined edge to edge, with the corners eased so they are kind to shins. The lower shelf keeps remotes and trays off the top. Cypress is light, so the table is easy to move when you sweep.",
+      "materials": "Solid cypress. Hardwax oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use coasters under hot or wet cups. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 110, "d": 60, "h": 40 },
+      "weight_kg": 19,
+      "price": 26000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "honey", "label": "Honey", "hex": "#C99A5B", "material": "oiled cypress", "price_delta": 0, "stock": 6 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained cypress", "price_delta": 1500, "stock": 3 }
+        ]
+      },
+      "default": "honey",
+      "image": {
+        "parts": {
+          "top": "solid cypress, 3 cm thick, rectangular with slightly rounded corners",
+          "shelf": "1 solid cypress shelf, 15 cm above the floor, set between the legs",
+          "legs": "4 square cypress legs, 5 cm thick, at the corners"
+        },
+        "details": "1 top and 1 lower shelf, 4 straight square legs, no drawers, no apron, no castors, nothing on the table in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "front left leg where it meets the top and the shelf",
+        "room_note": "Sitting room of a Kilimani flat, in front of a sofa, on a sisal rug over parquet, with a ceramic bowl and a small plant on top. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "ngong-round-coffee-table",
+      "image_id": "ngong-round-coffee-table",
+      "name": "Ngong round coffee table",
+      "category": "coffee-tables",
+      "collection": "ngong",
+      "summary": "A round cypress coffee table, 80 cm across, on three tapered legs.",
+      "description": "The top is solid cypress with a soft bullnose edge, finished in hardwax oil. Three splayed legs screw into steel plates under the top, and three legs stand steady on an uneven floor. With no corners, it works well in a tight sitting room.",
+      "materials": "Solid cypress. Hardwax oil finish. Steel leg plates.",
+      "care": "Wipe with a damp cloth and dry at once. Use coasters under hot or wet cups. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 80, "d": 80, "h": 38 },
+      "weight_kg": 13,
+      "price": 21000,
+      "compare_at_price": 24500,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "honey", "label": "Honey", "hex": "#C99A5B", "material": "oiled cypress", "price_delta": 0, "stock": 7 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained cypress", "price_delta": 1500, "stock": 4 }
+        ]
+      },
+      "default": "honey",
+      "image": {
+        "parts": {
+          "top": "round solid cypress top, 80 cm across and 3 cm thick, with a bullnose edge",
+          "legs": "3 round tapered cypress legs, splayed outwards"
+        },
+        "details": "round top, exactly 3 legs, no shelf, no apron, no stretchers, nothing on the table in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "edge of the top and the top of the nearest leg",
+        "room_note": "Sitting room of a Westlands flat, between a sofa and an armchair, on a wool rug over polished concrete, with a ceramic vase on top. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tsavo-coffee-table",
+      "image_id": "tsavo-coffee-table",
+      "name": "Tsavo coffee table",
+      "category": "coffee-tables",
+      "collection": null,
+      "summary": "A thick solid mvule top on a slim black steel frame, 120 cm long.",
+      "description": "The top is two solid mvule planks, 4 cm thick, with a square sawn edge and an oil finish. It bolts to a welded steel frame that is powder-coated matte black. The weight keeps the table planted, and the open frame leaves the rug in view.",
+      "materials": "Solid mvule top, oiled. Powder-coated steel frame.",
+      "care": "Wipe with a damp cloth and dry at once. Use coasters under hot or wet cups. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 120, "d": 60, "h": 38 },
+      "weight_kg": 24,
+      "price": 34000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 4 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 2000, "stock": 1 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "top": "solid mvule, 4 cm thick, rectangular with square edges and visible grain",
+          "frame": "matte black powder-coated steel in 2 cm square tube, made of 2 rectangular loop legs joined by 1 rail under the top"
+        },
+        "details": "2 loop-shaped steel legs, one at each end, no shelf, no drawers, no castors, no glass, nothing on the table in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "near corner of the top and the top of the steel leg below it",
+        "room_note": "Sitting room of a Lavington flat with white walls and a steel-framed window, on a flat-woven wool rug, with a ceramic dish on top. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "samburu-coffee-table",
+      "image_id": "samburu-coffee-table",
+      "name": "Samburu coffee table",
+      "category": "coffee-tables",
+      "collection": null,
+      "summary": "A low square mahogany table on four round legs, 85 cm each way.",
+      "description": "Samburu is solid mahogany throughout, with a 3 cm top and round legs set in from the corners. The dark oil finish shows the grain and hides the marks of daily use. It is low enough to sit around on floor cushions.",
+      "materials": "Solid mahogany. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use coasters under hot or wet cups. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 85, "d": 85, "h": 36 },
+      "weight_kg": 22,
+      "price": 29000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 5,
+      "image": {
+        "parts": {
+          "top": "square solid mahogany top, 3 cm thick, with softly rounded corners",
+          "legs": "4 round straight mahogany legs, 7 cm across, set in 10 cm from the corners",
+          "finish": "dark red-brown hand-rubbed oil, matte"
+        },
+        "details": "square top, 4 round legs, no shelf, no apron, no stretchers, no carving, nothing on the table in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "near corner of the top and the round leg beneath it",
+        "room_note": "Sitting room of a Nyali flat with white walls, a pale tiled floor and a sisal rug, with a handmade ceramic bowl on top. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "ngong-tv-unit",
+      "image_id": "ngong-tv-unit",
+      "name": "Ngong TV unit",
+      "category": "tv-units",
+      "collection": "ngong",
+      "summary": "A 160 cm cypress media unit with two doors and an open bay for a decoder.",
+      "description": "A push-to-open door at each end hides the clutter, and the open bay in the middle holds a decoder and a sound bar. A slot in the back panel lets the cables through. It stands on short legs so you can sweep underneath.",
+      "materials": "Solid cypress frame, top and doors. Plywood back. Hardwax oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Keep the cable slot clear. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 160, "d": 42, "h": 50 },
+      "weight_kg": 38,
+      "price": 48000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "honey", "label": "Honey", "hex": "#C99A5B", "material": "oiled cypress", "price_delta": 0, "stock": 4 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained cypress", "price_delta": 2000, "stock": 3 }
+        ]
+      },
+      "default": "honey",
+      "image": {
+        "parts": {
+          "case": "solid cypress box, 160 cm wide, with a 2.5 cm top",
+          "doors": "2 flat cypress doors, one at each end, push to open",
+          "centre": "1 open bay in the middle, divided by 1 fixed shelf",
+          "legs": "4 short square cypress legs, 12 cm high"
+        },
+        "details": "2 doors with no handles and no knobs, 1 open middle bay with 1 shelf, 4 legs, no drawers, no glass, no television in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left door, its edge against the open bay and the front left leg",
+        "room_note": "Sitting room of a Kilimani flat against a white wall, parquet floor, a ceramic vase and a trailing plant on top, no television. The unit is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "ngong-compact-tv-unit",
+      "image_id": "ngong-compact-tv-unit",
+      "name": "Ngong compact TV unit",
+      "category": "tv-units",
+      "collection": "ngong",
+      "summary": "A 120 cm cypress media unit with one door and an open bay, for smaller rooms.",
+      "description": "The compact Ngong has one push-to-open door on the left and an open bay on the right for a decoder. A slot in the back panel takes the cables. It suits a bedroom, or a sitting room with a short wall.",
+      "materials": "Solid cypress frame, top and door. Plywood back. Hardwax oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Keep the cable slot clear. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 120, "d": 40, "h": 50 },
+      "weight_kg": 27,
+      "price": 37000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "honey", "label": "Honey", "hex": "#C99A5B", "material": "oiled cypress", "price_delta": 0, "stock": 5 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained cypress", "price_delta": 1500, "stock": 0 }
+        ]
+      },
+      "default": "honey",
+      "image": {
+        "parts": {
+          "case": "solid cypress box, 120 cm wide, with a 2.5 cm top",
+          "door": "1 flat cypress door on the left half, push to open",
+          "bay": "1 open bay on the right half, divided by 1 fixed shelf",
+          "legs": "4 short square cypress legs, 12 cm high"
+        },
+        "details": "1 door on the left with no handle and no knob, 1 open bay on the right with 1 shelf, 4 legs, no drawers, no glass, no television in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "the door, its edge against the open bay and the front left leg",
+        "room_note": "Bedroom of a Westlands flat against a warm plaster wall, polished concrete floor, a table lamp and a small plant on top, no television. The unit is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "loita-tv-unit",
+      "image_id": "loita-tv-unit",
+      "name": "Loita TV unit",
+      "category": "tv-units",
+      "collection": null,
+      "summary": "A 180 cm solid mvule media unit with three drawers in a row, on a black steel base.",
+      "description": "Three deep drawers on soft-close runners take remotes, cables and games out of sight. The case is solid mvule with mitred corners, and it sits on a welded steel base in matte black. The top is strong enough for a large television.",
+      "materials": "Solid mvule case and drawer fronts. Plywood drawer boxes. Powder-coated steel base.",
+      "care": "Wipe with a damp cloth and dry at once. Do not stand on the open drawers. Re-oil the mvule once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 180, "d": 45, "h": 52 },
+      "weight_kg": 52,
+      "price": 62000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 3 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 3000, "stock": 3 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "case": "solid mvule box with mitred corners, 180 cm wide and 34 cm high",
+          "drawers": "3 flat mvule drawer fronts of equal width in a single row",
+          "base": "matte black powder-coated steel frame with 4 straight legs, 18 cm high"
+        },
+        "details": "3 drawers side by side, no handles and no knobs, each opened by a finger groove under its top edge, 4 steel legs, no doors, no open shelf, no glass, no television in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left drawer front, the mitred corner of the case and the front left steel leg",
+        "room_note": "Sitting room of a house in Karen against a warm plaster wall, polished concrete floor, a ceramic lamp and a low bowl on top, no television. The unit is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "ngong-tall-shelf",
+      "image_id": "ngong-tall-shelf",
+      "name": "Ngong tall shelf",
+      "category": "shelving",
+      "collection": "ngong",
+      "summary": "An open cypress shelving unit with five shelves, 180 cm tall and 80 cm wide.",
+      "description": "Five solid cypress shelves are housed into two side frames and fixed with bolts, so the unit goes up in about twenty minutes. It is open at the back and sides, which keeps a small room feeling light. A wall strap is included and should be used.",
+      "materials": "Solid cypress. Hardwax oil finish. Steel fixings and wall strap.",
+      "care": "Dust with a dry cloth. Wipe spills at once. Fix to the wall with the strap supplied.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 80, "d": 35, "h": 180 },
+      "weight_kg": 26,
+      "price": 42000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "honey", "label": "Honey", "hex": "#C99A5B", "material": "oiled cypress", "price_delta": 0, "stock": 4 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained cypress", "price_delta": 2000, "stock": 3 }
+        ]
+      },
+      "default": "honey",
+      "image": {
+        "parts": {
+          "shelves": "5 solid cypress shelves, 2.5 cm thick, evenly spaced",
+          "sides": "2 side frames, each made of 2 square cypress uprights joined by a short rail under every shelf",
+          "back": "open, with no back panel"
+        },
+        "details": "exactly 5 shelves including the top one, 4 uprights, open back and open sides, no doors, no drawers, no cross braces, shelves empty in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "front left upright and the ends of two shelves",
+        "room_note": "Sitting room of a Lavington flat against a white wall, parquet floor, the shelves holding handmade ceramics, a trailing plant and woven baskets, no books. The shelf is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "ngong-low-shelf",
+      "image_id": "ngong-low-shelf",
+      "name": "Ngong low shelf",
+      "category": "shelving",
+      "collection": "ngong",
+      "summary": "A low open cypress shelf with three levels, sized to sit under a window.",
+      "description": "Three solid cypress shelves on four square uprights, open on every side. At 75 cm high it fits under most window sills and doubles as a hall table. It bolts together with the key supplied.",
+      "materials": "Solid cypress. Hardwax oil finish. Steel fixings.",
+      "care": "Dust with a dry cloth. Wipe spills at once. Tighten the bolts after the first month.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 110, "d": 35, "h": 75 },
+      "weight_kg": 17,
+      "price": 27000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 7,
+      "image": {
+        "parts": {
+          "shelves": "3 solid cypress shelves, 2.5 cm thick, oiled to a honey colour",
+          "uprights": "4 square cypress uprights, 4 cm thick, at the corners"
+        },
+        "details": "exactly 3 shelves including the top one, 4 uprights, open back and open sides, no doors, no drawers, shelves empty in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "front left upright and the corner of the top shelf",
+        "room_note": "Hallway of a Kilimani flat under a steel-framed window, parquet floor, two woven baskets on the bottom shelf and a potted plant on top. The shelf is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "karura-shelving-unit",
+      "image_id": "karura-shelving-unit",
+      "name": "Karura shelving unit",
+      "category": "shelving",
+      "collection": "karura",
+      "summary": "Five Meru oak shelves on a slim black steel frame, 185 cm tall.",
+      "description": "The frame is welded from 2 cm square steel tube and powder-coated matte black. Five Meru oak shelves drop onto steel lugs and are fixed from below, so no fixings show. It should be anchored to the wall with the bracket supplied.",
+      "materials": "Solid Meru oak shelves, oiled. Powder-coated steel frame.",
+      "care": "Dust with a dry cloth. Wipe spills from the oak at once. Fix to the wall with the bracket supplied.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 90, "d": 35, "h": 185 },
+      "weight_kg": 31,
+      "price": 46000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 4,
+      "image": {
+        "parts": {
+          "shelves": "5 solid Meru oak shelves, 2.5 cm thick, in natural oil",
+          "frame": "matte black powder-coated steel in 2 cm square tube, made of 2 ladder-shaped side frames joined by 1 rail at the back"
+        },
+        "details": "exactly 5 shelves, 4 steel uprights, open back and open sides, no doors, no drawers, no diagonal braces, shelves empty in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "front left steel upright and the end of an oak shelf resting on it",
+        "room_note": "Home office in a Westlands flat against a white wall, polished concrete floor, the shelves holding ceramics, plain storage boxes and a plant, no books. The shelving unit is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-queen-bed",
+      "image_id": "lamu-queen-bed",
+      "name": "Lamu queen bed",
+      "category": "beds",
+      "collection": "lamu",
+      "summary": "A mahogany bed for a 5 x 6 mattress, with a woven cane panel in the headboard.",
+      "description": "The frame is solid mahogany, with a single panel of hand-woven cane set into the headboard. Solid slats on a centre rail carry the mattress, so no base board is needed. It takes a 5 x 6 ft mattress, 152 by 190 cm, and bolts together with the key supplied.",
+      "materials": "Solid mahogany frame. Hand-woven rattan cane panel. Cypress slats.",
+      "care": "Dust the cane with a soft brush. Wipe the frame with a dry cloth. Tighten the bolts after the first month.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 162, "d": 202, "h": 110 },
+      "weight_kg": 62,
+      "price": 78000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "mahogany", "label": "Mahogany", "hex": "#7A3E2A", "material": "oiled mahogany", "price_delta": 0, "stock": 4 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained mahogany", "price_delta": 3000, "stock": 3 }
+        ]
+      },
+      "default": "mahogany",
+      "image": {
+        "parts": {
+          "headboard": "solid mahogany frame, 110 cm high, holding 1 wide panel of natural woven cane",
+          "frame": "mahogany side rails and a low foot rail, 30 cm high, with no footboard panel",
+          "legs": "4 square mahogany legs, 20 cm high"
+        },
+        "details": "1 cane panel in the headboard only, low foot rail level with the side rails, 4 legs, no storage drawers, no canopy, no carving, shown with a mattress, plain white bedding and 2 pillows",
+        "second_angle": "studio-side",
+        "detail_part": "left corner of the headboard, the edge of the cane panel and the side rail",
+        "room_note": "Bedroom of a Nyali flat with white walls, sliding windows with sheer curtains, a sisal rug and a bedside table with a ceramic lamp. The bed is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-king-bed",
+      "image_id": "lamu-king-bed",
+      "name": "Lamu king bed",
+      "category": "beds",
+      "collection": "lamu",
+      "summary": "The Lamu bed for a 6 x 6 mattress, in mahogany with a woven cane headboard panel.",
+      "description": "Built like the queen, in solid mahogany with one wide cane panel in the headboard and solid slats on a centre rail. It takes a 6 x 6 ft mattress, 183 by 190 cm. Each bed is made to order and comes in sections that pass through a standard flat door.",
+      "materials": "Solid mahogany frame. Hand-woven rattan cane panel. Cypress slats.",
+      "care": "Dust the cane with a soft brush. Wipe the frame with a dry cloth. Tighten the bolts after the first month.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 193, "d": 202, "h": 110 },
+      "weight_kg": 74,
+      "price": 96000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 4,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "mahogany", "label": "Mahogany", "hex": "#7A3E2A", "material": "oiled mahogany", "price_delta": 0, "stock": 0 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained mahogany", "price_delta": 3500, "stock": 0 }
+        ]
+      },
+      "default": "mahogany",
+      "image": {
+        "parts": {
+          "headboard": "solid mahogany frame, 110 cm high, holding 1 wide panel of natural woven cane",
+          "frame": "mahogany side rails and a low foot rail, 30 cm high, with no footboard panel",
+          "legs": "4 square mahogany legs, 20 cm high"
+        },
+        "details": "1 cane panel in the headboard only, low foot rail level with the side rails, 4 legs, no storage drawers, no canopy, no carving, shown with a mattress, plain white bedding and 2 pillows",
+        "second_angle": "studio-side",
+        "detail_part": "left corner of the headboard, the edge of the cane panel and the side rail",
+        "room_note": "Main bedroom of a house in Karen with warm plaster walls, parquet floor, a wool rug and two bedside tables with ceramic lamps. The bed is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-single-bed",
+      "image_id": "lamu-single-bed",
+      "name": "Lamu single bed",
+      "category": "beds",
+      "collection": "lamu",
+      "summary": "A mahogany single bed for a 3.5 x 6 mattress, with a cane panel in the headboard.",
+      "description": "A narrower Lamu for a child's room or a guest room, in solid mahogany with one cane panel in the headboard. Solid slats carry the mattress, and the frame bolts together in a few minutes. It takes a 3.5 x 6 ft mattress, 107 by 190 cm.",
+      "materials": "Solid mahogany frame. Hand-woven rattan cane panel. Cypress slats.",
+      "care": "Dust the cane with a soft brush. Wipe the frame with a dry cloth. Tighten the bolts after the first month.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 117, "d": 202, "h": 100 },
+      "weight_kg": 44,
+      "price": 56000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 3,
+      "image": {
+        "parts": {
+          "headboard": "solid mahogany frame, 100 cm high, holding 1 panel of natural woven cane",
+          "frame": "mahogany side rails and a low foot rail, 30 cm high, with no footboard panel, oiled to a dark red-brown",
+          "legs": "4 square mahogany legs, 20 cm high"
+        },
+        "details": "single width, 1 cane panel in the headboard only, low foot rail level with the side rails, 4 legs, no storage drawers, no carving, shown with a mattress, plain white bedding and 1 pillow",
+        "second_angle": "studio-side",
+        "detail_part": "left corner of the headboard, the edge of the cane panel and the side rail",
+        "room_note": "Guest room of a Lavington flat with white walls, a steel-framed window with sheer curtains, parquet floor, a small wool rug and a bedside table. The bed is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "mara-queen-bed",
+      "image_id": "mara-queen-bed",
+      "name": "Mara queen bed",
+      "category": "beds",
+      "collection": null,
+      "summary": "A bed for a 5 x 6 mattress with a padded linen-blend headboard on a solid mvule base.",
+      "description": "The headboard is a single padded panel covered in a tightly woven linen blend, comfortable to lean against. The base is solid mvule with slats on a centre rail, and it stands on short tapered legs. It takes a 5 x 6 ft mattress, 152 by 190 cm.",
+      "materials": "Solid mvule base, oiled. Plywood headboard with foam padding and linen-blend cover. Cypress slats.",
+      "care": "Vacuum the headboard once a month. Blot marks with a damp cloth. Wipe the base with a dry cloth.",
+      "warranty_months": 24,
+      "assembly_required": true,
+      "size_cm": { "w": 160, "d": 206, "h": 105 },
+      "weight_kg": 58,
+      "price": 72000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Fabric",
+        "values": [
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven linen blend", "price_delta": 0, "stock": 3 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 4 },
+          { "slug": "ocean", "label": "Ocean", "hex": "#2F5D73", "material": "woven linen blend", "price_delta": 0, "stock": 1 }
+        ]
+      },
+      "default": "charcoal",
+      "image": {
+        "parts": {
+          "headboard": "1 flat padded panel in woven linen blend, 105 cm high, with softly rounded top corners",
+          "base": "solid mvule side rails and foot rail, 28 cm high, oiled",
+          "legs": "4 short tapered mvule legs, 15 cm high"
+        },
+        "details": "plain padded headboard in one piece, no tufting, no buttons, no piping, no wings, low wooden foot rail, 4 legs, no storage drawers, shown with a mattress, plain white bedding and 2 pillows",
+        "second_angle": "studio-side",
+        "detail_part": "left edge of the headboard where it meets the mvule side rail",
+        "room_note": "Bedroom of a Kilimani flat with white walls, parquet floor, sheer curtains at a steel-framed window, a wool rug and one bedside table with a lamp. The bed is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "mara-king-bed",
+      "image_id": "mara-king-bed",
+      "name": "Mara king bed",
+      "category": "beds",
+      "collection": null,
+      "summary": "The Mara bed for a 6 x 6 mattress, with a padded linen-blend headboard and mvule base.",
+      "description": "The king-size Mara has the same padded headboard in one piece and a solid mvule base with slats on a centre rail. It takes a 6 x 6 ft mattress, 183 by 190 cm. It is made to order, and the headboard and rails come apart to go up a staircase.",
+      "materials": "Solid mvule base, oiled. Plywood headboard with foam padding and linen-blend cover. Cypress slats.",
+      "care": "Vacuum the headboard once a month. Blot marks with a damp cloth. Wipe the base with a dry cloth.",
+      "warranty_months": 24,
+      "assembly_required": true,
+      "size_cm": { "w": 191, "d": 206, "h": 105 },
+      "weight_kg": 68,
+      "price": 89000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 4,
+      "option": {
+        "name": "Fabric",
+        "values": [
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven linen blend", "price_delta": 0, "stock": 0 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 0 },
+          { "slug": "ocean", "label": "Ocean", "hex": "#2F5D73", "material": "woven linen blend", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "charcoal",
+      "image": {
+        "parts": {
+          "headboard": "1 flat padded panel in woven linen blend, 105 cm high, with softly rounded top corners",
+          "base": "solid mvule side rails and foot rail, 28 cm high, oiled",
+          "legs": "4 short tapered mvule legs, 15 cm high"
+        },
+        "details": "plain padded headboard in one piece, no tufting, no buttons, no piping, no wings, low wooden foot rail, 4 legs, no storage drawers, shown with a mattress, plain white bedding and 2 pillows",
+        "second_angle": "studio-side",
+        "detail_part": "left edge of the headboard where it meets the mvule side rail",
+        "room_note": "Main bedroom of a house in Karen with warm plaster walls, a polished concrete floor, a large sisal rug and bedside tables with ceramic lamps. The bed is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-bedside-table",
+      "image_id": "lamu-bedside-table",
+      "name": "Lamu bedside table",
+      "category": "bedside-tables",
+      "collection": "lamu",
+      "summary": "A mahogany bedside table with one drawer above a cane-fronted door.",
+      "description": "A solid mahogany case with a drawer for small things and a cupboard behind a woven cane door. The door is hinged on the left and closes on a magnetic catch. The top is wide enough for a lamp, a glass and a phone.",
+      "materials": "Solid mahogany case and drawer front. Plywood drawer box. Hand-woven rattan cane.",
+      "care": "Dust the cane with a soft brush. Wipe the wood with a dry cloth. Use a coaster under glasses.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 45, "d": 40, "h": 55 },
+      "weight_kg": 11,
+      "price": 16500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "mahogany", "label": "Mahogany", "hex": "#7A3E2A", "material": "oiled mahogany", "price_delta": 0, "stock": 6 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained mahogany", "price_delta": 1000, "stock": 3 }
+        ]
+      },
+      "default": "mahogany",
+      "image": {
+        "parts": {
+          "case": "solid mahogany box on 4 short square legs, 12 cm high",
+          "drawer": "1 flat mahogany drawer front with a finger pull cut into its top edge",
+          "door": "1 door below the drawer, a mahogany frame holding 1 panel of natural woven cane"
+        },
+        "details": "1 drawer above 1 door, no knobs and no handles, cane on the door only, plain mahogany sides, 4 legs, no open shelf, no carving",
+        "second_angle": "studio-front",
+        "detail_part": "the cane door, the drawer front above it and the front left leg",
+        "room_note": "Beside a bed in a Nyali flat, against a white wall, with a ceramic lamp and a glass of water on top and a sisal rug on the floor. The bedside table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "ngong-bedside-table",
+      "image_id": "ngong-bedside-table",
+      "name": "Ngong bedside table",
+      "category": "bedside-tables",
+      "collection": "ngong",
+      "summary": "A small cypress bedside table with one drawer and an open shelf.",
+      "description": "A drawer on wooden runners keeps chargers and glasses out of sight, with an open shelf below for whatever you are reading. It is solid cypress, jointed at the corners and finished in hardwax oil. The legs are tall enough to sweep under.",
+      "materials": "Solid cypress. Hardwax oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use a coaster under glasses. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 42, "d": 38, "h": 52 },
+      "weight_kg": 8,
+      "price": 13500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "honey", "label": "Honey", "hex": "#C99A5B", "material": "oiled cypress", "price_delta": 0, "stock": 8 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained cypress", "price_delta": 1000, "stock": 4 }
+        ]
+      },
+      "default": "honey",
+      "image": {
+        "parts": {
+          "frame": "solid cypress, with 4 square legs running the full height",
+          "drawer": "1 flat cypress drawer under the top, with a finger pull cut into its lower edge",
+          "shelf": "1 open cypress shelf, 12 cm above the floor"
+        },
+        "details": "1 drawer, 1 open shelf below it, 4 legs, no door, no knob, no handle, nothing on the table in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "drawer front, the front left leg and the edge of the top",
+        "room_note": "Beside a low bed in a Kilimani flat, against a white wall, parquet floor, a small ceramic lamp on top and a woven basket beside it. The bedside table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "nyeri-bedside-table",
+      "image_id": "nyeri-bedside-table",
+      "name": "Nyeri bedside table",
+      "category": "bedside-tables",
+      "collection": null,
+      "summary": "A solid mvule bedside table with two drawers and softly rounded corners.",
+      "description": "Nyeri has two drawers of equal depth on soft-close runners, with dovetailed mvule fronts. Every edge is rounded over by hand, so there is nothing sharp to catch in the dark. It stands on four tapered legs.",
+      "materials": "Solid mvule. Plywood drawer boxes. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use a coaster under glasses. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 48, "d": 40, "h": 56 },
+      "weight_kg": 13,
+      "price": 19500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 5 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 1500, "stock": 3 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "case": "solid mvule box with softly rounded corners and a 2.5 cm top",
+          "drawers": "2 flat mvule drawer fronts of equal height, one above the other",
+          "legs": "4 tapered mvule legs, 16 cm high"
+        },
+        "details": "2 drawers stacked, no knobs and no handles, each opened by a finger groove under its top edge, 4 legs, no open shelf, no door",
+        "second_angle": "studio-front",
+        "detail_part": "upper drawer front, the rounded corner of the top and the front left leg",
+        "room_note": "Beside a bed in a house in Karen, against a warm plaster wall, with a wool rug on the floor and a ceramic lamp and a small dish on top. The bedside table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-2-door-wardrobe",
+      "image_id": "lamu-2-door-wardrobe",
+      "name": "Lamu 2-door wardrobe",
+      "category": "wardrobes",
+      "collection": "lamu",
+      "summary": "A two-door mahogany wardrobe with a woven cane panel in the upper half of each door.",
+      "description": "The case is solid mahogany, with one hanging rail and a fixed shelf above it. Each door has a cane panel in its upper half, which lets air move through the clothes, and a solid panel below. It is made to order and delivered in sections for assembly in the room.",
+      "materials": "Solid mahogany frame and doors. Mahogany-veneered plywood back and sides. Hand-woven rattan cane. Steel hanging rail.",
+      "care": "Dust the cane with a soft brush. Wipe the wood with a dry cloth. Do not hang damp clothes inside.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 110, "d": 58, "h": 200 },
+      "weight_kg": 88,
+      "price": 98000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 5,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "mahogany", "label": "Mahogany", "hex": "#7A3E2A", "material": "oiled mahogany", "price_delta": 0, "stock": 0 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained mahogany", "price_delta": 5000, "stock": 0 }
+        ]
+      },
+      "default": "mahogany",
+      "image": {
+        "parts": {
+          "case": "solid mahogany, 200 cm high, with a flat top and a recessed plinth 10 cm high",
+          "doors": "2 full-height framed doors, each with 1 natural cane panel in the upper half and 1 flat mahogany panel in the lower half",
+          "pulls": "2 slim vertical mahogany pulls, 20 cm long, where the doors meet"
+        },
+        "details": "2 doors, 2 cane panels, 2 wooden pulls, no drawers, no mirror, no cornice, no carving, plinth base with no legs, doors closed in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left door, the join between its cane panel and the solid panel, and the wooden pull",
+        "room_note": "Bedroom of a Nyali flat against a white wall, a pale tiled floor, a sisal rug and a potted palm beside it. The wardrobe is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-3-door-wardrobe",
+      "image_id": "lamu-3-door-wardrobe",
+      "name": "Lamu 3-door wardrobe",
+      "category": "wardrobes",
+      "collection": "lamu",
+      "summary": "A three-door mahogany wardrobe with cane panels, a hanging rail and four shelves.",
+      "description": "Two doors open on a hanging rail and the third on four fixed shelves for folded clothes. Each door has a woven cane panel in its upper half and solid mahogany below. It is made to order in an oiled mahogany finish and assembled in the room by our fitters.",
+      "materials": "Solid mahogany frame and doors. Mahogany-veneered plywood back and sides. Hand-woven rattan cane. Steel hanging rail.",
+      "care": "Dust the cane with a soft brush. Wipe the wood with a dry cloth. Do not hang damp clothes inside.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 160, "d": 58, "h": 200 },
+      "weight_kg": 122,
+      "price": 142000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 6,
+      "option": null,
+      "default": null,
+      "stock": 0,
+      "image": {
+        "parts": {
+          "case": "solid mahogany, oiled to a dark red-brown, 200 cm high, with a flat top and a recessed plinth 10 cm high",
+          "doors": "3 full-height framed doors of equal width, each with 1 natural cane panel in the upper half and 1 flat mahogany panel in the lower half",
+          "pulls": "3 slim vertical mahogany pulls, 20 cm long, one on each door"
+        },
+        "details": "3 doors, 3 cane panels, 3 wooden pulls, no drawers, no mirror, no cornice, no carving, plinth base with no legs, doors closed in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left door and the join between its cane panel and the solid panel",
+        "room_note": "Main bedroom of a house in Karen against a warm plaster wall, parquet floor, a wool rug and a woven laundry basket beside it. The wardrobe is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "limuru-2-door-wardrobe",
+      "image_id": "limuru-2-door-wardrobe",
+      "name": "Limuru 2-door wardrobe",
+      "category": "wardrobes",
+      "collection": null,
+      "summary": "A plain two-door wardrobe in solid cypress, with two drawers below the doors.",
+      "description": "Limuru has a hanging rail and one shelf behind two flat doors, with two drawers beneath for shoes and knitwear. The doors and drawer fronts are solid cypress boards with round wooden knobs. It is made to order and assembled in the room.",
+      "materials": "Solid cypress frame, doors and drawer fronts. Plywood back and drawer boxes. Steel hanging rail.",
+      "care": "Wipe with a dry cloth. Keep clear of damp walls. Re-oil the fronts every two years.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 100, "d": 56, "h": 195 },
+      "weight_kg": 76,
+      "price": 86000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 4,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "honey", "label": "Honey", "hex": "#C99A5B", "material": "oiled cypress", "price_delta": 0, "stock": 0 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained cypress", "price_delta": 4000, "stock": 0 }
+        ]
+      },
+      "default": "honey",
+      "image": {
+        "parts": {
+          "case": "solid cypress, 195 cm high, with a flat top, on 4 short square legs 10 cm high",
+          "doors": "2 flat cypress doors in the upper part",
+          "drawers": "2 flat cypress drawer fronts side by side below the doors",
+          "knobs": "4 small round wooden knobs, one on each door and one on each drawer"
+        },
+        "details": "2 doors above 2 drawers, 4 round wooden knobs, 4 legs, no cane, no mirror, no cornice, no panelling on the doors, doors closed in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left door, the left drawer beneath it and their two knobs",
+        "room_note": "Bedroom of a Kilimani flat against a white wall, parquet floor, a wool rug and a wooden chair beside it. The wardrobe is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-dresser",
+      "image_id": "lamu-dresser",
+      "name": "Lamu dresser",
+      "category": "dressers",
+      "collection": "lamu",
+      "summary": "A mahogany dresser with three drawers and a cane-fronted cupboard, 120 cm wide.",
+      "description": "Three deep drawers on soft-close runners fill the left side, and a cane door on the right opens on two shelves. The case and drawer fronts are solid mahogany with dovetailed joints. The top is at a good height for a mirror and a tray.",
+      "materials": "Solid mahogany case, drawer fronts and door frame. Plywood drawer boxes. Hand-woven rattan cane.",
+      "care": "Dust the cane with a soft brush. Wipe the wood with a dry cloth. Do not overload the drawers.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 120, "d": 48, "h": 82 },
+      "weight_kg": 48,
+      "price": 72000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "mahogany", "label": "Mahogany", "hex": "#7A3E2A", "material": "oiled mahogany", "price_delta": 0, "stock": 3 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained mahogany", "price_delta": 3000, "stock": 1 }
+        ]
+      },
+      "default": "mahogany",
+      "image": {
+        "parts": {
+          "case": "solid mahogany box, 120 cm wide, on 4 square legs 14 cm high",
+          "drawers": "3 flat mahogany drawer fronts stacked in the left half",
+          "door": "1 door in the right half, a mahogany frame holding 1 panel of natural woven cane"
+        },
+        "details": "3 drawers on the left, 1 cane door on the right, no knobs and no handles, finger pulls cut into the top edge of each drawer and the left edge of the door, 4 legs, no mirror, no carving",
+        "second_angle": "studio-front",
+        "detail_part": "the three drawer fronts on the left and the front left leg",
+        "room_note": "Bedroom of a Nyali flat against a white wall, a round mirror above, a ceramic dish and a small plant on top, a sisal rug on the floor. The dresser is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-tallboy",
+      "image_id": "lamu-tallboy",
+      "name": "Lamu tallboy",
+      "category": "dressers",
+      "collection": "lamu",
+      "summary": "A tall, narrow mahogany chest with two cane doors above three drawers.",
+      "description": "The tallboy takes up 70 cm of wall and gives a cupboard and three drawers in return. Behind the cane doors is one shelf for folded clothes, where the air can reach them. The drawers have dovetailed mahogany fronts and run on soft-close runners.",
+      "materials": "Solid mahogany case, drawer fronts and door frames. Plywood drawer boxes. Hand-woven rattan cane.",
+      "care": "Dust the cane with a soft brush. Wipe the wood with a dry cloth. Fix to the wall with the strap supplied.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 70, "d": 45, "h": 125 },
+      "weight_kg": 44,
+      "price": 64000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "mahogany", "label": "Mahogany", "hex": "#7A3E2A", "material": "oiled mahogany", "price_delta": 0, "stock": 3 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained mahogany", "price_delta": 3000, "stock": 0 }
+        ]
+      },
+      "default": "mahogany",
+      "image": {
+        "parts": {
+          "case": "solid mahogany, 125 cm high and 70 cm wide, on 4 square legs 14 cm high",
+          "doors": "2 small doors at the top, each a mahogany frame holding 1 panel of natural woven cane",
+          "drawers": "3 flat mahogany drawer fronts of equal height below the doors"
+        },
+        "details": "2 cane doors above 3 drawers, no knobs and no handles, finger pulls cut into the top edge of each drawer and the meeting edges of the doors, 4 legs, no mirror, no carving",
+        "second_angle": "studio-front",
+        "detail_part": "left cane door and the top drawer front beneath it",
+        "room_note": "Bedroom of a Lavington flat between a steel-framed window and a white wall, parquet floor, a ceramic vase on top and a woven basket beside it. The tallboy is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tigoni-chest-of-drawers",
+      "image_id": "tigoni-chest-of-drawers",
+      "name": "Tigoni chest of drawers",
+      "category": "dressers",
+      "collection": null,
+      "summary": "A four-drawer chest in solid mvule, with rounded corners and tapered legs.",
+      "description": "Four full-width drawers with dovetailed fronts, graduated so the deepest is at the bottom. They run on soft-close runners and open by a groove under each front. The oil finish is matte and easy to refresh at home.",
+      "materials": "Solid mvule case and drawer fronts. Plywood drawer boxes. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Do not overload the drawers. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 90, "d": 46, "h": 95 },
+      "weight_kg": 46,
+      "price": 58000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 3 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 3000, "stock": 3 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "case": "solid mvule box with softly rounded corners and a 2.5 cm top",
+          "drawers": "4 full-width flat mvule drawer fronts in one stack, slightly deeper towards the bottom",
+          "legs": "4 tapered mvule legs, 15 cm high"
+        },
+        "details": "4 drawers in a single stack, no knobs and no handles, each opened by a finger groove under its top edge, 4 legs, no doors, no mirror",
+        "second_angle": "studio-front",
+        "detail_part": "top two drawer fronts, the rounded corner of the top and the front left leg",
+        "room_note": "Bedroom of a Westlands flat against a warm plaster wall, polished concrete floor, a table lamp on top and framed abstract art above. The chest of drawers is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tana-4-seater-dining-table",
+      "image_id": "tana-4-seater-dining-table",
+      "name": "Tana 4-seater dining table",
+      "category": "dining-tables",
+      "collection": "tana",
+      "summary": "A solid mvule table that seats four, sized for the dining corner of a flat.",
+      "description": "The four-seater is made like the larger Tana tables, with a 4 cm top of full-length mvule planks and tapered legs that bolt on. At 130 by 80 cm it seats four with room for serving dishes. The oil finish is matte and can be refreshed at home.",
+      "materials": "Solid mvule top and legs. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use mats under hot dishes. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 130, "d": 80, "h": 76 },
+      "weight_kg": 38,
+      "price": 62000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 5 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 2500, "stock": 3 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "top": "solid mvule planks, 4 cm thick, with a softly rounded edge",
+          "legs": "4 tapered square legs set in slightly from the corners",
+          "finish": "hand-rubbed oil, matte"
+        },
+        "details": "rectangular top with visible grain running lengthwise, 4 legs, no apron visible from the front, no stretchers, no chairs in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "near corner of the top, its rounded edge and the top of the leg",
+        "room_note": "Dining corner of a Kilimani flat by a steel-framed window, parquet floor, four simple wooden chairs and a ceramic jug on the table. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tana-8-seater-dining-table",
+      "image_id": "tana-8-seater-dining-table",
+      "name": "Tana 8-seater dining table",
+      "category": "dining-tables",
+      "collection": "tana",
+      "summary": "A solid mvule table for eight, 220 cm long, with a softly rounded edge.",
+      "description": "The top is made from full-length mvule planks, 4 cm thick, with the grain running the length of the table. Four tapered legs bolt to steel plates under the top, so it can be carried up stairs in pieces. It comes in natural oil only.",
+      "materials": "Solid mvule top and legs. Hand-rubbed oil finish. Steel leg plates.",
+      "care": "Wipe with a damp cloth and dry at once. Use mats under hot dishes. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 220, "d": 95, "h": 76 },
+      "weight_kg": 74,
+      "price": 112000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 2,
+      "image": {
+        "parts": {
+          "top": "solid mvule planks, 4 cm thick, with a softly rounded edge, in a warm mid-brown natural oil",
+          "legs": "4 tapered square legs set in slightly from the corners",
+          "finish": "hand-rubbed oil, matte"
+        },
+        "details": "long rectangular top with visible grain running lengthwise, exactly 4 legs, no centre leg, no apron visible from the front, no stretchers, no chairs in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "near corner of the top, its rounded edge and the top of the leg",
+        "room_note": "Dining room of a house in Karen with warm plaster walls, a polished concrete floor, eight wooden chairs, a long ceramic dish on the table and a pendant light above. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tana-round-dining-table",
+      "image_id": "tana-round-dining-table",
+      "name": "Tana round dining table",
+      "category": "dining-tables",
+      "collection": "tana",
+      "summary": "A round solid mvule table, 110 cm across, that seats four.",
+      "description": "The round top is solid mvule, 4 cm thick, with the edge rounded over by hand. Four tapered legs are set well in, so chairs tuck underneath all the way round. A round table makes better use of a square dining corner than a rectangular one.",
+      "materials": "Solid mvule top and legs. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use mats under hot dishes. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 110, "d": 110, "h": 76 },
+      "weight_kg": 36,
+      "price": 68000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 3 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 2500, "stock": 0 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "top": "round solid mvule top, 110 cm across and 4 cm thick, with a softly rounded edge",
+          "legs": "4 tapered square mvule legs, splayed slightly outwards and set in from the edge",
+          "finish": "hand-rubbed oil, matte"
+        },
+        "details": "round top, exactly 4 legs, no pedestal, no apron visible, no stretchers, no chairs in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "edge of the top and the top of the nearest leg",
+        "room_note": "Dining corner of a Westlands flat with white walls, a sliding window with sheer curtains, four wooden chairs and a ceramic vase of green stems. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tana-dining-chair",
+      "image_id": "tana-dining-chair",
+      "name": "Tana dining chair",
+      "category": "dining-chairs",
+      "collection": "tana",
+      "summary": "A solid mvule dining chair with a curved back rail and a shaped wooden seat.",
+      "description": "The seat is cut from solid mvule and scooped a little, so it is comfortable without a cushion. The back is one curved rail that supports the lower back and leaves the chair light to lift. The joints are mortise and tenon, glued and pinned.",
+      "materials": "Solid mvule. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Lift the chair to move it. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 46, "d": 52, "h": 80 },
+      "weight_kg": 6,
+      "price": 12500,
+      "compare_at_price": 14500,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 14 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 1000, "stock": 8 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "seat": "solid mvule seat, lightly scooped, with a rounded front edge",
+          "back": "1 wide curved mvule back rail carried on the 2 rear legs",
+          "legs": "4 tapered round legs, the rear pair raked back slightly"
+        },
+        "details": "1 back rail only, no spindles, no slats, no arms, wooden seat with no cushion, 4 legs, no stretchers",
+        "second_angle": "studio-back",
+        "detail_part": "front left leg, the corner of the seat and the left end of the back rail",
+        "room_note": "At a wooden dining table in a Lavington flat with white walls, parquet floor and a pendant light above. One chair is pulled out from the table. The chair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tana-carver-chair",
+      "image_id": "tana-carver-chair",
+      "name": "Tana carver chair",
+      "category": "dining-chairs",
+      "collection": "tana",
+      "summary": "The Tana dining chair with low arms, for the ends of the table.",
+      "description": "A solid mvule chair with a scooped wooden seat and a curved back rail that runs round into two low arms. The arms sit below table height, so the chair still tucks in. The joints are mortise and tenon, glued and pinned.",
+      "materials": "Solid mvule. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Lift the chair to move it. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 56, "d": 54, "h": 80 },
+      "weight_kg": 8,
+      "price": 16500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 6 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 1000, "stock": 4 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "seat": "solid mvule seat, lightly scooped, with a rounded front edge",
+          "rail": "1 curved mvule rail that forms the back and continues forward as 2 low arms",
+          "legs": "4 tapered round legs, the front pair rising to support the arms"
+        },
+        "details": "1 continuous back and arm rail, 2 arms, no spindles, no slats, wooden seat with no cushion, 4 legs, no stretchers",
+        "second_angle": "studio-back",
+        "detail_part": "left arm where it meets the front leg, and the corner of the seat",
+        "room_note": "At the head of a dining table in a house in Karen with warm plaster walls, a polished concrete floor and a sisal rug. The chair is pulled out from the table. The chair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "amani-dining-chair",
+      "image_id": "amani-dining-chair",
+      "name": "Amani dining chair",
+      "category": "dining-chairs",
+      "collection": "amani",
+      "summary": "An upholstered dining chair in linen blend, on four oiled mvule legs.",
+      "description": "The seat and back are padded over a hardwood frame and covered in the Amani linen blend. It is a chair for long dinners, and the tightly woven cover brushes clean. The legs are solid mvule, tapered and oiled.",
+      "materials": "Hardwood frame. Foam padding. Linen-blend upholstery. Solid mvule legs, oiled.",
+      "care": "Vacuum weekly. Blot spills at once with a dry cloth. Do not use bleach.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 48, "d": 56, "h": 82 },
+      "weight_kg": 7,
+      "price": 15500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven linen blend", "price_delta": 0, "stock": 10 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 8 },
+          { "slug": "forest", "label": "Forest", "hex": "#2F4A3A", "material": "woven linen blend", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "charcoal",
+      "image": {
+        "parts": {
+          "upholstery": "tightly woven linen-blend fabric over a padded seat and a padded back",
+          "back": "low curved back joined to the seat, upholstered on both faces",
+          "legs": "4 tapered solid mvule legs, oiled"
+        },
+        "details": "padded seat and padded back in one fabric, no arms, no tufting, no buttons, no piping, no skirt, 4 legs, no stretchers",
+        "second_angle": "studio-back",
+        "detail_part": "front left leg, the corner of the seat and the lower edge of the back",
+        "room_note": "At a round dining table in a Kilimani flat with white walls, a steel-framed window and parquet floor. One chair is pulled out from the table. The chair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kisiwa-dining-chair",
+      "image_id": "kisiwa-dining-chair",
+      "name": "Kisiwa dining chair",
+      "category": "dining-chairs",
+      "collection": null,
+      "summary": "A mahogany dining chair with a hand-woven sisal cord seat.",
+      "description": "The seat is woven by hand from twisted sisal cord across a solid mahogany frame. It gives slightly under weight and stays cool in warm weather. The back is a single curved rail, and the whole chair weighs about five kilos.",
+      "materials": "Solid mahogany frame, oiled. Twisted sisal cord seat.",
+      "care": "Brush the seat with a soft brush. Wipe the frame with a dry cloth. Keep the cord dry.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 48, "d": 50, "h": 78 },
+      "weight_kg": 5,
+      "price": 13500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 9,
+      "image": {
+        "parts": {
+          "frame": "solid mahogany, oiled to a dark red-brown, with 4 round legs joined by 4 seat rails",
+          "seat": "natural sisal cord woven in a plain basket weave across the seat frame",
+          "back": "1 curved mahogany back rail"
+        },
+        "details": "woven cord on the seat only, 1 back rail, no spindles, no arms, no cushion, 4 legs, 2 side stretchers, no carving",
+        "second_angle": "studio-back",
+        "detail_part": "front left corner of the woven seat and the leg below it",
+        "room_note": "At a dining table in a Nyali flat with white walls, a pale tiled floor, a sisal rug and a potted palm. One chair is pulled out from the table. The chair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tana-sideboard",
+      "image_id": "tana-sideboard",
+      "name": "Tana sideboard",
+      "category": "sideboards",
+      "collection": "tana",
+      "summary": "A 180 cm solid mvule sideboard with two cupboards and three centre drawers.",
+      "description": "The Tana sideboard holds a full dinner service, with a shelf behind each door and three drawers for cutlery and linen. The case is solid mvule with softly rounded edges to match the tables. It is made to order and delivered assembled.",
+      "materials": "Solid mvule case, doors and drawer fronts. Plywood back and drawer boxes. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use mats under hot dishes. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 180, "d": 45, "h": 80 },
+      "weight_kg": 78,
+      "price": 90000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 5,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 0 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 4000, "stock": 0 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "case": "solid mvule box, 180 cm wide, with a 2.5 cm top and a softly rounded edge",
+          "doors": "2 flat mvule doors, one at each end",
+          "drawers": "3 flat mvule drawer fronts stacked in the centre",
+          "legs": "4 tapered square mvule legs, 16 cm high"
+        },
+        "details": "2 doors and 3 centre drawers, no knobs and no handles, doors push to open, drawers opened by a finger groove under each top edge, 4 legs, no glass, no open shelf",
+        "second_angle": "studio-front",
+        "detail_part": "left door, the rounded corner of the top and the front left leg",
+        "room_note": "Dining room of a house in Karen against a warm plaster wall, a polished concrete floor, a ceramic lamp and a wide bowl on top and framed abstract art above. The sideboard is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "tana-compact-sideboard",
+      "image_id": "tana-compact-sideboard",
+      "name": "Tana compact sideboard",
+      "category": "sideboards",
+      "collection": "tana",
+      "summary": "A 120 cm solid mvule sideboard with two doors, for a dining corner or a hall.",
+      "description": "Behind the two doors is one adjustable shelf across the full width. The case is solid mvule on four tapered legs, finished by hand in oil. It is made to order and delivered assembled.",
+      "materials": "Solid mvule case and doors. Plywood back. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use mats under hot dishes. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 120, "d": 42, "h": 80 },
+      "weight_kg": 49,
+      "price": 64000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 3,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 0 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 3000, "stock": 0 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "case": "solid mvule box, 120 cm wide, with a 2.5 cm top and a softly rounded edge",
+          "doors": "2 flat mvule doors of equal width across the whole front",
+          "legs": "4 tapered square mvule legs, 16 cm high"
+        },
+        "details": "2 doors, no knobs and no handles, push to open, 4 legs, no drawers, no glass, no open shelf",
+        "second_angle": "studio-front",
+        "detail_part": "left door, the gap between the two doors and the front left leg",
+        "room_note": "Dining corner of a Lavington flat against a white wall, parquet floor, a table lamp and a ceramic jug on top. The sideboard is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "malindi-sideboard",
+      "image_id": "malindi-sideboard",
+      "name": "Malindi sideboard",
+      "category": "sideboards",
+      "collection": null,
+      "summary": "A 150 cm mahogany sideboard with two sliding doors, on a recessed plinth.",
+      "description": "The doors slide in grooved mahogany tracks, so nothing swings out into a narrow dining room. Inside are two compartments, each with one adjustable shelf. It is made to order in solid mahogany and finished in oil.",
+      "materials": "Solid mahogany case and doors. Plywood back. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Brush out the door tracks now and then. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 150, "d": 45, "h": 78 },
+      "weight_kg": 66,
+      "price": 78000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 5,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "mahogany", "label": "Mahogany", "hex": "#7A3E2A", "material": "oiled mahogany", "price_delta": 0, "stock": 0 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained mahogany", "price_delta": 3500, "stock": 0 }
+        ]
+      },
+      "default": "mahogany",
+      "image": {
+        "parts": {
+          "case": "solid mahogany box, 150 cm wide, with square edges",
+          "doors": "2 flat mahogany sliding doors of equal width, one slightly in front of the other",
+          "base": "recessed mahogany plinth, 10 cm high"
+        },
+        "details": "2 sliding doors, 1 round finger recess in each door, no knobs and no handles, no drawers, no legs, no glass, no cane, doors closed in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left sliding door, its round finger recess and the corner of the plinth",
+        "room_note": "Dining area of a Nyali flat against a white wall, a pale tiled floor, a ceramic vase and a woven tray on top and framed abstract art above. The sideboard is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "karura-desk",
+      "image_id": "karura-desk",
+      "name": "Karura desk",
+      "category": "desks",
+      "collection": "karura",
+      "summary": "A 140 cm Meru oak desk on a slim black steel frame, with one shallow drawer.",
+      "description": "The top is solid Meru oak, 3 cm thick, on a welded steel frame in matte black. A shallow drawer under the right side takes a laptop and chargers at the end of the day. A notch in the back edge lets the cables through.",
+      "materials": "Solid Meru oak top and drawer front. Powder-coated steel frame.",
+      "care": "Wipe with a damp cloth and dry at once. Use a mat under hot cups. Re-oil the top once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 140, "d": 65, "h": 75 },
+      "weight_kg": 29,
+      "price": 44000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled Meru oak", "price_delta": 0, "stock": 5 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained Meru oak", "price_delta": 2500, "stock": 3 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "top": "solid Meru oak, 3 cm thick, rectangular with a slightly rounded front edge",
+          "frame": "matte black powder-coated steel in 2 cm square tube, with 4 straight legs joined by a rail under the top",
+          "drawer": "1 shallow oak drawer under the right half of the top"
+        },
+        "details": "4 steel legs, 1 drawer with a finger groove and no knob, no modesty panel, no shelf, no crossbars at floor level, nothing on the desk in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "front left corner of the oak top and the steel leg below it",
+        "room_note": "Home office corner of a Kilimani flat by a steel-framed window, white walls, parquet floor, a table lamp, a ceramic pen pot and a small plant on the desk. The desk is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "karura-compact-desk",
+      "image_id": "karura-compact-desk",
+      "name": "Karura compact desk",
+      "category": "desks",
+      "collection": "karura",
+      "summary": "A 100 cm Meru oak desk on black steel legs, for a bedroom or a sitting room corner.",
+      "description": "A smaller Karura with the same 3 cm Meru oak top and welded steel frame. There is no drawer, which keeps it light and leaves room for your knees. It bolts together in about ten minutes.",
+      "materials": "Solid Meru oak top. Powder-coated steel frame.",
+      "care": "Wipe with a damp cloth and dry at once. Use a mat under hot cups. Re-oil the top once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 100, "d": 55, "h": 75 },
+      "weight_kg": 19,
+      "price": 32000,
+      "compare_at_price": 38000,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled Meru oak", "price_delta": 0, "stock": 6 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained Meru oak", "price_delta": 2000, "stock": 1 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "top": "solid Meru oak, 3 cm thick, rectangular with a slightly rounded front edge",
+          "frame": "matte black powder-coated steel in 2 cm square tube, with 4 straight legs joined by a rail under the top"
+        },
+        "details": "4 steel legs, no drawer, no shelf, no modesty panel, no crossbars at floor level, nothing on the desk in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "front left corner of the oak top and the steel leg below it",
+        "room_note": "Bedroom corner of a Westlands flat against a warm plaster wall, polished concrete floor, a small ceramic lamp and a plant on the desk. The desk is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "nanyuki-writing-desk",
+      "image_id": "nanyuki-writing-desk",
+      "name": "Nanyuki writing desk",
+      "category": "desks",
+      "collection": null,
+      "summary": "A solid mvule writing desk with two drawers and tapered legs, 120 cm wide.",
+      "description": "Two drawers sit side by side under the top, with dovetailed fronts and a finger groove in place of handles. The top is solid mvule, 3 cm thick, with softly rounded edges that are easy on the forearms. The legs bolt on after delivery.",
+      "materials": "Solid mvule. Plywood drawer boxes. Hand-rubbed oil finish.",
+      "care": "Wipe with a damp cloth and dry at once. Use a mat under hot cups. Re-oil once a year.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 120, "d": 60, "h": 76 },
+      "weight_kg": 31,
+      "price": 52000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 3,
+      "image": {
+        "parts": {
+          "top": "solid mvule, 3 cm thick, with softly rounded edges, in a warm mid-brown natural oil",
+          "drawers": "2 flat mvule drawer fronts side by side in the rail under the top",
+          "legs": "4 tapered square mvule legs"
+        },
+        "details": "2 drawers side by side, no knobs and no handles, 4 legs, no stretchers, no shelf, no modesty panel, nothing on the desk in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left drawer front, the corner of the top and the front left leg",
+        "room_note": "Study of a house in Karen by a window with sheer curtains, warm plaster walls, parquet floor, a ceramic lamp and a small dish on the desk. The desk is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "karura-desk-chair",
+      "image_id": "karura-desk-chair",
+      "name": "Karura desk chair",
+      "category": "office-chairs",
+      "collection": "karura",
+      "summary": "A desk chair with a Meru oak back and a padded seat, on a black steel frame.",
+      "description": "The curved back is solid Meru oak, and the seat is padded and covered in a woven linen blend. The frame is welded steel tube in matte black, with felt pads under the feet. It does not swivel, which keeps it quiet and neat in a sitting room.",
+      "materials": "Powder-coated steel frame. Solid Meru oak back, oiled. Foam seat with linen-blend cover.",
+      "care": "Vacuum the seat weekly. Blot spills with a dry cloth. Wipe the oak and steel with a dry cloth.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 50, "d": 54, "h": 82 },
+      "weight_kg": 8,
+      "price": 19500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Fabric",
+        "values": [
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven linen blend", "price_delta": 0, "stock": 6 },
+          { "slug": "forest", "label": "Forest", "hex": "#2F4A3A", "material": "woven linen blend", "price_delta": 0, "stock": 4 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven linen blend", "price_delta": 0, "stock": 2 }
+        ]
+      },
+      "default": "charcoal",
+      "image": {
+        "parts": {
+          "frame": "matte black powder-coated steel tube with 4 straight legs",
+          "back": "1 curved solid Meru oak back panel, 16 cm high, fixed to the 2 rear uprights",
+          "seat": "padded seat in woven linen blend, 5 cm thick"
+        },
+        "details": "4 legs, no castors, no swivel, no arms, 1 oak back panel, padded seat only, no tufting, no buttons",
+        "second_angle": "studio-back",
+        "detail_part": "front left steel leg, the corner of the padded seat and the left end of the oak back",
+        "room_note": "At an oak desk in a Lavington flat with white walls, a steel-framed window, parquet floor and a wool rug. The chair is pulled out from the desk. The chair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kazi-office-chair",
+      "image_id": "kazi-office-chair",
+      "name": "Kazi office chair",
+      "category": "office-chairs",
+      "collection": null,
+      "summary": "A swivel office chair with a padded seat and back, height adjustment and five castors.",
+      "description": "Kazi has a gas lift, a tilt lock and a padded back that supports the lower spine through a full working day. The seat and back are covered in a tightly woven fabric that breathes in a warm room. The base and arms are steel and nylon in matte black.",
+      "materials": "Steel and nylon base. Gas lift. Moulded foam seat and back. Woven polyester-linen cover.",
+      "care": "Vacuum weekly. Blot spills with a dry cloth. Tighten the bolts under the seat twice a year.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 62, "d": 62, "h": 96 },
+      "weight_kg": 13,
+      "price": 32000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Fabric",
+        "values": [
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven polyester-linen", "price_delta": 0, "stock": 7 },
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "woven polyester-linen", "price_delta": 0, "stock": 3 }
+        ]
+      },
+      "default": "charcoal",
+      "image": {
+        "parts": {
+          "seat": "padded seat and a separate padded mid-height back in plain woven fabric",
+          "arms": "2 fixed matte black loop arms",
+          "base": "matte black 5-star base on 1 gas lift column"
+        },
+        "details": "5-star base with exactly 5 castors, 1 gas lift column, 2 arms, mid-height back, no headrest, no mesh, no tufting, no buttons, no logo",
+        "second_angle": "studio-back",
+        "detail_part": "left arm and the edge of the seat and back beside it",
+        "room_note": "Home office in a Westlands flat at a wooden desk, white walls, a polished concrete floor, a wool rug and a tall potted plant. The chair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "karura-bookcase",
+      "image_id": "karura-bookcase",
+      "name": "Karura bookcase",
+      "category": "bookcases",
+      "collection": "karura",
+      "summary": "A tall Meru oak bookcase with five compartments, raised on a black steel base.",
+      "description": "The case is solid Meru oak with a veneered back panel and four fixed shelves, spaced for paperbacks, files and art books. It stands on a welded steel base in matte black that lifts it clear of the floor. It is made to order and must be fixed to the wall.",
+      "materials": "Solid Meru oak case and shelves. Oak-veneered plywood back. Powder-coated steel base.",
+      "care": "Dust with a dry cloth. Put the heaviest books on the lowest shelves. Fix to the wall with the bracket supplied.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 90, "d": 34, "h": 190 },
+      "weight_kg": 48,
+      "price": 51000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 4,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled Meru oak", "price_delta": 0, "stock": 0 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained Meru oak", "price_delta": 3500, "stock": 0 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "case": "solid Meru oak box, 172 cm high and 90 cm wide, with a closed back panel",
+          "shelves": "4 fixed oak shelves between the top and bottom of the case, making 5 open compartments of equal height",
+          "base": "matte black powder-coated steel frame, 18 cm high, with 4 straight legs"
+        },
+        "details": "5 open compartments, closed back and closed sides, 4 steel legs, no doors, no drawers, no glass, shelves empty in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "lower left corner of the oak case and the steel leg below it",
+        "room_note": "Study in a Lavington flat against a white wall, parquet floor, the shelves holding ceramics, plain storage boxes and a trailing plant, no books. The bookcase is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "ngong-bookcase",
+      "image_id": "ngong-bookcase",
+      "name": "Ngong bookcase",
+      "category": "bookcases",
+      "collection": "ngong",
+      "summary": "A cypress bookcase with four compartments and a closed back, 150 cm tall.",
+      "description": "Three fixed shelves are housed into solid cypress sides, which stops them sagging under a full row of books. The back is closed, so nothing slips down behind. It stands on a low plinth and comes with a wall strap.",
+      "materials": "Solid cypress case and shelves. Plywood back. Hardwax oil finish.",
+      "care": "Dust with a dry cloth. Put the heaviest books on the lowest shelves. Fix to the wall with the strap supplied.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 80, "d": 32, "h": 150 },
+      "weight_kg": 30,
+      "price": 36000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "honey", "label": "Honey", "hex": "#C99A5B", "material": "oiled cypress", "price_delta": 0, "stock": 4 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained cypress", "price_delta": 2000, "stock": 3 }
+        ]
+      },
+      "default": "honey",
+      "image": {
+        "parts": {
+          "case": "solid cypress box, 80 cm wide and 150 cm high including the plinth, with a closed back panel",
+          "shelves": "3 fixed cypress shelves, making 4 open compartments of equal height",
+          "base": "recessed cypress plinth, 8 cm high"
+        },
+        "details": "4 open compartments, closed back and closed sides, plinth base with no legs, no doors, no drawers, no glass, shelves empty in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left side panel, the front edge of two shelves and the corner of the plinth",
+        "room_note": "Sitting room of a Kilimani flat against a white wall, parquet floor, the shelves holding ceramics, a plant and two small woven baskets, no books. The bookcase is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kericho-bookcase",
+      "image_id": "kericho-bookcase",
+      "name": "Kericho bookcase",
+      "category": "bookcases",
+      "collection": null,
+      "summary": "A solid mvule bookcase with three open compartments above a two-door cupboard.",
+      "description": "The lower third is a cupboard for files, games and anything better kept out of sight. Above it are three open compartments with a closed back. It is made to order in solid mvule, finished in natural oil, and fixed to the wall on delivery.",
+      "materials": "Solid mvule case, shelves and doors. Plywood back. Hand-rubbed oil finish.",
+      "care": "Dust with a dry cloth. Put the heaviest books on the lowest shelves. Re-oil the doors once a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 100, "d": 38, "h": 195 },
+      "weight_kg": 71,
+      "price": 55000,
+      "compare_at_price": null,
+      "made_to_order": true,
+      "lead_time_weeks": 5,
+      "option": null,
+      "default": null,
+      "stock": 0,
+      "image": {
+        "parts": {
+          "case": "solid mvule box, 100 cm wide and 195 cm high including the plinth, with a closed back panel, in a warm mid-brown natural oil",
+          "shelves": "3 open compartments of equal height in the upper two thirds",
+          "doors": "2 flat mvule doors across the lower third",
+          "base": "recessed mvule plinth, 8 cm high"
+        },
+        "details": "3 open compartments above 2 doors, no knobs and no handles, doors push to open, plinth base with no legs, no drawers, no glass, shelves empty in studio shots",
+        "second_angle": "studio-front",
+        "detail_part": "left door and the open compartment directly above it",
+        "room_note": "Sitting room of a house in Karen against a warm plaster wall, a polished concrete floor, the shelves holding ceramics, a plant and a woven basket, no books. The bookcase is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "diani-outdoor-sofa",
+      "image_id": "diani-outdoor-sofa",
+      "name": "Diani outdoor sofa",
+      "category": "outdoor-seating",
+      "collection": "diani",
+      "summary": "A two-seat outdoor sofa in oiled hardwood, with a woven rope back and quick-dry cushions.",
+      "description": "The frame is solid mvule, a hardwood that stands up to sun and rain, and the back and sides are wrapped by hand in charcoal rope. The seat and back cushions are quick-dry foam in removable covers. It can stay on a covered veranda all year, with the cushions brought in during the long rains.",
+      "materials": "Solid mvule frame, oiled. Polyester rope. Quick-dry foam cushions with solution-dyed acrylic covers.",
+      "care": "Brush off dust and leaves. Wash the covers at 30 degrees. Oil the frame twice a year, and more often at the coast.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 150, "d": 78, "h": 76 },
+      "weight_kg": 34,
+      "price": 82000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "woven outdoor fabric", "price_delta": 0, "stock": 3 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven outdoor fabric", "price_delta": 0, "stock": 3 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven outdoor fabric", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "olive",
+      "image": {
+        "parts": {
+          "frame": "solid mvule hardwood, oiled, in square section, with 4 straight legs",
+          "rope": "charcoal rope wrapped vertically round the back and both sides in close parallel lines",
+          "cushions": "2 seat cushions and 2 back cushions in plain woven outdoor fabric"
+        },
+        "details": "rope on the back and both sides only, wooden seat frame, 2 seat cushions, 2 back cushions, 4 legs, no stretchers, no tufting, no buttons, no piping, no scatter cushions",
+        "second_angle": "studio-back",
+        "detail_part": "left arm, the rope side panel below it and the corner of the seat cushion",
+        "room_note": "Covered veranda of a house in Karen with a polished concrete floor, white columns, potted plants and the garden behind. The sofa is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "diani-lounge-chair",
+      "image_id": "diani-lounge-chair",
+      "name": "Diani lounge chair",
+      "category": "outdoor-seating",
+      "collection": "diani",
+      "summary": "An outdoor lounge chair in oiled hardwood, with a woven rope back and quick-dry cushions.",
+      "description": "The single-seat partner to the Diani sofa, with the same solid mvule frame and hand-wrapped rope back and sides. The seat and back cushions are quick-dry foam in removable covers. It is light enough to carry indoors at night.",
+      "materials": "Solid mvule frame, oiled. Polyester rope. Quick-dry foam cushions with solution-dyed acrylic covers.",
+      "care": "Brush off dust and leaves. Wash the covers at 30 degrees. Oil the frame twice a year, and more often at the coast.",
+      "warranty_months": 24,
+      "assembly_required": false,
+      "size_cm": { "w": 76, "d": 78, "h": 76 },
+      "weight_kg": 19,
+      "price": 38000,
+      "compare_at_price": 47000,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "woven outdoor fabric", "price_delta": 0, "stock": 4 },
+          { "slug": "sand", "label": "Sand", "hex": "#CDBA9A", "material": "woven outdoor fabric", "price_delta": 0, "stock": 5 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "woven outdoor fabric", "price_delta": 0, "stock": 3 }
+        ]
+      },
+      "default": "olive",
+      "image": {
+        "parts": {
+          "frame": "solid mvule hardwood, oiled, in square section, with 4 straight legs",
+          "rope": "charcoal rope wrapped vertically round the back and both sides in close parallel lines",
+          "cushions": "1 seat cushion and 1 back cushion in plain woven outdoor fabric"
+        },
+        "details": "rope on the back and both sides only, wooden seat frame, 1 seat cushion, 1 back cushion, 4 legs, no stretchers, no tufting, no buttons, no piping",
+        "second_angle": "studio-back",
+        "detail_part": "left arm, the rope side panel below it and the corner of the seat cushion",
+        "room_note": "Veranda of a house in Karen with a terracotta tile floor, a small side table, potted ferns and the lawn beyond. The chair is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "diani-outdoor-bench",
+      "image_id": "diani-outdoor-bench",
+      "name": "Diani outdoor bench",
+      "category": "outdoor-seating",
+      "collection": "diani",
+      "summary": "A two-seat outdoor bench in oiled hardwood, with a hand-woven rope seat.",
+      "description": "The seat is woven in charcoal rope across a solid mvule frame, so rain runs straight through and it dries in minutes. A single back rail gives support without blocking the view of the garden. It seats two at the Diani dining table or stands alone on a veranda.",
+      "materials": "Solid mvule frame, oiled. Polyester rope seat.",
+      "care": "Brush off dust and leaves. Hose down and leave to dry. Oil the frame twice a year.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 130, "d": 55, "h": 80 },
+      "weight_kg": 17,
+      "price": 34000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 5 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 1500, "stock": 3 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "frame": "solid mvule hardwood, oiled, with 4 straight square legs, the rear pair rising to carry the back rail",
+          "seat": "charcoal rope woven in a plain basket weave across the seat frame",
+          "back": "1 flat mvule back rail, 10 cm high"
+        },
+        "details": "woven rope on the seat only, 1 back rail, no arms, no cushions, 4 legs, 2 side stretchers, no slats",
+        "second_angle": "studio-back",
+        "detail_part": "front left corner of the woven rope seat and the leg below it",
+        "room_note": "Veranda of a house in Karen against a white wall, a polished concrete floor and terracotta pots of herbs beside it. The bench is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "diani-outdoor-dining-table",
+      "image_id": "diani-outdoor-dining-table",
+      "name": "Diani outdoor dining table",
+      "category": "outdoor-tables",
+      "collection": "diani",
+      "summary": "A hardwood dining table for the veranda that seats six, 160 cm long.",
+      "description": "The top is solid mvule planks joined tight, 3.5 cm thick, on four square legs that bolt on. Mvule is naturally oily and weathers well outdoors, turning silver grey if it is left unoiled. Two Diani benches fit along the sides.",
+      "materials": "Solid mvule. Exterior oil finish. Stainless steel fixings.",
+      "care": "Wipe down after rain. Oil twice a year to keep the colour, or leave it to turn silver grey. Do not use a pressure washer.",
+      "warranty_months": 36,
+      "assembly_required": true,
+      "size_cm": { "w": 160, "d": 85, "h": 75 },
+      "weight_kg": 44,
+      "price": 52000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 3 },
+          { "slug": "walnut", "label": "Dark walnut", "hex": "#5A3B26", "material": "stained mvule", "price_delta": 2500, "stock": 3 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "top": "solid mvule planks joined edge to edge, 3.5 cm thick, with square edges and no gaps",
+          "legs": "4 straight square mvule legs, 7 cm thick, at the corners",
+          "finish": "exterior oil, matte"
+        },
+        "details": "solid plank top with no slats and no gaps, no parasol hole, 4 legs, no stretchers, no chairs in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "near corner of the top and the top of the leg below it",
+        "room_note": "Veranda of a house in Karen with a polished concrete floor, two benches at the table, a ceramic jug on top and the garden behind. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "diani-outdoor-coffee-table",
+      "image_id": "diani-outdoor-coffee-table",
+      "name": "Diani outdoor coffee table",
+      "category": "outdoor-tables",
+      "collection": "diani",
+      "summary": "A low hardwood table for the veranda, sized to sit in front of the Diani sofa.",
+      "description": "A solid mvule top on four square legs, with a low rail at each end that keeps it rigid on uneven paving. It is finished in exterior oil and needs nothing more than a wipe after rain. It is sturdy enough to put your feet on.",
+      "materials": "Solid mvule. Exterior oil finish. Stainless steel fixings.",
+      "care": "Wipe down after rain. Oil twice a year to keep the colour, or leave it to turn silver grey. Do not use a pressure washer.",
+      "warranty_months": 36,
+      "assembly_required": false,
+      "size_cm": { "w": 90, "d": 55, "h": 40 },
+      "weight_kg": 16,
+      "price": 22000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 6,
+      "image": {
+        "parts": {
+          "top": "solid mvule planks joined edge to edge, 3 cm thick, with no gaps, in a warm mid-brown oil",
+          "legs": "4 straight square mvule legs, 6 cm thick, at the corners",
+          "rails": "2 low end rails, one joining each pair of legs"
+        },
+        "details": "solid plank top with no slats, 4 legs, 2 end rails, no shelf, no glass, nothing on the table in studio shots",
+        "second_angle": "studio-side",
+        "detail_part": "near corner of the top and the leg below it",
+        "room_note": "Veranda of a house in Karen in front of an outdoor sofa, a terracotta tile floor, a tray of ceramic cups on top and potted plants around. The table is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kito-small-table-lamp",
+      "image_id": "kito-small-table-lamp",
+      "name": "Kito small table lamp",
+      "category": "table-lamps",
+      "collection": "kito",
+      "summary": "A small hand-thrown ceramic lamp for a bedside table, with a natural linen shade.",
+      "description": "The small Kito has a rounded stoneware base, thrown on the wheel in Nairobi and glazed matte. Its linen drum shade gives a soft pool of light, enough to read by. The switch is on the fabric-covered cord.",
+      "materials": "Glazed stoneware base. Linen shade. Brushed brass fittings. Fabric-covered cord with inline switch.",
+      "care": "Dust the shade with a soft brush. Wipe the base with a dry cloth. Takes an E14 bulb of up to 6 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 22, "d": 22, "h": 36 },
+      "weight_kg": 1.8,
+      "price": 6800,
+      "compare_at_price": 7900,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#2B2A28", "material": "matte ceramic glaze", "price_delta": 0, "stock": 9 },
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "matte ceramic glaze", "price_delta": 0, "stock": 12 },
+          { "slug": "ivory", "label": "Ivory", "hex": "#E9E1D2", "material": "matte ceramic glaze", "price_delta": 0, "stock": 14 }
+        ]
+      },
+      "default": "charcoal",
+      "image": {
+        "parts": {
+          "base": "hand-thrown ceramic, short rounded pebble shape, matte glaze with slight variation",
+          "shade": "natural linen drum shade, off-white",
+          "fittings": "brushed brass neck, fabric-covered cord"
+        },
+        "details": "the base is about 18 cm high and 16 cm wide, the shade about 22 cm wide and 15 cm high, 1 shade, 1 bulb, no pattern on the base or the shade",
+        "second_angle": null,
+        "detail_part": "ceramic base and brass neck",
+        "room_note": "On a bedside table in a Lavington flat, against a white wall, switched on in the early evening, with a small ceramic dish beside it. The lamp is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kito-tall-table-lamp",
+      "image_id": "kito-tall-table-lamp",
+      "name": "Kito tall table lamp",
+      "category": "table-lamps",
+      "collection": "kito",
+      "summary": "A tall ceramic lamp with a slim bottle-shaped base, for a sideboard or a console.",
+      "description": "The base is thrown in two sections and joined, which gives the tall bottle shape and a faint line at the shoulder. It is glazed matte and topped with a natural linen drum shade. At 68 cm it gives light at standing height on a sideboard.",
+      "materials": "Glazed stoneware base. Linen shade. Brushed brass fittings. Fabric-covered cord with inline switch.",
+      "care": "Dust the shade with a soft brush. Wipe the base with a dry cloth. Takes an E27 bulb of up to 9 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 34, "d": 34, "h": 68 },
+      "weight_kg": 4,
+      "price": 11500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "forest", "label": "Forest", "hex": "#2F4A3A", "material": "matte ceramic glaze", "price_delta": 0, "stock": 5 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#2B2A28", "material": "matte ceramic glaze", "price_delta": 0, "stock": 6 },
+          { "slug": "ivory", "label": "Ivory", "hex": "#E9E1D2", "material": "matte ceramic glaze", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "forest",
+      "image": {
+        "parts": {
+          "base": "hand-thrown ceramic, tall bottle shape with a rounded shoulder and a narrow neck, matte glaze",
+          "shade": "natural linen drum shade, off-white",
+          "fittings": "brushed brass neck, fabric-covered cord"
+        },
+        "details": "the base is about 42 cm high and 16 cm wide, the shade about 34 cm wide and 24 cm high, 1 shade, 1 bulb, no handles on the base, no pattern",
+        "second_angle": null,
+        "detail_part": "shoulder of the ceramic base and the brass neck",
+        "room_note": "On a wooden sideboard in a house in Karen, against a warm plaster wall, switched on at dusk, with a ceramic bowl beside it. The lamp is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "mwanga-table-lamp",
+      "image_id": "mwanga-table-lamp",
+      "name": "Mwanga table lamp",
+      "category": "table-lamps",
+      "collection": null,
+      "summary": "A table lamp with a turned solid mvule base and a natural linen shade.",
+      "description": "The base is turned from a single block of mvule and finished in oil, so the grain runs unbroken from top to bottom. A steel plate underneath adds weight and keeps it steady. The linen shade gives a warm, even light.",
+      "materials": "Solid mvule base, oiled. Linen shade. Black steel fittings. Fabric-covered cord with inline switch.",
+      "care": "Dust the shade with a soft brush. Wipe the base with a dry cloth. Takes an E27 bulb of up to 9 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 28, "d": 28, "h": 48 },
+      "weight_kg": 2.4,
+      "price": 7500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Finish",
+        "values": [
+          { "slug": "natural", "label": "Natural oil", "hex": "#B98A55", "material": "oiled mvule", "price_delta": 0, "stock": 8 },
+          { "slug": "ebony", "label": "Ebony", "hex": "#2B2420", "material": "stained mvule", "price_delta": 0, "stock": 5 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "base": "solid mvule turned to a plain cylinder, 12 cm across and 26 cm high",
+          "shade": "natural linen drum shade, off-white, 28 cm wide and 20 cm high",
+          "fittings": "matte black steel neck, fabric-covered cord"
+        },
+        "details": "plain cylinder base with no grooves, no rings and no carving, 1 shade, 1 bulb, no pattern",
+        "second_angle": null,
+        "detail_part": "top of the wooden base and the black steel neck",
+        "room_note": "On a desk in a Kilimani flat by a steel-framed window, switched on, with a ceramic cup beside it. The lamp is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kito-floor-lamp",
+      "image_id": "kito-floor-lamp",
+      "name": "Kito floor lamp",
+      "category": "floor-lamps",
+      "collection": "kito",
+      "summary": "A floor lamp with a hand-thrown ceramic base, a slim steel stem and a linen shade.",
+      "description": "A wide stoneware base, thrown and glazed in Nairobi, weights the lamp so it is hard to knock over. A slim black steel stem carries a natural linen drum shade at reading height. The foot switch is on the cord.",
+      "materials": "Glazed stoneware base. Powder-coated steel stem. Linen shade. Fabric-covered cord with foot switch.",
+      "care": "Dust the shade with a soft brush. Wipe the base and stem with a dry cloth. Takes an E27 bulb of up to 12 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 40, "d": 40, "h": 150 },
+      "weight_kg": 9,
+      "price": 19500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "matte ceramic glaze", "price_delta": 0, "stock": 4 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#2B2A28", "material": "matte ceramic glaze", "price_delta": 0, "stock": 3 },
+          { "slug": "ivory", "label": "Ivory", "hex": "#E9E1D2", "material": "matte ceramic glaze", "price_delta": 0, "stock": 3 }
+        ]
+      },
+      "default": "clay",
+      "image": {
+        "parts": {
+          "base": "hand-thrown ceramic dome, 28 cm wide and 18 cm high, matte glaze",
+          "stem": "1 straight matte black steel stem, 2 cm thick, rising from the centre of the base",
+          "shade": "natural linen drum shade, off-white, 40 cm wide and 26 cm high"
+        },
+        "details": "1 straight stem, 1 shade, 1 ceramic base on the floor, no arm, no arc, no tripod, no side table, no pattern",
+        "second_angle": null,
+        "detail_part": "ceramic base and the foot of the steel stem",
+        "room_note": "Beside an armchair in a Westlands flat with white walls, parquet floor and a wool rug, switched on in the evening. The lamp is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "jua-floor-lamp",
+      "image_id": "jua-floor-lamp",
+      "name": "Jua floor lamp",
+      "category": "floor-lamps",
+      "collection": null,
+      "summary": "A slim powder-coated steel floor lamp with a dome shade, for reading beside a chair.",
+      "description": "Jua is welded steel throughout, with a flat round base, a straight stem and a dome shade that directs the light down onto the page. The powder coat is matte and does not show fingerprints. The inside of the shade is white, which keeps the light warm.",
+      "materials": "Powder-coated steel. Fabric-covered cord with foot switch.",
+      "care": "Wipe with a dry cloth. Let the shade cool before you touch it. Takes an E27 bulb of up to 9 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 30, "d": 40, "h": 145 },
+      "weight_kg": 6,
+      "price": 14500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "black", "label": "Black", "hex": "#1F1F1F", "material": "powder-coated steel", "price_delta": 0, "stock": 6 },
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "powder-coated steel", "price_delta": 0, "stock": 3 },
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "powder-coated steel", "price_delta": 0, "stock": 1 }
+        ]
+      },
+      "default": "black",
+      "image": {
+        "parts": {
+          "base": "flat round steel disc, 28 cm across and 1 cm thick",
+          "stem": "1 straight steel stem, 2 cm thick, with a short right-angle bend at the top",
+          "shade": "steel dome shade, 24 cm across, opening downwards, white inside"
+        },
+        "details": "1 stem, 1 dome shade, 1 flat round base, all three in the same matte colour, no joints, no springs, no fabric shade, no tripod",
+        "second_angle": null,
+        "detail_part": "dome shade and the bend at the top of the stem",
+        "room_note": "Beside a sofa in a Kilimani flat, against a white wall, parquet floor and a sisal rug, switched on. The lamp is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "nyota-floor-lamp",
+      "image_id": "nyota-floor-lamp",
+      "name": "Nyota floor lamp",
+      "category": "floor-lamps",
+      "collection": null,
+      "summary": "A tripod floor lamp with three oiled mvule legs and a wide linen drum shade.",
+      "description": "Three solid mvule legs meet at a turned wooden hub under the shade and stand 55 cm apart at the floor. The wide linen shade lights a whole corner of a room. The foot switch is on the cord.",
+      "materials": "Solid mvule legs and hub, oiled. Linen shade. Fabric-covered cord with foot switch.",
+      "care": "Dust the shade with a soft brush. Wipe the legs with a dry cloth. Takes an E27 bulb of up to 12 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 55, "d": 55, "h": 155 },
+      "weight_kg": 5,
+      "price": 17500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 5,
+      "image": {
+        "parts": {
+          "legs": "3 straight round mvule legs, 3 cm thick, oiled to a warm mid-brown, splayed to a 55 cm footprint",
+          "hub": "1 turned mvule hub joining the legs under the shade",
+          "shade": "natural linen drum shade, off-white, 45 cm wide and 28 cm high"
+        },
+        "details": "exactly 3 legs, 1 shade, no stretchers between the legs, no shelf, no metal stem, no pattern",
+        "second_angle": null,
+        "detail_part": "wooden hub where the three legs meet under the shade",
+        "room_note": "Corner of a sitting room in a house in Karen with warm plaster walls and a polished concrete floor, an armchair nearby, switched on. The lamp is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kito-pendant-light",
+      "image_id": "kito-pendant-light",
+      "name": "Kito pendant light",
+      "category": "pendant-lights",
+      "collection": "kito",
+      "summary": "A hand-thrown ceramic pendant with a matte charcoal glaze outside and white inside.",
+      "description": "Each dome is thrown on the wheel, so the rim is never perfectly round. The outside is glazed matte charcoal and the inside white, which reflects the light down onto a table. It hangs on 150 cm of black fabric-covered cord that can be shortened when it is fitted.",
+      "materials": "Glazed stoneware shade. Black steel ceiling cup. Fabric-covered cord, 150 cm.",
+      "care": "Switch off and wipe with a dry cloth. Have it fitted by a qualified electrician. Takes an E27 bulb of up to 9 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 28, "d": 28, "h": 20 },
+      "weight_kg": 2.2,
+      "price": 9500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 8,
+      "image": {
+        "parts": {
+          "shade": "hand-thrown ceramic dome, 28 cm across and 20 cm high, matte charcoal glaze outside, white glaze inside",
+          "cord": "black fabric-covered cord",
+          "cup": "small matte black steel ceiling cup"
+        },
+        "details": "1 dome shade hanging from 1 cord, no chain, no glass, no pattern, no holes in the shade, bulb not visible from the side",
+        "second_angle": null,
+        "detail_part": "rim and side of the ceramic shade",
+        "room_note": "Hanging over a round dining table in a Kilimani flat with white walls, switched on in the evening, with a ceramic bowl on the table below. The pendant is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kito-cone-pendant-light",
+      "image_id": "kito-cone-pendant-light",
+      "name": "Kito cone pendant light",
+      "category": "pendant-lights",
+      "collection": "kito",
+      "summary": "A small cone-shaped ceramic pendant in a matte clay glaze, made to hang in a row.",
+      "description": "A narrow stoneware cone, thrown on the wheel and glazed a matte clay red. It gives a tight pool of light, so two or three in a row suit a kitchen counter or a long table. Each one is sold singly with 150 cm of cord.",
+      "materials": "Glazed stoneware shade. Black steel ceiling cup. Fabric-covered cord, 150 cm.",
+      "care": "Switch off and wipe with a dry cloth. Have it fitted by a qualified electrician. Takes an E27 bulb of up to 9 W LED.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 18, "d": 18, "h": 24 },
+      "weight_kg": 1.4,
+      "price": 7800,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 11,
+      "image": {
+        "parts": {
+          "shade": "hand-thrown ceramic cone, 18 cm across at the rim and 24 cm high, matte clay-red glaze outside, white glaze inside",
+          "cord": "black fabric-covered cord",
+          "cup": "small matte black steel ceiling cup"
+        },
+        "details": "1 cone shade hanging from 1 cord, shown singly, no chain, no glass, no pattern, no holes in the shade, bulb not visible from the side",
+        "second_angle": null,
+        "detail_part": "rim and side of the ceramic shade",
+        "room_note": "Hanging over a kitchen counter in a Westlands flat with a white wall and a polished concrete worktop, switched on. A single pendant is shown. The pendant is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-woven-pendant-light",
+      "image_id": "kilifi-woven-pendant-light",
+      "name": "Kilifi woven pendant light",
+      "category": "pendant-lights",
+      "collection": "kilifi",
+      "summary": "A wide pendant shade coiled and stitched by hand from natural sisal.",
+      "description": "The shade is coiled and stitched from sisal in the same way as the Kilifi baskets, over a steel ring that holds the shape. Light passes through the weave and falls in a soft glow on the ceiling and walls. It is light enough to hang from a standard ceiling rose.",
+      "materials": "Hand-coiled sisal shade on a steel ring. Black steel ceiling cup. Fabric-covered cord, 150 cm.",
+      "care": "Dust with a soft brush. Keep away from steam. Use an E27 LED bulb only, up to 9 W.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 45, "d": 45, "h": 30 },
+      "weight_kg": 1.2,
+      "price": 11500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 6,
+      "image": {
+        "parts": {
+          "shade": "hand-coiled natural sisal dome, 45 cm across and 30 cm high, in a tight plain coil",
+          "cord": "black fabric-covered cord",
+          "cup": "small matte black steel ceiling cup"
+        },
+        "details": "1 woven dome shade hanging from 1 cord, natural sisal colour only, no dyed bands, no pattern, no fringe, no tassels, no chain",
+        "second_angle": null,
+        "detail_part": "coiled weave on the side of the shade and its rim",
+        "room_note": "Hanging over a dining table in a Nyali flat with white walls and sliding windows, switched on at dusk. The pendant is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-sisal-rug-160x230",
+      "image_id": "kilifi-sisal-rug-160x230",
+      "name": "Kilifi sisal rug 160 x 230",
+      "category": "rugs",
+      "collection": "kilifi",
+      "summary": "A flat-woven sisal rug, 160 by 230 cm, with a bound edge in the same colour.",
+      "description": "The rug is woven on a hand loom from Kenyan sisal in a tight, even weave and backed with natural latex so it stays put. Sisal is hard-wearing underfoot and suits sitting rooms and halls. The edges are bound in cotton tape dyed to match.",
+      "materials": "Woven sisal. Natural latex backing. Cotton edge binding.",
+      "care": "Vacuum weekly without a beater bar. Blot spills at once and do not soak. Keep out of bathrooms and off open verandas.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 160, "d": 230, "h": 1 },
+      "weight_kg": 14,
+      "price": 24000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "natural", "label": "Natural", "hex": "#BFA57A", "material": "undyed sisal", "price_delta": 0, "stock": 6 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "dyed sisal", "price_delta": 0, "stock": 3 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "surface": "flat-woven sisal in a tight, even weave, one plain colour",
+          "border": "2 cm cotton tape binding on all 4 edges, in the same colour as the rug",
+          "backing": "natural latex, not visible"
+        },
+        "details": "plain rectangle, one colour throughout, no pattern, no stripes, no fringe, no tassels, lying flat with no folds",
+        "second_angle": null,
+        "detail_part": "near left corner of the rug and its bound edge",
+        "room_note": "Sitting room of a Kilimani flat with white walls and parquet floor, the rug lying in front of a sofa with a low coffee table on it. The rug is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-sisal-rug-200x300",
+      "image_id": "kilifi-sisal-rug-200x300",
+      "name": "Kilifi sisal rug 200 x 300",
+      "category": "rugs",
+      "collection": "kilifi",
+      "summary": "The Kilifi sisal rug at 200 by 300 cm, large enough to hold a whole seating group.",
+      "description": "Woven on a hand loom from Kenyan sisal and backed with natural latex, like the smaller rug. At 200 by 300 cm it takes a sofa, two chairs and a coffee table with all their legs on the rug. It is delivered rolled and lies flat within a day.",
+      "materials": "Woven sisal. Natural latex backing. Cotton edge binding.",
+      "care": "Vacuum weekly without a beater bar. Blot spills at once and do not soak. Keep out of bathrooms and off open verandas.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 200, "d": 300, "h": 1 },
+      "weight_kg": 22,
+      "price": 38000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "natural", "label": "Natural", "hex": "#BFA57A", "material": "undyed sisal", "price_delta": 0, "stock": 3 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "dyed sisal", "price_delta": 0, "stock": 1 }
+        ]
+      },
+      "default": "natural",
+      "image": {
+        "parts": {
+          "surface": "flat-woven sisal in a tight, even weave, one plain colour",
+          "border": "2 cm cotton tape binding on all 4 edges, in the same colour as the rug",
+          "backing": "natural latex, not visible"
+        },
+        "details": "plain rectangle, one colour throughout, no pattern, no stripes, no fringe, no tassels, lying flat with no folds",
+        "second_angle": null,
+        "detail_part": "near left corner of the rug and its bound edge",
+        "room_note": "Sitting room of a house in Karen with a polished concrete floor, a sofa and two armchairs set round the rug and a low table in the middle. The rug is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-wool-rug-160x230",
+      "image_id": "kilifi-wool-rug-160x230",
+      "name": "Kilifi wool rug 160 x 230",
+      "category": "rugs",
+      "collection": "kilifi",
+      "summary": "A flat-woven wool rug in one plain colour, 160 by 230 cm, soft enough for a bedroom.",
+      "description": "Woven by hand on a floor loom from Kenyan highland wool, spun thick so the rug lies flat and heavy. The wool is dyed in small batches, which leaves a gentle variation across the surface. It is warm under bare feet on a concrete or tiled floor.",
+      "materials": "Wool weft on a cotton warp.",
+      "care": "Vacuum weekly without a beater bar. Turn end to end twice a year. Dry clean only.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 160, "d": 230, "h": 1 },
+      "weight_kg": 9,
+      "price": 32000,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "dyed wool", "price_delta": 0, "stock": 3 },
+          { "slug": "ocean", "label": "Ocean", "hex": "#2F5D73", "material": "dyed wool", "price_delta": 0, "stock": 3 },
+          { "slug": "oat", "label": "Oat", "hex": "#D8CDB8", "material": "undyed wool", "price_delta": 0, "stock": 4 }
+        ]
+      },
+      "default": "clay",
+      "image": {
+        "parts": {
+          "surface": "thick flat-woven wool with a visible horizontal weave, one plain colour",
+          "ends": "2 short ends finished with a narrow turned hem"
+        },
+        "details": "plain rectangle, one colour throughout, no pattern, no stripes, no fringe, no tassels, lying flat with no folds",
+        "second_angle": null,
+        "detail_part": "near left corner of the rug and its hemmed end",
+        "room_note": "Bedroom of a Lavington flat with white walls, parquet floor and sheer curtains, the rug lying beside the bed with a bedside table behind. The rug is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-cotton-cushion",
+      "image_id": "kilifi-cotton-cushion",
+      "name": "Kilifi cotton cushion",
+      "category": "cushions",
+      "collection": "kilifi",
+      "summary": "A 45 cm square cushion in hand-woven cotton, with a feather pad included.",
+      "description": "The cover is woven on a hand loom from thick cotton yarn, which gives a textured, matte surface. It closes with a hidden zip and comes with a feather pad. The colours are chosen to sit well with the Amani fabrics.",
+      "materials": "Hand-woven cotton cover. Duck feather pad. Hidden zip.",
+      "care": "Take out the pad and wash the cover at 30 degrees. Dry flat in the shade. Plump the pad after use.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 45, "d": 14, "h": 45 },
+      "weight_kg": 0.8,
+      "price": 2200,
+      "compare_at_price": 2450,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "mustard", "label": "Mustard", "hex": "#C2932F", "material": "hand-woven cotton", "price_delta": 0, "stock": 16 },
+          { "slug": "forest", "label": "Forest", "hex": "#2F4A3A", "material": "hand-woven cotton", "price_delta": 0, "stock": 12 },
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "hand-woven cotton", "price_delta": 0, "stock": 9 }
+        ]
+      },
+      "default": "mustard",
+      "image": {
+        "parts": {
+          "cover": "hand-woven cotton with a thick, visible weave, one plain colour",
+          "edge": "knife edge with a hidden zip along the bottom",
+          "pad": "feather pad, plump, not visible"
+        },
+        "details": "1 square cushion, plain on both sides, no pattern, no piping, no tassels, no buttons, no fringe, no lettering",
+        "second_angle": null,
+        "detail_part": "near left corner of the cushion and the weave of the cover",
+        "room_note": "On a sand-coloured sofa in a Kilimani flat, with a white wall behind and daylight from a side window. The cushion is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-lumbar-cushion",
+      "image_id": "kilifi-lumbar-cushion",
+      "name": "Kilifi lumbar cushion",
+      "category": "cushions",
+      "collection": "kilifi",
+      "summary": "A 30 by 50 cm lumbar cushion in hand-woven cotton, with a feather pad included.",
+      "description": "A long, low cushion that supports the small of the back on a deep sofa or an armchair. The cover is hand-woven cotton with a hidden zip, and the feather pad is included. It also sits neatly across the pillows on a bed.",
+      "materials": "Hand-woven cotton cover. Duck feather pad. Hidden zip.",
+      "care": "Take out the pad and wash the cover at 30 degrees. Dry flat in the shade. Plump the pad after use.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 50, "d": 12, "h": 30 },
+      "weight_kg": 0.6,
+      "price": 1950,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "ocean", "label": "Ocean", "hex": "#2F5D73", "material": "hand-woven cotton", "price_delta": 0, "stock": 10 },
+          { "slug": "charcoal", "label": "Charcoal", "hex": "#3A3A3C", "material": "hand-woven cotton", "price_delta": 0, "stock": 14 },
+          { "slug": "oat", "label": "Oat", "hex": "#D8CDB8", "material": "hand-woven cotton", "price_delta": 0, "stock": 0 }
+        ]
+      },
+      "default": "ocean",
+      "image": {
+        "parts": {
+          "cover": "hand-woven cotton with a thick, visible weave, one plain colour",
+          "edge": "knife edge with a hidden zip along the bottom",
+          "pad": "feather pad, plump, not visible"
+        },
+        "details": "1 rectangular cushion, wider than it is tall, plain on both sides, no pattern, no piping, no tassels, no buttons, no fringe, no lettering",
+        "second_angle": null,
+        "detail_part": "near left corner of the cushion and the weave of the cover",
+        "room_note": "On an armchair in a Westlands flat, with a warm plaster wall behind and a floor lamp beside the chair. The cushion is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-wool-cushion",
+      "image_id": "kilifi-wool-cushion",
+      "name": "Kilifi wool cushion",
+      "category": "cushions",
+      "collection": "kilifi",
+      "summary": "A 50 cm square cushion in thick hand-woven wool, with a feather pad included.",
+      "description": "The front is woven from the same highland wool as the Kilifi wool rug, and the back is plain cotton in a matching colour. It is the largest of the Kilifi cushions and fills the corner of a sofa. The cover has a hidden zip and should be dry cleaned.",
+      "materials": "Hand-woven wool front. Cotton back. Duck feather pad. Hidden zip.",
+      "care": "Dry clean the cover only. Brush lightly to lift the fibres. Plump the pad after use.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 50, "d": 15, "h": 50 },
+      "weight_kg": 1.1,
+      "price": 3400,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": {
+        "name": "Colour",
+        "values": [
+          { "slug": "olive", "label": "Olive", "hex": "#6B6B3A", "material": "hand-woven wool", "price_delta": 0, "stock": 5 },
+          { "slug": "clay", "label": "Clay", "hex": "#A8532F", "material": "hand-woven wool", "price_delta": 0, "stock": 7 },
+          { "slug": "oat", "label": "Oat", "hex": "#D8CDB8", "material": "hand-woven wool", "price_delta": 0, "stock": 3 }
+        ]
+      },
+      "default": "olive",
+      "image": {
+        "parts": {
+          "cover": "thick hand-woven wool on the front with a visible horizontal weave, one plain colour",
+          "edge": "knife edge with a hidden zip along the bottom",
+          "pad": "feather pad, plump, not visible"
+        },
+        "details": "1 square cushion, plain on both sides, no pattern, no piping, no tassels, no buttons, no fringe, no lettering",
+        "second_angle": null,
+        "detail_part": "near left corner of the cushion and the weave of the wool",
+        "room_note": "On a bed made with white linen in a Nyali flat, with white walls and sheer curtains behind. The cushion is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "lamu-standing-mirror",
+      "image_id": "lamu-standing-mirror",
+      "name": "Lamu standing mirror",
+      "category": "mirrors",
+      "collection": "lamu",
+      "summary": "A full-length mirror in a solid mahogany frame that stands on its own rear strut.",
+      "description": "The frame is solid mahogany, 4 cm wide, with mitred corners and a hinged strut at the back. It stands at a slight lean, and a strap fixes the top to the wall in a house with children. The glass is 5 mm thick with a safety backing.",
+      "materials": "Solid mahogany frame, oiled. 5 mm mirror glass with safety backing. Steel hinge.",
+      "care": "Clean the glass with a soft cloth. Wipe the frame with a dry cloth. Keep out of bathrooms.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 60, "d": 4, "h": 170 },
+      "weight_kg": 16,
+      "price": 23500,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 4,
+      "image": {
+        "parts": {
+          "frame": "solid mahogany, 4 cm wide and 3 cm deep, with mitred corners, oiled to a dark red-brown",
+          "glass": "plain rectangular mirror glass with no bevel",
+          "strut": "1 hinged mahogany strut at the back"
+        },
+        "details": "plain rectangular frame, 1 rear strut, no cane, no carving, no shelf, no hooks, no bevel on the glass, the glass reflects only a plain off-white studio",
+        "second_angle": null,
+        "detail_part": "lower left corner of the frame and its mitred joint",
+        "room_note": "Bedroom of a Nyali flat, standing by a white wall on a sisal rug, with a potted palm reflected softly in the glass and no people in the reflection. The mirror is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-woven-mirror",
+      "image_id": "kilifi-woven-mirror",
+      "name": "Kilifi woven mirror",
+      "category": "mirrors",
+      "collection": "kilifi",
+      "summary": "A round wall mirror, 60 cm across, in a wide rim of hand-coiled sisal.",
+      "description": "A 40 cm round mirror is set into a flat rim of coiled sisal, stitched by hand in the same way as the Kilifi baskets. The rim is left in the natural colour of the fibre. A steel loop on the back hangs on a single screw.",
+      "materials": "Hand-coiled sisal rim. 4 mm mirror glass. Plywood back with a steel hanging loop.",
+      "care": "Dust the rim with a soft brush. Clean the glass with a soft cloth. Keep out of bathrooms.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 60, "d": 4, "h": 60 },
+      "weight_kg": 4,
+      "price": 9800,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 7,
+      "image": {
+        "parts": {
+          "rim": "flat ring of hand-coiled natural sisal, 10 cm wide, in a tight plain coil",
+          "glass": "round mirror glass, 40 cm across, with no bevel",
+          "back": "plywood back, not visible"
+        },
+        "details": "1 round mirror in 1 woven rim, natural sisal colour only, no dyed bands, no pattern, no fringe, no spikes, no rays, shown hanging flat on a plain wall",
+        "second_angle": null,
+        "detail_part": "left side of the woven rim and the edge of the glass",
+        "room_note": "Hanging above a wooden dresser in a Lavington flat, on a white wall, with a ceramic vase below, daylight from the side and no people in the reflection. The mirror is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "mwezi-round-mirror",
+      "image_id": "mwezi-round-mirror",
+      "name": "Mwezi round mirror",
+      "category": "mirrors",
+      "collection": null,
+      "summary": "A round wall mirror, 80 cm across, in a slim matte black steel frame.",
+      "description": "The frame is a single hoop of steel, welded, ground smooth and powder-coated matte black. It stands 2 cm proud of the glass, which gives a clean shadow line on the wall. Two fixings on the back keep it level.",
+      "materials": "Powder-coated steel frame. 5 mm mirror glass. Steel wall fixings.",
+      "care": "Clean the glass with a soft cloth. Wipe the frame with a dry cloth. Use fixings that suit your wall.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 80, "d": 3, "h": 80 },
+      "weight_kg": 9,
+      "price": 12000,
+      "compare_at_price": 14500,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 5,
+      "image": {
+        "parts": {
+          "frame": "slim matte black powder-coated steel hoop, 1.5 cm wide on the face",
+          "glass": "round mirror glass with no bevel"
+        },
+        "details": "1 round mirror, 1 thin black frame, no strap, no shelf, no bevel, no pattern, shown hanging flat on a plain wall",
+        "second_angle": null,
+        "detail_part": "left edge of the black frame against the glass",
+        "room_note": "Hanging above a console table in the hall of a Kilimani flat, on a white wall, with a ceramic dish and a small plant below and no people in the reflection. The mirror is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-laundry-basket",
+      "image_id": "kilifi-laundry-basket",
+      "name": "Kilifi laundry basket",
+      "category": "baskets",
+      "collection": "kilifi",
+      "summary": "A tall lidded laundry basket, coiled and stitched by hand from sisal.",
+      "description": "The basket is built up coil by coil from sisal and stitched tight, so it stands firm when it is empty. A flat lid with a loop handle keeps the washing out of sight. It holds about a week of laundry for two people.",
+      "materials": "Hand-coiled sisal.",
+      "care": "Brush or vacuum to remove dust. Wipe with a barely damp cloth. Dry in the shade if it gets wet.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 42, "d": 42, "h": 58 },
+      "weight_kg": 2,
+      "price": 5800,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 10,
+      "image": {
+        "parts": {
+          "body": "tall round basket of coiled natural sisal, slightly wider at the top, in a tight plain coil",
+          "lid": "flat round coiled sisal lid with 1 small loop handle in the centre"
+        },
+        "details": "1 basket with 1 lid, natural sisal colour only, no dyed bands, no pattern, no side handles, no lining, no lettering",
+        "second_angle": null,
+        "detail_part": "rim of the basket where the lid sits and the coil weave below it",
+        "room_note": "In the corner of a bedroom in a Kilimani flat with white walls and parquet floor, beside a wardrobe. The basket is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-storage-basket",
+      "image_id": "kilifi-storage-basket",
+      "name": "Kilifi storage basket",
+      "category": "baskets",
+      "collection": "kilifi",
+      "summary": "A wide, open sisal basket with two handles, for throws, toys or firewood.",
+      "description": "Coiled and stitched by hand from natural sisal, with two handles worked into the rim so they cannot pull off. It is stiff enough to carry when it is full. One basket holds two throws or a small child's toys.",
+      "materials": "Hand-coiled sisal.",
+      "care": "Brush or vacuum to remove dust. Wipe with a barely damp cloth. Dry in the shade if it gets wet.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 45, "d": 45, "h": 32 },
+      "weight_kg": 1.3,
+      "price": 3900,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 14,
+      "image": {
+        "parts": {
+          "body": "wide round basket of coiled natural sisal with straight sides, in a tight plain coil",
+          "handles": "2 small loop handles worked into the rim on opposite sides"
+        },
+        "details": "1 open basket, exactly 2 handles, no lid, natural sisal colour only, no dyed bands, no pattern, no lining, shown empty in studio shots",
+        "second_angle": null,
+        "detail_part": "left handle and the coil weave of the rim beside it",
+        "room_note": "Beside a sofa in a Westlands flat with a polished concrete floor and a wool rug, holding a folded plain throw. The basket is the subject and is fully visible."
+      }
+    },
+    {
+      "slug": "kilifi-planter-basket",
+      "image_id": "kilifi-planter-basket",
+      "name": "Kilifi planter basket",
+      "category": "baskets",
+      "collection": "kilifi",
+      "summary": "A small sisal basket with a waterproof liner, sized for a 25 cm plant pot.",
+      "description": "A straight-sided basket coiled by hand from sisal, with a removable liner inside to catch drips. It takes a plant pot up to 25 cm across. Without the liner it holds bread or fruit on the table.",
+      "materials": "Hand-coiled sisal. Removable plastic liner.",
+      "care": "Brush or vacuum to remove dust. Wipe with a barely damp cloth. Dry in the shade if it gets wet.",
+      "warranty_months": 12,
+      "assembly_required": false,
+      "size_cm": { "w": 30, "d": 30, "h": 28 },
+      "weight_kg": 0.7,
+      "price": 1950,
+      "compare_at_price": null,
+      "made_to_order": false,
+      "lead_time_weeks": null,
+      "option": null,
+      "default": null,
+      "stock": 18,
+      "image": {
+        "parts": {
+          "body": "small round basket of coiled natural sisal with straight sides, in a tight plain coil",
+          "liner": "plain removable liner inside, not visible from the side"
+        },
+        "details": "1 open basket, no handles, no lid, natural sisal colour only, no dyed bands, no pattern, no lettering, shown empty with no plant in studio shots",
+        "second_angle": null,
+        "detail_part": "rim of the basket and the coil weave below it",
+        "room_note": "On the floor by a sliding window in a Nyali flat with white walls and a pale tiled floor, holding a potted fern. The basket is the subject and is fully visible."
+      }
+    }
+  ]
+}

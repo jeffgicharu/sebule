@@ -27,6 +27,8 @@ class CollectionsTable
             ])
             ->defaultSort('position')
             ->reorderable('position')
+            ->emptyStateHeading('No collections yet')
+            ->emptyStateDescription('A collection groups products that belong together, such as a matching living room range, and shows them on one page.')
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
