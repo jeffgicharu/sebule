@@ -86,7 +86,7 @@ class Product extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection(self::GALLERY);
+        $this->addMediaCollection(self::GALLERY)->useDisk(ProductImage::DISK);
     }
 
     public function registerMediaConversions(?Media $media = null): void

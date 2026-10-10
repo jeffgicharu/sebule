@@ -37,10 +37,16 @@ class CategoryForm
                             )
                             ->placeholder('None (top level)')
                             ->disabled(fn (?Category $record): bool => (bool) $record?->children()->exists()),
+                        TextInput::make('position')
+                            ->label('Order')
+                            ->helperText('Lower numbers come first among categories at the same level.')
+                            ->integer()
+                            ->minValue(0)
+                            ->default(0)
+                            ->required(),
                         Toggle::make('is_active')
                             ->label('Shown in the shop')
-                            ->default(true)
-                            ->inline(false),
+                            ->default(true),
                         Textarea::make('description')
                             ->rows(3)
                             ->columnSpanFull(),

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use App\Enums\ProductStatus;
+use App\Filament\Support\PhotoUpload;
 use App\Filament\Support\SlugFields;
 use App\Models\Category;
 use App\Models\Product;
@@ -11,7 +12,6 @@ use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -62,15 +62,10 @@ class ProductForm
                             ]),
                         Tab::make('Photos')
                             ->schema([
-                                SpatieMediaLibraryFileUpload::make('gallery')
+                                PhotoUpload::make('gallery', Product::GALLERY)
                                     ->label('Photos for every variant')
                                     ->helperText('Room settings and other photos that apply whatever is chosen. Photos of one colour or finish go on that choice, under Options.')
-                                    ->collection(Product::GALLERY)
-                                    ->image()
-                                    ->multiple()
-                                    ->reorderable()
-                                    ->maxFiles(12)
-                                    ->maxSize(10240),
+                                    ->maxFiles(12),
                             ]),
                         Tab::make('Options')
                             ->schema([
@@ -103,14 +98,9 @@ class ProductForm
                                                     ->maxLength(50),
                                                 ColorPicker::make('swatch')
                                                     ->helperText('Shown as a colour dot. Leave blank for sizes.'),
-                                                SpatieMediaLibraryFileUpload::make('images')
+                                                PhotoUpload::make('images', ProductOptionValue::IMAGES)
                                                     ->label('Photos of this choice')
-                                                    ->collection(ProductOptionValue::IMAGES)
-                                                    ->image()
-                                                    ->multiple()
-                                                    ->reorderable()
                                                     ->maxFiles(8)
-                                                    ->maxSize(10240)
                                                     ->columnSpanFull(),
                                             ]),
                                     ]),

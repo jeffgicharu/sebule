@@ -18,6 +18,8 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -114,7 +116,7 @@ class CatalogueScreensTest extends TestCase
         $product = Product::factory()->create();
         $variant = ProductVariant::factory()->for($product)->create();
 
-        Livewire::test(EditProduct::class, ['record' => $product->getRouteKey()])->assertOk();
+        Livewire::test(EditProduct::class, ['record' => $product->getKey()])->assertOk();
 
         Livewire::test(VariantsRelationManager::class, ['ownerRecord' => $product, 'pageClass' => EditProduct::class])
             ->assertOk()
@@ -185,6 +187,38 @@ class CatalogueScreensTest extends TestCase
 
         $this->assertSame(1, $variant->fresh()->stock_on_hand);
         $this->assertSame(0, $variant->stockMovements()->count());
+    }
+
+    public function test_product_photos_go_to_the_public_disk(): void
+    {
+        Storage::fake('public');
+
+        $product = Product::factory()->create();
+
+        Livewire::test(EditProduct::class, ['record' => $product->getKey()])
+            ->fillForm(['gallery' => [UploadedFile::fake()->image('sofa.jpg', 800, 800)]])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $photo = $product->fresh()->getFirstMedia(Product::GALLERY);
+
+        $this->assertNotNull($photo);
+        $this->assertSame('public', $photo->disk);
+        Storage::disk('public')->assertExists($photo->getPathRelativeToRoot());
+        $this->assertTrue($photo->hasGeneratedConversion('thumb'));
+        $this->assertStringNotContainsString('signature=', $photo->getUrl('thumb'));
+    }
+
+    public function test_categories_are_listed_as_a_tree(): void
+    {
+        $dining = Category::factory()->create(['name' => 'Dining', 'position' => 2]);
+        $living = Category::factory()->create(['name' => 'Living room', 'position' => 1]);
+        $tables = Category::factory()->childOf($dining)->create(['name' => 'Dining tables', 'position' => 1]);
+        $armchairs = Category::factory()->childOf($living)->create(['name' => 'Armchairs', 'position' => 2]);
+        $sofas = Category::factory()->childOf($living)->create(['name' => 'Sofas', 'position' => 1]);
+
+        Livewire::test(ListCategories::class)
+            ->assertCanSeeTableRecords([$living, $sofas, $armchairs, $dining, $tables], inOrder: true);
     }
 
     public function test_marking_a_variant_as_default_clears_the_previous_default(): void

@@ -9,6 +9,9 @@ use Spatie\MediaLibrary\HasMedia;
  */
 class ProductImage
 {
+    /** Photos are public files, served straight from disk by the web server. */
+    public const DISK = 'public';
+
     /** @var array<string, int> conversion name => width in pixels */
     public const WIDTHS = [
         'thumb' => 160,

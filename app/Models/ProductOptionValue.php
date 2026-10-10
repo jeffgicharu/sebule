@@ -36,7 +36,7 @@ class ProductOptionValue extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection(self::IMAGES);
+        $this->addMediaCollection(self::IMAGES)->useDisk(ProductImage::DISK);
     }
 
     public function registerMediaConversions(?Media $media = null): void
