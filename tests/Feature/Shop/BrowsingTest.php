@@ -31,121 +31,121 @@ class BrowsingTest extends TestCase
     {
         $this->get('/')
             ->assertOk()
-            ->assertSee('Furniture for the way Kenya lives.')
-            ->assertSee('Shop by room')
+            ->assertSeeText('Furniture for the way Kenya lives.')
+            ->assertSeeText('Shop by room')
             ->assertSee(route('shop.category', 'living-room'), escape: false)
             ->assertSee(route('shop.collection', 'amani'), escape: false)
-            ->assertSee('On offer this month')
-            ->assertSee('Website by');
+            ->assertSeeText('On offer this month')
+            ->assertSeeText('Website by');
     }
 
     public function test_a_room_lists_the_products_of_its_sub_categories(): void
     {
         $this->get('/c/living-room')
             ->assertOk()
-            ->assertSee('Living room')
-            ->assertSee('20 products')
-            ->assertSee('Amani 3-seater sofa')
-            ->assertSee('Page 1 of 2');
+            ->assertSeeText('Living room')
+            ->assertSeeText('20 products')
+            ->assertSeeText('Amani 3-seater sofa')
+            ->assertSeeText('Page 1 of 2');
 
-        $this->get('/c/living-room?page=2')->assertOk()->assertSee('Page 2 of 2');
+        $this->get('/c/living-room?page=2')->assertOk()->assertSeeText('Page 2 of 2');
     }
 
     public function test_a_sub_category_lists_only_its_own_products(): void
     {
         $this->get('/c/sofas')
             ->assertOk()
-            ->assertSee('6 products')
-            ->assertSee('Naivasha 2-seater sofa')
-            ->assertDontSee('Amani armchair')
-            ->assertSee('KSh 98,000');
+            ->assertSeeText('6 products')
+            ->assertSeeText('Naivasha 2-seater sofa')
+            ->assertDontSeeText('Amani armchair')
+            ->assertSeeText('KSh 98,000');
     }
 
     public function test_filters_narrow_the_list_and_stay_in_the_address(): void
     {
         $this->get('/c/sofas?colour=Forest')
             ->assertOk()
-            ->assertSee('2 products')
-            ->assertSee('Amani 3-seater sofa')
-            ->assertDontSee('Elgon 3-seater sofa')
-            ->assertSee('Clear filters');
+            ->assertSeeText('2 products')
+            ->assertSeeText('Amani 3-seater sofa')
+            ->assertDontSeeText('Elgon 3-seater sofa')
+            ->assertSeeText('Clear filters');
 
         $this->get('/c/sofas?availability=made-to-order')
-            ->assertSee('2 products')
-            ->assertSee('Naivasha 3-seater sofa')
-            ->assertDontSee('Watamu 2-seater sofa');
+            ->assertSeeText('2 products')
+            ->assertSeeText('Naivasha 3-seater sofa')
+            ->assertDontSeeText('Watamu 2-seater sofa');
 
         $this->get('/c/sofas?price=over-100000')
-            ->assertSee('2 products')
-            ->assertSee('Elgon 3-seater sofa');
+            ->assertSeeText('2 products')
+            ->assertSeeText('Elgon 3-seater sofa');
 
         $this->get('/c/sofas?price=under-20000')
             ->assertOk()
-            ->assertSee('Nothing matches those filters.');
+            ->assertSeeText('Nothing matches those filters.');
     }
 
     public function test_products_can_be_sorted_by_price(): void
     {
-        $this->get('/c/sofas?sort=price-asc')->assertSeeInOrder(['Watamu 2-seater sofa', 'Amani 2-seater sofa', 'Elgon 3-seater sofa']);
-        $this->get('/c/sofas?sort=price-desc')->assertSeeInOrder(['Elgon 3-seater sofa', 'Naivasha 3-seater sofa', 'Watamu 2-seater sofa']);
+        $this->get('/c/sofas?sort=price-asc')->assertSeeTextInOrder(['Watamu 2-seater sofa', 'Amani 2-seater sofa', 'Elgon 3-seater sofa']);
+        $this->get('/c/sofas?sort=price-desc')->assertSeeTextInOrder(['Elgon 3-seater sofa', 'Naivasha 3-seater sofa', 'Watamu 2-seater sofa']);
     }
 
     public function test_a_card_marks_offers_and_made_to_order_pieces(): void
     {
         $this->get('/c/sofas')
-            ->assertSee('Offer')
-            ->assertSee('Made to order')
-            ->assertSee('KSh 84,000');
+            ->assertSeeText('Offer')
+            ->assertSeeText('Made to order')
+            ->assertSeeText('KSh 84,000');
     }
 
     public function test_a_collection_page_lists_its_pieces(): void
     {
         $this->get('/collections/amani')
             ->assertOk()
-            ->assertSee('5 pieces')
-            ->assertSeeInOrder(['Amani 3-seater sofa', 'Amani 2-seater sofa', 'Amani armchair']);
+            ->assertSeeText('5 pieces')
+            ->assertSeeTextInOrder(['Amani 3-seater sofa', 'Amani 2-seater sofa', 'Amani armchair']);
     }
 
     public function test_a_product_page_shows_the_default_variant(): void
     {
         $this->get('/p/amani-3-seater-sofa')
             ->assertOk()
-            ->assertSee('Amani 3-seater sofa')
-            ->assertSee('KSh 98,000')
-            ->assertSee('In stock and ready to deliver')
-            ->assertSee('220 wide')
-            ->assertSee('AMANI-3-SEATER-SOFA-SAND')
-            ->assertSee('Amani collection')
-            ->assertSee('2 years')
-            ->assertSee('More sofas');
+            ->assertSeeText('Amani 3-seater sofa')
+            ->assertSeeText('KSh 98,000')
+            ->assertSeeText('In stock and ready to deliver')
+            ->assertSeeText('220 wide')
+            ->assertSeeText('AMANI-3-SEATER-SOFA-SAND')
+            ->assertSeeText('Amani collection')
+            ->assertSeeText('2 years')
+            ->assertSeeText('More sofas');
     }
 
     public function test_choosing_a_colour_changes_the_variant_shown(): void
     {
         $this->get('/p/amani-3-seater-sofa?v=clay')
             ->assertOk()
-            ->assertSee('AMANI-3-SEATER-SOFA-CLAY')
-            ->assertSee('Out of stock in Clay');
+            ->assertSeeText('AMANI-3-SEATER-SOFA-CLAY')
+            ->assertSeeText('Out of stock in Clay');
 
         $this->get('/p/amani-3-seater-sofa?v=forest')
-            ->assertSee('AMANI-3-SEATER-SOFA-FOREST')
-            ->assertSee('In stock and ready to deliver');
+            ->assertSeeText('AMANI-3-SEATER-SOFA-FOREST')
+            ->assertSeeText('In stock and ready to deliver');
 
         $this->get('/p/tana-6-seater-dining-table?v=dark-walnut')
-            ->assertSee('KSh 88,000')
-            ->assertSee('Only 2 left in stock');
+            ->assertSeeText('KSh 88,000')
+            ->assertSeeText('Only 2 left in stock');
 
-        $this->get('/p/amani-3-seater-sofa?v=not-a-colour')->assertOk()->assertSee('AMANI-3-SEATER-SOFA-SAND');
+        $this->get('/p/amani-3-seater-sofa?v=not-a-colour')->assertOk()->assertSeeText('AMANI-3-SEATER-SOFA-SAND');
     }
 
     public function test_a_made_to_order_piece_shows_its_lead_time(): void
     {
-        $this->get('/p/lamu-king-bed')->assertOk()->assertSee('Made to order in about 4 weeks');
+        $this->get('/p/lamu-king-bed')->assertOk()->assertSeeText('Made to order in about 4 weeks');
     }
 
     public function test_a_product_on_offer_shows_its_earlier_price(): void
     {
-        $this->get('/p/amani-2-seater-sofa')->assertSee('KSh 72,000')->assertSee('KSh 84,000');
+        $this->get('/p/amani-2-seater-sofa')->assertSeeText('KSh 72,000')->assertSeeText('KSh 84,000');
     }
 
     public function test_unpublished_products_and_hidden_categories_are_not_found(): void
@@ -157,16 +157,16 @@ class BrowsingTest extends TestCase
         $this->get('/p/kito-table-lamp')->assertNotFound();
         $this->get('/c/mirrors')->assertNotFound();
         $this->get('/collections/kito')->assertNotFound();
-        $this->get('/c/table-lamps')->assertOk()->assertDontSee('Kito table lamp')->assertSee('3 products');
+        $this->get('/c/table-lamps')->assertOk()->assertDontSeeText('Kito table lamp')->assertSeeText('3 products');
         $this->get('/p/no-such-product')->assertNotFound();
     }
 
     public function test_the_menu_follows_changes_staff_make(): void
     {
-        $this->get('/')->assertSee('Pendant lights');
+        $this->get('/')->assertSeeText('Pendant lights');
 
         Category::where('slug', 'pendant-lights')->first()->update(['name' => 'Ceiling lights']);
 
-        $this->get('/')->assertSee('Ceiling lights')->assertDontSee('Pendant lights');
+        $this->get('/')->assertSeeText('Ceiling lights')->assertDontSeeText('Pendant lights');
     }
 }
