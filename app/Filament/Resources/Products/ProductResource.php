@@ -28,9 +28,6 @@ class ProductResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    // Staff links use the id, so renaming a web address never breaks a screen that is open.
-    protected static ?string $recordRouteKeyName = 'id';
-
     public static function form(Schema $schema): Schema
     {
         return ProductForm::configure($schema);

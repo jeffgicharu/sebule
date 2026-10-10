@@ -4,13 +4,16 @@ namespace Tests\Feature\Admin;
 
 use App\Enums\ProductStatus;
 use App\Enums\StockMovementReason;
+use App\Filament\Resources\Categories\CategoryResource;
 use App\Filament\Resources\Categories\Pages\CreateCategory;
 use App\Filament\Resources\Categories\Pages\ListCategories;
+use App\Filament\Resources\Collections\CollectionResource;
 use App\Filament\Resources\Collections\Pages\CreateCollection;
 use App\Filament\Resources\Collections\Pages\ListCollections;
 use App\Filament\Resources\Products\Pages\CreateProduct;
 use App\Filament\Resources\Products\Pages\EditProduct;
 use App\Filament\Resources\Products\Pages\ListProducts;
+use App\Filament\Resources\Products\ProductResource;
 use App\Filament\Resources\Products\RelationManagers\VariantsRelationManager;
 use App\Models\Category;
 use App\Models\Collection;
@@ -47,6 +50,28 @@ class CatalogueScreensTest extends TestCase
         Livewire::test(ListCategories::class)->assertOk()->assertCanSeeTableRecords([$category]);
         Livewire::test(ListProducts::class)->assertOk()->assertCanSeeTableRecords([$product])->assertSee('KSh 65,000');
         Livewire::test(ListCollections::class)->assertOk()->assertCanSeeTableRecords([$collection]);
+    }
+
+    /**
+     * Follows the links the list screens actually print, so a mismatch between
+     * how a link is built and how the record is looked up cannot slip through.
+     */
+    public function test_the_edit_links_on_the_list_screens_open(): void
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->for($category)->create();
+        $collection = Collection::factory()->create();
+
+        foreach ([
+            CategoryResource::class => $category,
+            ProductResource::class => $product,
+            CollectionResource::class => $collection,
+        ] as $resource => $record) {
+            $editUrl = $resource::getUrl('edit', ['record' => $record]);
+
+            $this->get($resource::getUrl('index'))->assertOk()->assertSee($editUrl, escape: false);
+            $this->get($editUrl)->assertOk();
+        }
     }
 
     public function test_a_category_can_be_created_under_a_parent(): void
@@ -116,7 +141,7 @@ class CatalogueScreensTest extends TestCase
         $product = Product::factory()->create();
         $variant = ProductVariant::factory()->for($product)->create();
 
-        Livewire::test(EditProduct::class, ['record' => $product->getKey()])->assertOk();
+        Livewire::test(EditProduct::class, ['record' => $product->getRouteKey()])->assertOk();
 
         Livewire::test(VariantsRelationManager::class, ['ownerRecord' => $product, 'pageClass' => EditProduct::class])
             ->assertOk()
@@ -195,7 +220,7 @@ class CatalogueScreensTest extends TestCase
 
         $product = Product::factory()->create();
 
-        Livewire::test(EditProduct::class, ['record' => $product->getKey()])
+        Livewire::test(EditProduct::class, ['record' => $product->getRouteKey()])
             ->fillForm(['gallery' => [UploadedFile::fake()->image('sofa.jpg', 800, 800)]])
             ->call('save')
             ->assertHasNoFormErrors();
