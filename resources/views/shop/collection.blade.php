@@ -1,6 +1,16 @@
-<x-shop.layout :title="$collection->name.' collection'" :description="$collection->description">
+@php
+    use App\Seo\StructuredData;
+
+    $name = $collection->name.' collection';
+    $trail = [[$name, null]];
+    $address = route('shop.collection', $collection);
+    $description = $collection->description ?: 'The '.$name.' from Sebule: furniture designed to live together, made in Kenya and delivered across the country.';
+@endphp
+
+<x-shop.layout :title="$name" :description="$description" :canonical="$address"
+    :schema="[StructuredData::breadcrumbs($trail, $address), StructuredData::listing($name, $address, $description, $products)]">
     <div class="wrap pt-6 lg:pt-8">
-        <x-shop.breadcrumbs :trail="[[$collection->name.' collection', null]]" />
+        <x-shop.breadcrumbs :trail="$trail" />
 
         <header class="mt-6 grid gap-6 border-b border-rule pb-10 lg:mt-10 lg:grid-cols-12 lg:items-end">
             <div class="lg:col-span-7">

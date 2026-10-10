@@ -1,4 +1,8 @@
-<x-shop.layout>
+@php
+    $about = 'Furniture and homeware designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered across Kenya, with M-Pesa or card at checkout.';
+@endphp
+
+<x-shop.layout :description="$about" :schema="\App\Seo\StructuredData::store($about)">
     {{-- Hero. On a phone the words sit on paper above a photo cut for that shape;
          from tablet up they sit on the quiet left side of the wide photo. --}}
     <section class="relative md:min-h-[min(44vw,40rem)]">

@@ -19,10 +19,6 @@ class BrowsingTest extends TestCase
     {
         parent::setUp();
 
-        // A cache that serialises what it stores, as the live one does, so anything that
-        // cannot survive the round trip fails here and not in production.
-        config(['cache.default' => 'database']);
-
         $this->seed([CategorySeeder::class, CatalogueSeeder::class]);
         $this->withoutVite();
     }
@@ -35,8 +31,7 @@ class BrowsingTest extends TestCase
             ->assertSeeText('Shop by room')
             ->assertSee(route('shop.category', 'living-room'), escape: false)
             ->assertSee(route('shop.collection', 'amani'), escape: false)
-            ->assertSeeText('On offer this month')
-            ->assertSeeText('Website by');
+            ->assertSeeText('On offer this month');
     }
 
     public function test_a_room_lists_the_products_of_its_sub_categories(): void

@@ -20,6 +20,9 @@ class ProductImage
         'large' => 1600,
     ];
 
+    /** The conversion shown when a page is shared or listed by a search engine. */
+    public const SHARE = 'share';
+
     public static function registerConversions(HasMedia $model): void
     {
         foreach (self::WIDTHS as $name => $width) {
@@ -29,5 +32,12 @@ class ProductImage
                 ->quality(80)
                 ->queued();
         }
+
+        // A JPEG for link previews and search results, which do not all read WebP.
+        $model->addMediaConversion(self::SHARE)
+            ->width(1200)
+            ->format('jpg')
+            ->quality(82)
+            ->queued();
     }
 }

@@ -1,26 +1,81 @@
-@props(['title' => null, 'description' => null, 'image' => null])
+{{--
+    The frame of every shop page.
+
+    title        the page's own name; the store's name is added after it
+    description  one or two sentences for search results and link previews
+    image        ['url' => ..., 'width' => ..., 'height' => ..., 'alt' => ...] shown when the page is shared
+    type         the Open Graph type: "website" or "product"
+    canonical    the address search engines should file the page under, when it is not the current one
+    schema       schema.org nodes describing the page, printed as one JSON-LD graph
+    head         a slot for tags only this page needs
+--}}
+@props(['title' => null, 'description' => null, 'image' => null, 'type' => 'website', 'canonical' => null, 'schema' => [], 'head' => null])
 
 @php
-    $pageTitle = $title ? $title.' | '.config('app.name') : config('app.name').' | Furniture made in Kenya';
-    $pageDescription = $description ?: 'Furniture and homeware designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered across Kenya.';
+    $store = config('app.name');
+    $pageTitle = $title ? $title.' | '.$store : $store.' | Furniture and homeware made in Kenya';
+    $pageDescription = Str::limit(Str::squish(strip_tags($description ?: 'Furniture and homeware designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered across Kenya, with M-Pesa or card at checkout.')), 158);
+    $pageUrl = $canonical ?: url()->current();
+    $share = $image ?: [
+        'url' => asset('images/site/share-1200.jpg'),
+        'width' => 1200,
+        'height' => 630,
+        'alt' => 'The Amani sofa in a bright Nairobi living room',
+    ];
+
+    // Encoded here and not in the markup, where Blade would read "@context" as one of its own directives.
+    $structured = $schema ? json_encode(
+        ['@context' => 'https://schema.org', '@graph' => array_values($schema)],
+        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP,
+    ) : null;
 @endphp
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en-KE">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ $pageTitle }}</title>
         <meta name="description" content="{{ $pageDescription }}">
-        <link rel="canonical" href="{{ url()->current() }}">
+        <link rel="canonical" href="{{ $pageUrl }}">
+        @if (config('store.allow_indexing'))
+            <meta name="robots" content="index, follow, max-image-preview:large">
+        @endif
 
-        <meta property="og:site_name" content="{{ config('app.name') }}">
-        <meta property="og:title" content="{{ $title ?: config('app.name') }}">
+        <meta property="og:site_name" content="{{ $store }}">
+        <meta property="og:locale" content="en_KE">
+        <meta property="og:type" content="{{ $type }}">
+        <meta property="og:title" content="{{ $title ?: $pageTitle }}">
         <meta property="og:description" content="{{ $pageDescription }}">
-        <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:image" content="{{ $image ?: asset('images/site/hero-living-1600.jpg') }}">
-        <meta name="theme-color" content="#f4efe6">
+        <meta property="og:url" content="{{ $pageUrl }}">
+        <meta property="og:image" content="{{ $share['url'] }}">
+        @isset($share['width'])
+            <meta property="og:image:width" content="{{ $share['width'] }}">
+            <meta property="og:image:height" content="{{ $share['height'] }}">
+        @endisset
+        <meta property="og:image:alt" content="{{ $share['alt'] ?? $pageTitle }}">
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $title ?: $pageTitle }}">
+        <meta name="twitter:description" content="{{ $pageDescription }}">
+        <meta name="twitter:image" content="{{ $share['url'] }}">
+        <meta name="twitter:image:alt" content="{{ $share['alt'] ?? $pageTitle }}">
+
+        {{ $head }}
+
+        <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
+        <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+        <link rel="manifest" href="{{ asset('manifest.json') }}">
+        <meta name="theme-color" content="#2f4a3a">
+        <meta name="application-name" content="{{ $store }}">
+        <meta name="apple-mobile-web-app-title" content="{{ $store }}">
+        <meta name="format-detection" content="telephone=no">
+
+        @if ($structured)
+            <script type="application/ld+json">{!! $structured !!}</script>
+        @endif
 
         @fonts
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -44,7 +99,8 @@
                                 <a href="{{ route('shop.category', $room['slug']) }}" class="block border-b-2 border-transparent py-2 transition-colors hover:border-ink group-focus-within:border-ink">{{ $room['name'] }}</a>
 
                                 @if ($room['children'])
-                                    <ul class="invisible absolute left-1/2 top-full z-30 w-56 -translate-x-1/2 border border-rule bg-paper p-2 opacity-0 shadow-[0_18px_40px_-18px_rgb(31_29_26/0.35)] transition duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                                    {{-- The last two open leftwards from their right edge, so no list reaches past the page. --}}
+                                    <ul class="invisible absolute top-full z-30 w-56 {{ $loop->remaining < 2 ? 'right-0' : 'left-1/2 -translate-x-1/2' }} border border-rule bg-paper p-2 opacity-0 shadow-[0_18px_40px_-18px_rgb(31_29_26/0.35)] transition duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                                         @foreach ($room['children'] as $child)
                                             <li><a href="{{ route('shop.category', $child['slug']) }}" class="block px-3 py-2 font-normal hover:bg-tile">{{ $child['name'] }}</a></li>
                                         @endforeach
@@ -111,14 +167,14 @@
 
                 <div class="md:col-span-3">
                     <h2 class="eyebrow !text-sand">Showroom</h2>
-                    <p class="mt-4 text-paper/85">Ngong Road, Nairobi<br>Monday to Saturday, 9 am to 6 pm</p>
+                    <p class="mt-4 text-paper/85">{{ config('store.showroom.street') }}, {{ config('store.showroom.city') }}<br>Monday to Saturday, 9 am to 6 pm</p>
                 </div>
             </div>
 
             <div class="border-t border-paper/15">
                 <p class="wrap flex flex-col gap-2 py-6 text-sm text-paper/60 sm:flex-row sm:justify-between">
-                    <span>&copy; {{ now()->year }} {{ config('app.name') }}. Prices include VAT.</span>
-                    <span>Website by <a href="https://jeffgicharu.com" class="text-paper/85 underline underline-offset-4 hover:text-paper">jeffgicharu.com</a></span>
+                    <span>&copy; {{ now()->year }} {{ config('app.name') }}. All rights reserved.</span>
+                    <span>Every price includes VAT.</span>
                 </p>
             </div>
         </footer>

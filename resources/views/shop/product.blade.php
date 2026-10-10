@@ -1,6 +1,8 @@
 @php
     use App\Enums\Availability;
+    use App\Catalogue\ProductImage;
     use App\Http\Controllers\Shop\ProductController;
+    use App\Seo\StructuredData;
     use App\Support\Money;
 
     $category = $product->category;
@@ -15,9 +17,32 @@
     $collection = $product->collections->first();
     $size = collect([$selected->width_cm, $selected->depth_cm, $selected->height_cm])->filter();
     $number = fn ($value) => rtrim(rtrim(number_format((float) $value, 1), '0'), '.');
+
+    // Every colour is the same page to a search engine, filed under the address without a colour.
+    $address = route('shop.product', $product);
+    $inColour = $option && $selected->label() !== $defaultLabel ? ' in '.$selected->label() : '';
+    $title = $product->seo_title ?: $product->name.$inColour;
+    $description = $product->seo_description
+        ?: trim(($product->summary ? Str::finish($product->summary, '.').' ' : '').Money::format($selected->price).' including VAT, delivered across Kenya.');
+
+    $lead = $photos->first();
+    $image = $lead ? [
+        'url' => StructuredData::photoUrl($lead),
+        'alt' => $product->name.$inColour,
+    ] + ($lead->hasGeneratedConversion(ProductImage::SHARE) ? ['width' => 1200, 'height' => 1200] : []) : null;
 @endphp
 
-<x-shop.layout :title="$product->seo_title ?: $product->name" :description="$product->seo_description ?: $product->summary" :image="$photos->first()?->getFullUrl('large')">
+<x-shop.layout :title="$title" :description="$description" :image="$image" type="product" :canonical="$address"
+    :schema="[StructuredData::breadcrumbs($trail, $address), StructuredData::product($product, $photos)]">
+    <x-slot:head>
+        <meta property="product:brand" content="{{ config('app.name') }}">
+        <meta property="product:price:amount" content="{{ StructuredData::amount($selected->price) }}">
+        <meta property="product:price:currency" content="{{ StructuredData::CURRENCY }}">
+        <meta property="product:availability" content="{{ $availability === Availability::OutOfStock ? 'out of stock' : ($availability === Availability::MadeToOrder ? 'available for order' : 'in stock') }}">
+        <meta property="product:condition" content="new">
+        <meta property="product:retailer_item_id" content="{{ $selected->sku }}">
+    </x-slot:head>
+
     <div class="wrap pt-6 lg:pt-8">
         <x-shop.breadcrumbs :trail="$trail" />
 

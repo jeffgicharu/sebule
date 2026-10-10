@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->brandName(config('app.name'))
+            ->favicon(asset('favicon.svg'))
             ->colors([
                 // Sebule forest green. Shade 600 is the brand colour and carries white text.
                 'primary' => [

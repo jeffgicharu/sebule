@@ -1,5 +1,6 @@
 @php
     use App\Catalogue\ProductListing;
+    use App\Seo\StructuredData;
 
     $trail = $category->parent
         ? [[$category->parent->name, route('shop.category', $category->parent)], [$category->name, null]]
@@ -7,9 +8,17 @@
 
     $active = collect($filters)->except('sort')->filter();
     $description = $category->seo_description ?: ($category->description ?: 'Shop '.strtolower($category->name).' from Sebule, made in Kenya and delivered across the country.');
+
+    // Filters and sorting are views of the same page, so they share its address; a later page has its own.
+    $page = $products->currentPage();
+    $address = route('shop.category', array_filter(['category' => $category, 'page' => $page > 1 ? $page : null]));
+    $title = ($category->seo_title ?: $category->name)
+        .($page > 1 ? ', page '.$page : '')
+        .($category->parent && ! $category->seo_title ? ' | '.$category->parent->name : '');
 @endphp
 
-<x-shop.layout :title="$category->seo_title ?: $category->name" :description="$description">
+<x-shop.layout :title="$title" :description="$description" :canonical="$address"
+    :schema="[StructuredData::breadcrumbs($trail, $address), StructuredData::listing($category->name, $address, $description, $products->items())]">
     <div class="wrap pt-6 lg:pt-8">
         <x-shop.breadcrumbs :trail="$trail" />
 
@@ -38,7 +47,7 @@
         @endif
 
         {{-- Filters are a plain form, so every choice is in the address and works without script. --}}
-        <form method="get" action="{{ route('shop.category', $category) }}" class="mt-8 border-y border-rule py-4">
+        <form method="get" action="{{ route('shop.category', $category) }}" data-tidy-address class="mt-8 border-y border-rule py-4">
             <div class="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-end sm:gap-4">
                 @foreach ([
                     'price' => ['Price', collect(ProductListing::PRICE_BANDS)->map(fn ($band) => $band[2])->all()],
@@ -60,7 +69,7 @@
 
                 <label class="block text-sm sm:ml-auto">
                     <span class="eyebrow block">Sort by</span>
-                    <select name="sort" onchange="this.form.requestSubmit()" class="mt-1.5 min-h-11 w-full border border-rule bg-paper px-3 pr-8 text-[0.95rem] sm:w-auto sm:min-w-44">
+                    <select name="sort" data-default="featured" onchange="this.form.requestSubmit()" class="mt-1.5 min-h-11 w-full border border-rule bg-paper px-3 pr-8 text-[0.95rem] sm:w-auto sm:min-w-44">
                         @foreach (ProductListing::SORTS as $value => $text)
                             <option value="{{ $value }}" @selected(($filters['sort'] ?? 'featured') === $value)>{{ $text }}</option>
                         @endforeach

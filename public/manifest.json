@@ -1,0 +1,14 @@
+{
+    "name": "Sebule",
+    "short_name": "Sebule",
+    "description": "Furniture and homeware made in Kenya, delivered across the country.",
+    "start_url": "/",
+    "display": "minimal-ui",
+    "background_color": "#f4efe6",
+    "theme_color": "#2f4a3a",
+    "icons": [
+        { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+        { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+        { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    ]
+}

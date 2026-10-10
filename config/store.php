@@ -1,6 +1,6 @@
 <?php
 
-$revisionFile = dirname(__DIR__).'/REVISION';
+use App\Support\Release;
 
 return [
 
@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'release' => env('APP_RELEASE') ?: (is_file($revisionFile) ? trim((string) file_get_contents($revisionFile)) : null),
+    'release' => Release::id(),
 
     /*
     |--------------------------------------------------------------------------
@@ -27,5 +27,24 @@ return [
     */
 
     'allow_indexing' => (bool) env('STORE_ALLOW_INDEXING', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Showroom
+    |--------------------------------------------------------------------------
+    |
+    | Where customers can visit, shown in the footer and given to search
+    | engines with the rest of the store's details.
+    |
+    */
+
+    'showroom' => [
+        'street' => 'Ngong Road',
+        'city' => 'Nairobi',
+        'country' => 'KE',
+        'days' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        'opens' => '09:00',
+        'closes' => '18:00',
+    ],
 
 ];

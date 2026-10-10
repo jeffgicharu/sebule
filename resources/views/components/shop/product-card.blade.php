@@ -10,7 +10,9 @@
     $soldOut = ! $madeToOrder && (int) $product->stock_total === 0;
 @endphp
 
-<article class="group relative flex flex-col">
+{{-- The name takes whatever height the tallest card in its row needs, so prices and
+     swatches line up across the row even when one name runs to a second line. --}}
+<article class="group relative flex h-full flex-col">
     <div class="tile relative aspect-square">
         @if ($photo)
             <x-shop.photo :media="$photo" :alt="$product->name" :sizes="$sizes" :eager="$eager"
@@ -29,7 +31,7 @@
         </p>
     </div>
 
-    <h3 class="mt-4 text-[1.0625rem] leading-snug sm:text-lg">
+    <h3 class="mt-4 flex-1 text-[1.0625rem] leading-snug sm:text-lg">
         <a href="{{ route('shop.product', $product) }}" class="after:absolute after:inset-0">{{ \App\Support\Text::unbroken($product->name) }}</a>
     </h3>
 
@@ -43,10 +45,12 @@
     </p>
 
     @if ($swatches->count() > 1)
-        <ul class="mt-2.5 flex gap-1.5" aria-label="Available in {{ $swatches->pluck('label')->join(', ', ' and ') }}">
+        <ul class="mt-2.5 flex h-3.5 gap-1.5" aria-label="Available in {{ $swatches->pluck('label')->join(', ', ' and ') }}">
             @foreach ($swatches->take(5) as $swatch)
                 <li class="size-3.5 rounded-full ring-1 ring-ink/25" style="background-color: {{ $swatch->swatch }}" title="{{ $swatch->label }}"></li>
             @endforeach
         </ul>
+    @else
+        <div class="mt-2.5 h-3.5" aria-hidden="true"></div>
     @endif
 </article>
