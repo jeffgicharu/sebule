@@ -6,6 +6,7 @@ use App\Enums\ProductStatus;
 use App\Enums\StockMovementReason;
 use App\Filament\Resources\Categories\CategoryResource;
 use App\Filament\Resources\Categories\Pages\CreateCategory;
+use App\Filament\Resources\Categories\Pages\EditCategory;
 use App\Filament\Resources\Categories\Pages\ListCategories;
 use App\Filament\Resources\Collections\CollectionResource;
 use App\Filament\Resources\Collections\Pages\CreateCollection;
@@ -21,6 +22,7 @@ use App\Models\Product;
 use App\Models\ProductOptionValue;
 use App\Models\ProductVariant;
 use App\Models\User;
+use Filament\Actions\DeleteAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -251,6 +253,23 @@ class CatalogueScreensTest extends TestCase
 
         $this->assertTrue($product->fresh()->mainPhoto()->is($photo));
         $this->get(ProductResource::getUrl('index'))->assertOk()->assertSee($photo->getFullUrl('thumb'), escape: false);
+    }
+
+    public function test_a_category_in_use_cannot_be_deleted_from_the_list_or_its_own_page(): void
+    {
+        $inUse = Category::factory()->create();
+        Product::factory()->for($inUse)->create();
+        $empty = Category::factory()->create();
+
+        Livewire::test(ListCategories::class)
+            ->assertTableActionDisabled('delete', $inUse)
+            ->assertTableActionEnabled('delete', $empty);
+
+        Livewire::test(EditCategory::class, ['record' => $inUse->getRouteKey()])->assertActionDisabled(DeleteAction::class);
+        Livewire::test(EditCategory::class, ['record' => $empty->getRouteKey()])->assertActionEnabled(DeleteAction::class);
+
+        $this->assertTrue($inUse->isInUse());
+        $this->assertNotNull($inUse->fresh());
     }
 
     public function test_categories_are_listed_as_a_tree(): void

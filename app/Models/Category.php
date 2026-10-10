@@ -36,6 +36,14 @@ class Category extends Model
         });
     }
 
+    public const IN_USE_MESSAGE = 'Move or delete its products and sub-categories first.';
+
+    /** A category holding products or sub-categories cannot be deleted; the database refuses it too. */
+    public function isInUse(): bool
+    {
+        return $this->children()->exists() || $this->products()->exists();
+    }
+
     /** @return BelongsTo<Category, $this> */
     public function parent(): BelongsTo
     {

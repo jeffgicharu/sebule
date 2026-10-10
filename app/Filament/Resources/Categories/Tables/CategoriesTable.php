@@ -47,7 +47,10 @@ class CategoriesTable
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make()
-                    ->hidden(fn (Category $record): bool => $record->children_count > 0 || $record->products_count > 0),
+                    ->disabled(fn (Category $record): bool => $record->children_count > 0 || $record->products_count > 0)
+                    ->tooltip(fn (Category $record): ?string => $record->children_count > 0 || $record->products_count > 0
+                        ? Category::IN_USE_MESSAGE
+                        : null),
             ]);
     }
 
