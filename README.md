@@ -46,6 +46,14 @@ The command prints a generated password once; only its hash is stored.
 
 `php artisan db:seed` creates the category tree and then the catalogue in `database/seeders/data/catalogue.json`: 8 collections and 80 products with their options, variants, prices and opening stock. Both seeders are safe to run again. Anything whose web address name already exists is left as it is, so changes made in the back office are never overwritten.
 
+Product photos are not kept in the repository. With the files in a directory, named `<photo id>_<option value>_<shot>.jpg` (for example `amani-sofa-3s_sand_studio-34.jpg`), attach them with:
+
+```sh
+php artisan catalogue:import-photos /path/to/photos
+```
+
+A room shot is attached to the product; every other shot is attached to the colour or finish it shows. The command can be run again and only adds what is missing.
+
 ## How the catalogue is modelled
 
 - A **product** belongs to one category and has **options** such as Colour and Size, each with its own choices.
