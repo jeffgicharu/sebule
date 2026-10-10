@@ -1,0 +1,18 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/*
+ * On desktop the stock sidebar is transparent, so the space around its links
+ * reads as a dead column next to the page. Give it its own surface and edge,
+ * and even out the padding either side of the links.
+ */
+.fi-sidebar {
+    @apply lg:border-e lg:border-gray-950/5 lg:bg-white dark:lg:border-white/10 dark:lg:bg-gray-900;
+}
+
+.fi-sidebar-nav {
+    @apply px-5 py-6;
+    scrollbar-gutter: auto;
+}

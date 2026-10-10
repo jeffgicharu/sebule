@@ -9,7 +9,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -26,11 +26,27 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->brandName(config('app.name'))
             ->colors([
-                'primary' => Color::hex('#2F4A3A'),
+                // Sebule forest green. Shade 600 is the brand colour and carries white text.
+                'primary' => [
+                    50 => '#f2f6f3',
+                    100 => '#e2ebe5',
+                    200 => '#c5d6cc',
+                    300 => '#9ab5a5',
+                    400 => '#6b8f7b',
+                    500 => '#456a56',
+                    600 => '#2f4a3a',
+                    700 => '#263c2f',
+                    800 => '#1f3026',
+                    900 => '#18251d',
+                    950 => '#0d1510',
+                ],
             ])
+            ->sidebarWidth('17rem')
+            ->maxContentWidth(Width::Full)
             ->navigationGroups([
                 'Catalogue',
                 'Settings',
