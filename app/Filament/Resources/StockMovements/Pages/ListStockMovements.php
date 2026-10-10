@@ -8,4 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListStockMovements extends ListRecords
 {
     protected static string $resource = StockMovementResource::class;
+
+    // Matches the menu label, which is written in sentence case.
+    protected static ?string $title = 'Stock history';
 }

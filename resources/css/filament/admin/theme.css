@@ -16,3 +16,19 @@
     @apply px-5 py-6;
     scrollbar-gutter: auto;
 }
+
+/*
+ * A table with no header actions still renders their empty slot. On a phone
+ * that slot takes a row and a gap of its own, leaving a blank band above the
+ * search box and pushing it off the card's edge.
+ */
+@media (max-width: 40rem) {
+    .fi-ta-header-toolbar > .fi-ta-actions:not(:has(*)) {
+        display: none;
+    }
+
+    .fi-ta-header-toolbar > :last-child,
+    .fi-ta-header-toolbar .fi-ta-search-field {
+        flex: 1 1 auto;
+    }
+}
