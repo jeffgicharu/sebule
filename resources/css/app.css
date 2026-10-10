@@ -4,6 +4,152 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Young Serif', ui-serif, Georgia, serif;
+
+    /* Paper is the page. Tile is the exact background of the studio photos,
+       so a product photo sits in its tile with no visible edge. */
+    --color-paper: #f4efe6;
+    --color-tile: #efeae2;
+    --color-ink: #1f1d1a;
+    --color-ink-soft: #5d574e;
+    --color-forest: #2f4a3a;
+    --color-forest-deep: #263c2f;
+    --color-clay: #a8532f;
+    --color-sand: #cdba9a;
+    --color-rule: rgb(31 29 26 / 0.14);
+}
+
+@layer base {
+    html {
+        background-color: var(--color-paper);
+        color: var(--color-ink);
+        -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        line-height: 1.12;
+        text-wrap: balance;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-forest);
+        outline-offset: 3px;
+        border-radius: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@layer components {
+    /* Page gutter and maximum width, used by every section. */
+    .wrap {
+        margin-inline: auto;
+        width: 100%;
+        max-width: 84rem;
+        padding-inline: 1rem;
+
+        @media (min-width: 40rem) {
+            padding-inline: 1.5rem;
+        }
+
+        @media (min-width: 64rem) {
+            padding-inline: 2.5rem;
+        }
+    }
+
+    /* Small capitals used for labels above headings and in the catalogue. */
+    .eyebrow {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--color-ink-soft);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 2.875rem;
+        padding: 0.65rem 1.4rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 999px;
+        transition:
+            background-color 0.15s ease,
+            color 0.15s ease,
+            border-color 0.15s ease;
+    }
+
+    .btn-primary {
+        background-color: var(--color-forest);
+        color: var(--color-paper);
+
+        &:hover {
+            background-color: var(--color-forest-deep);
+        }
+    }
+
+    .btn-quiet {
+        border: 1px solid var(--color-ink);
+        color: var(--color-ink);
+
+        &:hover {
+            background-color: var(--color-ink);
+            color: var(--color-paper);
+        }
+    }
+
+    /* An underlined text link with a little movement on hover. */
+    .link {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.3em;
+        text-decoration-color: var(--color-sand);
+        transition: text-decoration-color 0.15s ease;
+
+        &:hover {
+            text-decoration-color: var(--color-ink);
+        }
+    }
+
+    /* Product photo tile: the same colour as the studio background, so the photo has no visible edge. */
+    .tile {
+        background-color: var(--color-tile);
+        overflow: hidden;
+    }
+
+    .prose-shop {
+        color: var(--color-ink-soft);
+
+        & p + p {
+            margin-top: 0.9em;
+        }
+    }
 }

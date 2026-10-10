@@ -9,7 +9,10 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js', 'resources/css/filament/admin/theme.css'],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
+                bunny('Young Serif', {
+                    weights: [400],
+                }),
+                bunny('Hanken Grotesk', {
                     weights: [400, 500, 600],
                 }),
             ],
