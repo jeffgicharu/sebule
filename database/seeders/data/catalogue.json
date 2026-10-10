@@ -505,7 +505,7 @@
           "shelf": "1 solid cypress shelf, 15 cm above the floor, set between the legs",
           "legs": "4 square cypress legs, 5 cm thick, at the corners"
         },
-        "details": "1 top and 1 lower shelf, 4 straight square legs, no drawers, no apron, no castors, nothing on the table in studio shots",
+        "details": "1 top and 1 lower shelf, 4 straight square legs, a shallow apron under the top, no drawers, no castors, nothing on the table in studio shots",
         "second_angle": "studio-side",
         "detail_part": "front left leg where it meets the top and the shelf",
         "room_note": "Sitting room of a Kilimani flat, in front of a sofa, on a sisal rug over parquet, with a ceramic bowl and a small plant on top. The table is the subject and is fully visible."
@@ -810,8 +810,8 @@
       "name": "Karura shelving unit",
       "category": "shelving",
       "collection": "karura",
-      "summary": "Five Meru oak shelves on a slim black steel frame, 185 cm tall.",
-      "description": "The frame is welded from 2 cm square steel tube and powder-coated matte black. Five Meru oak shelves drop onto steel lugs and are fixed from below, so no fixings show. It should be anchored to the wall with the bracket supplied.",
+      "summary": "Six Meru oak shelves on a slim black steel frame, 185 cm tall.",
+      "description": "The frame is welded from 2 cm square steel tube and powder-coated matte black. Six Meru oak shelves drop onto steel lugs and are fixed from below, so no fixings show. It should be anchored to the wall with the bracket supplied.",
       "materials": "Solid Meru oak shelves, oiled. Powder-coated steel frame.",
       "care": "Dust with a dry cloth. Wipe spills from the oak at once. Fix to the wall with the bracket supplied.",
       "warranty_months": 36,
@@ -830,7 +830,7 @@
           "shelves": "5 solid Meru oak shelves, 2.5 cm thick, in natural oil",
           "frame": "matte black powder-coated steel in 2 cm square tube, made of 2 ladder-shaped side frames joined by 1 rail at the back"
         },
-        "details": "exactly 5 shelves, 4 steel uprights, open back and open sides, no doors, no drawers, no diagonal braces, shelves empty in studio shots",
+        "details": "exactly 6 shelves, 4 steel uprights, open back and open sides, no doors, no drawers, no diagonal braces, shelves empty in studio shots",
         "second_angle": "studio-front",
         "detail_part": "front left steel upright and the end of an oak shelf resting on it",
         "room_note": "Home office in a Westlands flat against a white wall, polished concrete floor, the shelves holding ceramics, plain storage boxes and a plant, no books. The shelving unit is the subject and is fully visible."
@@ -842,9 +842,9 @@
       "name": "Lamu queen bed",
       "category": "beds",
       "collection": "lamu",
-      "summary": "A mahogany bed for a 5 x 6 mattress, with a woven cane panel in the headboard.",
-      "description": "The frame is solid mahogany, with a single panel of hand-woven cane set into the headboard. Solid slats on a centre rail carry the mattress, so no base board is needed. It takes a 5 x 6 ft mattress, 152 by 190 cm, and bolts together with the key supplied.",
-      "materials": "Solid mahogany frame. Hand-woven rattan cane panel. Cypress slats.",
+      "summary": "A mahogany bed for a 5 x 6 mattress, with woven cane panels in the headboard.",
+      "description": "The frame is solid mahogany, with two panels of hand-woven cane set into the headboard. Solid slats on a centre rail carry the mattress, so no base board is needed. It takes a 5 x 6 ft mattress, 152 by 190 cm, and bolts together with the key supplied.",
+      "materials": "Solid mahogany frame. Hand-woven rattan cane panels. Cypress slats.",
       "care": "Dust the cane with a soft brush. Wipe the frame with a dry cloth. Tighten the bolts after the first month.",
       "warranty_months": 36,
       "assembly_required": true,
@@ -868,7 +868,7 @@
           "frame": "mahogany side rails and a low foot rail, 30 cm high, with no footboard panel",
           "legs": "4 square mahogany legs, 20 cm high"
         },
-        "details": "1 cane panel in the headboard only, low foot rail level with the side rails, 4 legs, no storage drawers, no canopy, no carving, shown with a mattress, plain white bedding and 2 pillows",
+        "details": "2 cane panels in the headboard divided by a vertical mahogany stile, low foot rail level with the side rails, 4 legs, no storage drawers, no canopy, no carving, shown with a mattress, plain white bedding and 2 pillows",
         "second_angle": "studio-side",
         "detail_part": "left corner of the headboard, the edge of the cane panel and the side rail",
         "room_note": "Bedroom of a Nyali flat with white walls, sliding windows with sheer curtains, a sisal rug and a bedside table with a ceramic lamp. The bed is the subject and is fully visible."
@@ -880,9 +880,9 @@
       "name": "Lamu king bed",
       "category": "beds",
       "collection": "lamu",
-      "summary": "The Lamu bed for a 6 x 6 mattress, in mahogany with a woven cane headboard panel.",
-      "description": "Built like the queen, in solid mahogany with one wide cane panel in the headboard and solid slats on a centre rail. It takes a 6 x 6 ft mattress, 183 by 190 cm. Each bed is made to order and comes in sections that pass through a standard flat door.",
-      "materials": "Solid mahogany frame. Hand-woven rattan cane panel. Cypress slats.",
+      "summary": "The Lamu bed for a 6 x 6 mattress, in mahogany with a woven cane headboard.",
+      "description": "Built like the queen, in solid mahogany with two cane panels in the headboard and solid slats on a centre rail. It takes a 6 x 6 ft mattress, 183 by 190 cm. Each bed is made to order and comes in sections that pass through a standard flat door.",
+      "materials": "Solid mahogany frame. Hand-woven rattan cane panels. Cypress slats.",
       "care": "Dust the cane with a soft brush. Wipe the frame with a dry cloth. Tighten the bolts after the first month.",
       "warranty_months": 36,
       "assembly_required": true,
@@ -906,7 +906,7 @@
           "frame": "mahogany side rails and a low foot rail, 30 cm high, with no footboard panel",
           "legs": "4 square mahogany legs, 20 cm high"
         },
-        "details": "1 cane panel in the headboard only, low foot rail level with the side rails, 4 legs, no storage drawers, no canopy, no carving, shown with a mattress, plain white bedding and 2 pillows",
+        "details": "2 cane panels in the headboard divided by a vertical mahogany stile, low foot rail level with the side rails, 4 legs, no storage drawers, no canopy, no carving, shown with a mattress, plain white bedding and 2 pillows",
         "second_angle": "studio-side",
         "detail_part": "left corner of the headboard, the edge of the cane panel and the side rail",
         "room_note": "Main bedroom of a house in Karen with warm plaster walls, parquet floor, a wool rug and two bedside tables with ceramic lamps. The bed is the subject and is fully visible."
@@ -918,9 +918,9 @@
       "name": "Lamu single bed",
       "category": "beds",
       "collection": "lamu",
-      "summary": "A mahogany single bed for a 3.5 x 6 mattress, with a cane panel in the headboard.",
-      "description": "A narrower Lamu for a child's room or a guest room, in solid mahogany with one cane panel in the headboard. Solid slats carry the mattress, and the frame bolts together in a few minutes. It takes a 3.5 x 6 ft mattress, 107 by 190 cm.",
-      "materials": "Solid mahogany frame. Hand-woven rattan cane panel. Cypress slats.",
+      "summary": "A mahogany single bed for a 3.5 x 6 mattress, with cane panels in the headboard.",
+      "description": "A narrower Lamu for a child's room or a guest room, in solid mahogany with two cane panels in the headboard. Solid slats carry the mattress, and the frame bolts together in a few minutes. It takes a 3.5 x 6 ft mattress, 107 by 190 cm.",
+      "materials": "Solid mahogany frame. Hand-woven rattan cane panels. Cypress slats.",
       "care": "Dust the cane with a soft brush. Wipe the frame with a dry cloth. Tighten the bolts after the first month.",
       "warranty_months": 36,
       "assembly_required": true,
@@ -939,7 +939,7 @@
           "frame": "mahogany side rails and a low foot rail, 30 cm high, with no footboard panel, oiled to a dark red-brown",
           "legs": "4 square mahogany legs, 20 cm high"
         },
-        "details": "single width, 1 cane panel in the headboard only, low foot rail level with the side rails, 4 legs, no storage drawers, no carving, shown with a mattress, plain white bedding and 1 pillow",
+        "details": "single width, 2 cane panels in the headboard divided by a vertical mahogany stile, low foot rail level with the side rails, 4 legs, no storage drawers, no carving, shown with a mattress, plain white bedding and 1 pillow",
         "second_angle": "studio-side",
         "detail_part": "left corner of the headboard, the edge of the cane panel and the side rail",
         "room_note": "Guest room of a Lavington flat with white walls, a steel-framed window with sheer curtains, parquet floor, a small wool rug and a bedside table. The bed is the subject and is fully visible."
@@ -1393,7 +1393,7 @@
           "legs": "4 tapered square legs set in slightly from the corners",
           "finish": "hand-rubbed oil, matte"
         },
-        "details": "rectangular top with visible grain running lengthwise, 4 legs, no apron visible from the front, no stretchers, no chairs in studio shots",
+        "details": "rectangular top with visible grain running lengthwise, 4 legs, a shallow apron under the top, no stretchers, no chairs in studio shots",
         "second_angle": "studio-side",
         "detail_part": "near corner of the top, its rounded edge and the top of the leg",
         "room_note": "Dining corner of a Kilimani flat by a steel-framed window, parquet floor, four simple wooden chairs and a ceramic jug on the table. The table is the subject and is fully visible."
@@ -1426,7 +1426,7 @@
           "legs": "4 tapered square legs set in slightly from the corners",
           "finish": "hand-rubbed oil, matte"
         },
-        "details": "long rectangular top with visible grain running lengthwise, exactly 4 legs, no centre leg, no apron visible from the front, no stretchers, no chairs in studio shots",
+        "details": "long rectangular top with visible grain running lengthwise, exactly 4 legs, no centre leg, a shallow apron under the top, no stretchers, no chairs in studio shots",
         "second_angle": "studio-side",
         "detail_part": "near corner of the top, its rounded edge and the top of the leg",
         "room_note": "Dining room of a house in Karen with warm plaster walls, a polished concrete floor, eight wooden chairs, a long ceramic dish on the table and a pendant light above. The table is the subject and is fully visible."
@@ -1464,7 +1464,7 @@
           "legs": "4 tapered square mvule legs, splayed slightly outwards and set in from the edge",
           "finish": "hand-rubbed oil, matte"
         },
-        "details": "round top, exactly 4 legs, no pedestal, no apron visible, no stretchers, no chairs in studio shots",
+        "details": "round top, exactly 4 legs, no pedestal, a shallow apron under the top, no stretchers, no chairs in studio shots",
         "second_angle": "studio-side",
         "detail_part": "edge of the top and the top of the nearest leg",
         "room_note": "Dining corner of a Westlands flat with white walls, a sliding window with sheer curtains, four wooden chairs and a ceramic vase of green stems. The table is the subject and is fully visible."

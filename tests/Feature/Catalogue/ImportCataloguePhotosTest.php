@@ -45,7 +45,7 @@ class ImportCataloguePhotosTest extends TestCase
         $this->photo('amani-sofa-3s_forest_studio-34.jpg');
 
         $this->artisan('catalogue:import-photos', ['path' => $this->path])
-            ->expectsOutputToContain('5 photos added, 0 already in place.')
+            ->expectsOutputToContain('5 photos added, 0 replaced, 0 already in place.')
             ->assertSuccessful();
 
         $sofa = Product::where('slug', 'amani-3-seater-sofa')->with('options.values')->first();
@@ -91,11 +91,31 @@ class ImportCataloguePhotosTest extends TestCase
 
         $this->artisan('catalogue:import-photos', ['path' => $this->path])->assertSuccessful();
         $this->artisan('catalogue:import-photos', ['path' => $this->path])
-            ->expectsOutputToContain('0 photos added, 1 already in place.')
+            ->expectsOutputToContain('0 photos added, 0 replaced, 1 already in place.')
             ->assertSuccessful();
 
         $this->assertSame(1, Media::count());
         $this->assertFileExists($this->path.'/amani-sofa-3s_sand_studio-34.jpg');
+    }
+
+    public function test_replace_swaps_the_file_and_keeps_its_place_in_the_gallery(): void
+    {
+        $this->photo('amani-sofa-3s_sand_studio-34.jpg');
+        $this->photo('amani-sofa-3s_sand_studio-front.jpg');
+        $this->artisan('catalogue:import-photos', ['path' => $this->path])->assertSuccessful();
+
+        $before = Media::where('file_name', 'amani-sofa-3s_sand_studio-34.jpg')->first();
+
+        $this->artisan('catalogue:import-photos', ['path' => $this->path, '--replace' => true])
+            ->expectsOutputToContain('0 photos added, 2 replaced, 0 already in place.')
+            ->assertSuccessful();
+
+        $after = Media::where('file_name', 'amani-sofa-3s_sand_studio-34.jpg')->first();
+
+        $this->assertSame(2, Media::count());
+        $this->assertNotSame($before->id, $after->id);
+        $this->assertSame($before->order_column, $after->order_column);
+        $this->assertSame('amani-sofa-3s_sand_studio-34.jpg', Media::orderBy('order_column')->first()->file_name);
     }
 
     public function test_it_says_which_products_have_no_photo(): void

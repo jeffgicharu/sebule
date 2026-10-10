@@ -113,6 +113,19 @@ class CatalogueSeederTest extends TestCase
         $this->assertSame(58, Product::has('collections')->count());
     }
 
+    public function test_corrected_wording_can_be_applied_to_named_products(): void
+    {
+        Product::whereIn('slug', ['lamu-queen-bed', 'kito-table-lamp'])->update(['summary' => 'Old wording']);
+
+        $this->artisan('catalogue:refresh-copy', ['slugs' => ['lamu-queen-bed']])->assertSuccessful();
+
+        $this->assertStringContainsString('cane panels', Product::where('slug', 'lamu-queen-bed')->value('summary'));
+        $this->assertStringContainsString('two panels', Product::where('slug', 'lamu-queen-bed')->value('description'));
+        $this->assertSame('Old wording', Product::where('slug', 'kito-table-lamp')->value('summary'));
+
+        $this->artisan('catalogue:refresh-copy', ['slugs' => ['no-such-product']])->assertFailed();
+    }
+
     public function test_running_it_again_changes_nothing(): void
     {
         Product::where('slug', 'kito-table-lamp')->update(['name' => 'Kito lamp, renamed by staff', 'status' => ProductStatus::Draft]);

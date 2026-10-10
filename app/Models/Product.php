@@ -84,6 +84,20 @@ class Product extends Model implements HasMedia
         $query->where('status', ProductStatus::Published);
     }
 
+    /**
+     * The photo that stands for the product in a list: the first photo of the
+     * colour or finish shown first, or failing that the first general photo.
+     */
+    public function mainPhoto(): ?Media
+    {
+        $ofDefaultVariant = $this->defaultVariant?->optionValues
+            ->map(fn (ProductOptionValue $value) => $value->getFirstMedia(ProductOptionValue::IMAGES))
+            ->filter()
+            ->first();
+
+        return $ofDefaultVariant ?? $this->getFirstMedia(self::GALLERY);
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection(self::GALLERY)->useDisk(ProductImage::DISK);

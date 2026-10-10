@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Support\Money;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -18,13 +18,13 @@ class ProductsTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->with('category.parent'))
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['category.parent', 'media', 'defaultVariant.optionValues.media']))
             ->columns([
-                SpatieMediaLibraryImageColumn::make('gallery')
+                ImageColumn::make('photo')
                     ->label('')
-                    ->collection(Product::GALLERY)
-                    ->conversion('thumb')
-                    ->limit(1)
+                    ->state(fn (Product $record): ?string => $record->mainPhoto()?->getFullUrl('thumb'))
+                    ->imageSize(44)
+                    ->square()
                     ->width('1%'),
                 TextColumn::make('name')
                     ->searchable()

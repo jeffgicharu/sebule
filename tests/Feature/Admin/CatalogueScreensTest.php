@@ -18,6 +18,7 @@ use App\Filament\Resources\Products\RelationManagers\VariantsRelationManager;
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Product;
+use App\Models\ProductOptionValue;
 use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -232,6 +233,24 @@ class CatalogueScreensTest extends TestCase
         Storage::disk('public')->assertExists($photo->getPathRelativeToRoot());
         $this->assertTrue($photo->hasGeneratedConversion('thumb'));
         $this->assertStringNotContainsString('signature=', $photo->getUrl('thumb'));
+    }
+
+    public function test_the_products_list_shows_the_photo_of_the_colour_shown_first(): void
+    {
+        Storage::fake('public');
+
+        $product = Product::factory()->create();
+        $colour = $product->options()->create(['name' => 'Colour', 'position' => 1]);
+        $sand = $colour->values()->create(['label' => 'Sand', 'position' => 1]);
+        $variant = ProductVariant::factory()->for($product)->create(['is_default' => true]);
+        $variant->optionValues()->attach($sand);
+
+        $this->assertNull($product->fresh()->mainPhoto());
+
+        $photo = $sand->addMedia(UploadedFile::fake()->image('sand.jpg', 600, 600))->toMediaCollection(ProductOptionValue::IMAGES);
+
+        $this->assertTrue($product->fresh()->mainPhoto()->is($photo));
+        $this->get(ProductResource::getUrl('index'))->assertOk()->assertSee($photo->getFullUrl('thumb'), escape: false);
     }
 
     public function test_categories_are_listed_as_a_tree(): void

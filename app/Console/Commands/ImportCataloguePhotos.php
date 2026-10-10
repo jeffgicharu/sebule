@@ -18,7 +18,7 @@ use Spatie\MediaLibrary\HasMedia;
  * the product whatever colour is chosen; every other shot belongs to the
  * colour or finish it shows.
  */
-#[Signature('catalogue:import-photos {path : Directory holding the photo files}')]
+#[Signature('catalogue:import-photos {path : Directory holding the photo files} {--replace : Swap in the file when a photo of the same name is already attached}')]
 #[Description('Attach product photos from a directory to the catalogue')]
 class ImportCataloguePhotos extends Command
 {
@@ -41,7 +41,7 @@ class ImportCataloguePhotos extends Command
             flags: JSON_THROW_ON_ERROR,
         );
 
-        $added = $skipped = 0;
+        $added = $replaced = $skipped = 0;
         $withoutPhotos = [];
 
         foreach ($catalogue['products'] as $entry) {
@@ -62,23 +62,35 @@ class ImportCataloguePhotos extends Command
             foreach ($photos as $photo) {
                 [$model, $collection] = $this->ownerOf($product, $entry, $photo);
 
-                if ($model->getMedia($collection)->contains('file_name', $photo['name'])) {
+                $existing = $model->getMedia($collection)->firstWhere('file_name', $photo['name']);
+
+                if ($existing !== null && ! $this->option('replace')) {
                     $skipped++;
 
                     continue;
                 }
 
-                $model->addMedia($photo['file'])
+                $position = $existing?->order_column;
+                $existing?->delete();
+
+                $media = $model->addMedia($photo['file'])
                     ->preservingOriginal()
                     ->usingFileName($photo['name'])
                     ->usingName($product->name)
                     ->toMediaCollection($collection);
 
-                $added++;
+                // A replacement takes the place in the gallery of the photo it replaces.
+                if ($position !== null) {
+                    $media->update(['order_column' => $position]);
+                }
+
+                $model->unsetRelation('media');
+
+                $existing === null ? $added++ : $replaced++;
             }
         }
 
-        $this->info("{$added} photos added, {$skipped} already in place.");
+        $this->info("{$added} photos added, {$replaced} replaced, {$skipped} already in place.");
 
         if ($withoutPhotos !== []) {
             $this->warn(count($withoutPhotos).' products have no photo: '.implode(', ', $withoutPhotos).'.');
