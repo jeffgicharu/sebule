@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Products\RelationManagers;
 
 use App\Catalogue\VariantGenerator;
 use App\Enums\StockMovementReason;
+use App\Filament\Resources\StockMovements\StockMovementResource;
 use App\Filament\Support\MoneyInput;
 use App\Inventory\InsufficientStock;
 use App\Inventory\StockLedger;
@@ -189,6 +190,11 @@ class VariantsRelationManager extends RelationManager
                             ->success()
                             ->send();
                     }),
+                Action::make('stockHistory')
+                    ->label('History')
+                    ->icon(Heroicon::OutlinedClipboardDocumentList)
+                    ->color('gray')
+                    ->url(fn (ProductVariant $record): string => StockMovementResource::getUrl('index', ['search' => $record->sku])),
                 EditAction::make(),
                 DeleteAction::make(),
             ]);

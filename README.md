@@ -30,20 +30,24 @@ The shop is at http://localhost:8000 and the back office at http://localhost:800
 
 ## Staff accounts
 
-Staff sign in to the back office with their own accounts, which are separate from customer accounts. Create one from the command line:
+Staff sign in to the back office with their own accounts, which are separate from customer accounts. The roles are `owner`, `manager`, `fulfilment` and `support`.
+
+Owners add and manage staff in the back office under Settings, Staff. Accounts are switched off when someone leaves, never deleted, so stock history keeps the name of whoever made each change.
+
+The first owner has to be created from the command line:
 
 ```sh
-php artisan staff:create "Wanjiru Kamau" wanjiru@example.com --role=manager
+php artisan staff:create "Wanjiru Kamau" wanjiru@example.com --role=owner
 ```
 
-The roles are `owner`, `manager`, `fulfilment` and `support`. The command prints a generated password once; only its hash is stored.
+The command prints a generated password once; only its hash is stored.
 
 ## How the catalogue is modelled
 
 - A **product** belongs to one category and has **options** such as Colour and Size, each with its own choices.
 - A **variant** is one buyable combination of those choices, with its own SKU, price and stock. The back office generates the combinations.
 - Prices are whole numbers of cents. Nothing in the application holds money as a float.
-- Stock changes only through `App\Inventory\StockLedger`. It locks the variant's row, refuses to go below zero, and writes a movement recording who changed it, why, and the balance left. The database has its own check constraint as a second line of defence.
+- Stock changes only through `App\Inventory\StockLedger`. It locks the variant's row, refuses to go below zero, and writes a movement recording who changed it, why, and the balance left. The database has its own check constraint as a second line of defence. Staff read the movements under Catalogue, Stock history; they cannot be edited.
 
 ## Tests
 
