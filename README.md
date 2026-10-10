@@ -61,6 +61,16 @@ A room shot is attached to the product; every other shot is attached to the colo
 - Prices are whole numbers of cents. Nothing in the application holds money as a float.
 - Stock changes only through `App\Inventory\StockLedger`. It locks the variant's row, refuses to go below zero, and writes a movement recording who changed it, why, and the balance left. The database has its own check constraint as a second line of defence. Staff read the movements under Catalogue, Stock history; they cannot be edited.
 
+## From cart to paid
+
+A cart belongs to a browser: a cookie holds its token and nothing else. It is created when the first piece is added, and it flags a line whose price has moved or whose stock has run short since.
+
+Checkout is two pages that work without script: the customer's details, then a review with the delivery fee and the total. Placing the order runs in one transaction (`App\Checkout\PlaceOrder`): the order and its lines are written with their own copy of names and prices, stock is taken through the stock ledger, and the cart is deleted. The form carries a key, and the same key always gives the same order, so a double tap or a retry never makes a second one.
+
+Stock is held for `STORE_HOLD_MINUTES`. `orders:release-unpaid` runs every minute and returns the stock of orders nobody paid for; the customer can pick such an order up again from its link if the pieces are still there.
+
+Paying is an M-Pesa prompt (`App\Payments\StartMpesaPayment`). Safaricom's confirmation is posted to an address signed for that one prompt, must name that prompt and must be for the amount asked; it is recorded once however many times it arrives. If no confirmation comes, a queued job asks Safaricom what became of the prompt and settles the order either way. Every order page is reached by a secret link, so tracking needs no account.
+
 ## Tests
 
 The tests run against PostgreSQL, in a database named `sebule_test` that the same user can reach.
@@ -99,4 +109,9 @@ The workflow needs these repository secrets: `VPS_HOST`, `VPS_USER`, `VPS_SSH_KE
 |---|---|
 | `APP_TIMEZONE` | Defaults to `Africa/Nairobi`. |
 | `STORE_ALLOW_INDEXING` | Set to `true` to let search engines index the site. Off by default. |
+| `STORE_HOLD_MINUTES` | How long stock is held for an order while its customer pays. 15 by default. |
+| `STORE_TEST_PAYMENTS` | Set to `true` to let an order be completed with a test payment, with no money moving. Off by default. |
+| `DARAJA_ENV` | `sandbox` or `production`. |
+| `DARAJA_CONSUMER_KEY`, `DARAJA_CONSUMER_SECRET`, `DARAJA_PASSKEY`, `DARAJA_SHORTCODE` | The store's Safaricom Daraja app. Without them the M-Pesa option is not offered. |
+| `MPESA_CHARGE_SHILLINGS` | A fixed number of shillings to ask for whatever the order comes to. Empty asks for the order's total. |
 | `APP_RELEASE` | Overrides the release reported in the `X-Release` response header. Normally read from the `REVISION` file that the deploy writes. |

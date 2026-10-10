@@ -30,6 +30,38 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Selling
+    |--------------------------------------------------------------------------
+    |
+    | Prices include VAT at this rate, in hundredths of a percent. Stock is
+    | held for an order for a few minutes while the customer pays. A piece
+    | that is made to order has no stock, so one order may take up to a set
+    | number of it.
+    |
+    */
+
+    'vat_rate' => 1600,
+
+    'hold_minutes' => (int) env('STORE_HOLD_MINUTES', 15),
+
+    'made_to_order_limit' => 10,
+
+    'cart_days' => 90,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Test payments
+    |--------------------------------------------------------------------------
+    |
+    | When true, an order can be completed without money changing hands, for
+    | a visitor with no M-Pesa line or when M-Pesa cannot be reached.
+    |
+    */
+
+    'test_payments' => (bool) env('STORE_TEST_PAYMENTS', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Showroom
     |--------------------------------------------------------------------------
     |

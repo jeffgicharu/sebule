@@ -8,6 +8,7 @@ enum StockMovementReason: string implements HasLabel
 {
     case Received = 'received';
     case Sold = 'sold';
+    case Released = 'released';
     case Returned = 'returned';
     case Damaged = 'damaged';
     case Correction = 'correction';
@@ -17,6 +18,7 @@ enum StockMovementReason: string implements HasLabel
         return match ($this) {
             self::Received => 'Stock received',
             self::Sold => 'Sold',
+            self::Released => 'Order not paid or cancelled',
             self::Returned => 'Returned by customer',
             self::Damaged => 'Damaged or written off',
             self::Correction => 'Stock count correction',

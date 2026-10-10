@@ -138,6 +138,27 @@
                         </div>
                     @endif
 
+                    {{-- A plain form: the piece goes into the cart with or without script. --}}
+                    @if ($availability->canBeBought())
+                        <form method="post" action="{{ route('cart.items.store') }}" class="mt-7 flex gap-3">
+                            @csrf
+                            <input type="hidden" name="variant" value="{{ $selected->getKey() }}">
+
+                            <label for="quantity" class="sr-only">Quantity</label>
+                            <select id="quantity" name="quantity" class="min-h-12 border border-ink bg-paper px-3 pr-8 text-[0.95rem] font-medium">
+                                @foreach (range(1, min($selected->purchasableLimit(), 10)) as $count)
+                                    <option value="{{ $count }}">{{ $count }}</option>
+                                @endforeach
+                            </select>
+
+                            <button class="btn btn-primary min-h-12 flex-1">Add to cart</button>
+                        </form>
+                    @else
+                        <p class="mt-7">
+                            <span class="btn min-h-12 w-full cursor-not-allowed bg-ink/10 text-ink-soft">Out of stock</span>
+                        </p>
+                    @endif
+
                     <dl class="mt-7 divide-y divide-rule border-y border-rule text-[0.95rem]">
                         @if ($size->count() === 3)
                             <div class="flex justify-between gap-6 py-3">

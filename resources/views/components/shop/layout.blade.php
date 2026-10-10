@@ -91,6 +91,7 @@
             <div class="wrap flex items-center justify-between gap-6 py-4 lg:py-5">
                 <a href="{{ route('home') }}" class="font-display text-[1.75rem] leading-none lg:text-[2rem]">{{ config('app.name') }}</a>
 
+                <div class="flex items-center gap-3 lg:gap-8">
                 {{-- Desktop: rooms across the bar, each opening its sub-categories. --}}
                 <nav aria-label="Shop" class="hidden lg:block">
                     <ul class="flex items-center gap-x-7 text-[0.95rem] font-medium">
@@ -110,6 +111,18 @@
                         @endforeach
                     </ul>
                 </nav>
+
+                <a href="{{ route('cart.show') }}" class="flex min-h-11 items-center gap-2 px-1 text-[0.95rem] font-medium"
+                    aria-label="Cart, {{ $cartPieces }} {{ Str::plural('piece', $cartPieces) }}">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" class="size-[1.35rem]" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 8h14l-1 12H6L5 8Z" />
+                        <path d="M9 8V6.5a3 3 0 0 1 6 0V8" />
+                    </svg>
+                    <span class="hidden sm:inline">Cart</span>
+                    @if ($cartPieces > 0)
+                        <span class="grid h-5 min-w-5 place-items-center rounded-full bg-forest px-1.5 text-xs font-semibold leading-none text-paper">{{ $cartPieces }}</span>
+                    @endif
+                </a>
 
                 {{-- Phone: one menu button, no script needed. --}}
                 <details class="group lg:hidden">
@@ -133,10 +146,23 @@
                         </ul>
                     </nav>
                 </details>
+                </div>
             </div>
         </header>
 
         <main id="main" class="flex-1">
+            {{-- What the last thing the visitor did came to, said once. --}}
+            @if (session('shop.notice'))
+                <p role="status" class="border-b border-forest/25 bg-forest/10">
+                    <span class="wrap block py-3 font-medium text-forest-deep">{{ session('shop.notice') }}</span>
+                </p>
+            @endif
+            @if (session('shop.problem'))
+                <p role="alert" class="border-b border-clay/30 bg-clay/10">
+                    <span class="wrap block py-3 font-medium text-clay-deep">{{ session('shop.problem') }}</span>
+                </p>
+            @endif
+
             {{ $slot }}
         </main>
 

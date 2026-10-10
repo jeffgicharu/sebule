@@ -28,6 +28,21 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+    | Safaricom Daraja, for M-Pesa prompts. "charge" is a number of whole
+    | shillings to ask for whatever the order comes to; leave it unset to ask
+    | for the order's total.
+    */
+
+    'mpesa' => [
+        'environment' => env('DARAJA_ENV', 'sandbox'),
+        'consumer_key' => env('DARAJA_CONSUMER_KEY'),
+        'consumer_secret' => env('DARAJA_CONSUMER_SECRET'),
+        'passkey' => env('DARAJA_PASSKEY'),
+        'shortcode' => env('DARAJA_SHORTCODE'),
+        'charge' => env('MPESA_CHARGE_SHILLINGS'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

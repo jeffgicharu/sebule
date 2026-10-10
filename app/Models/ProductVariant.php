@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * One buyable combination of a product's option values, with its own SKU,
@@ -81,9 +82,28 @@ class ProductVariant extends Model
         };
     }
 
+    /**
+     * The most of this variant one order can take: what is on hand, or a set
+     * number for a piece that is made to order.
+     */
+    public function purchasableLimit(): int
+    {
+        return $this->made_to_order
+            ? (int) config('store.made_to_order_limit')
+            : max(0, $this->stock_on_hand);
+    }
+
     public function isOnSale(): bool
     {
         return $this->compare_at_price !== null && $this->compare_at_price > $this->price;
+    }
+
+    /** The photo that shows this variant: its own colour or finish first, then the product's. */
+    public function photo(): ?Media
+    {
+        return $this->optionValues
+            ->flatMap(fn (ProductOptionValue $value) => $value->getMedia(ProductOptionValue::IMAGES))
+            ->first() ?? $this->product->mainPhoto();
     }
 
     /** The option values joined for display, such as "Sand / 3-seater". */
