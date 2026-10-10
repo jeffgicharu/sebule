@@ -65,6 +65,8 @@
 
                 @if ($photosAreOfDefault)
                     <p class="mt-3 text-sm text-ink-soft">Shown in {{ $defaultLabel }}. The piece is the same in {{ $selected->label() }}.</p>
+                @elseif ($inColour && $photos->contains(fn ($photo) => str_contains($photo->file_name, '_room.')))
+                    <p class="mt-3 text-sm text-ink-soft">The room photo shows the piece in {{ $defaultLabel }}.</p>
                 @endif
             </div>
 

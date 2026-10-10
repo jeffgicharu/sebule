@@ -6,9 +6,12 @@ use App\Enums\ProductStatus;
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Product;
+use App\Models\ProductOptionValue;
 use Database\Seeders\CatalogueSeeder;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class BrowsingTest extends TestCase
@@ -163,5 +166,19 @@ class BrowsingTest extends TestCase
         Category::where('slug', 'pendant-lights')->first()->update(['name' => 'Ceiling lights']);
 
         $this->get('/')->assertSeeText('Ceiling lights')->assertDontSeeText('Pendant lights');
+    }
+
+    public function test_a_room_photo_says_which_colour_it_shows_when_another_is_chosen(): void
+    {
+        Storage::fake('public');
+
+        $sofa = Product::where('slug', 'amani-3-seater-sofa')->with('options.values')->firstOrFail();
+        $forest = $sofa->options->first()->values->firstWhere('label', 'Forest');
+
+        $forest->addMedia(UploadedFile::fake()->image('amani-sofa-3s_forest_studio-34.jpg', 64, 64))->toMediaCollection(ProductOptionValue::IMAGES);
+        $sofa->addMedia(UploadedFile::fake()->image('amani-sofa-3s_sand_room.jpg', 64, 64))->toMediaCollection(Product::GALLERY);
+
+        $this->get('/p/amani-3-seater-sofa?v=forest')->assertOk()->assertSeeText('The room photo shows the piece in Sand.');
+        $this->get('/p/amani-3-seater-sofa')->assertOk()->assertDontSeeText('The room photo shows');
     }
 }
