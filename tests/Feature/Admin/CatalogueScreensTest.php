@@ -1,0 +1,201 @@
+<?php
+
+namespace Tests\Feature\Admin;
+
+use App\Enums\ProductStatus;
+use App\Enums\StockMovementReason;
+use App\Filament\Resources\Categories\Pages\CreateCategory;
+use App\Filament\Resources\Categories\Pages\ListCategories;
+use App\Filament\Resources\Collections\Pages\CreateCollection;
+use App\Filament\Resources\Collections\Pages\ListCollections;
+use App\Filament\Resources\Products\Pages\CreateProduct;
+use App\Filament\Resources\Products\Pages\EditProduct;
+use App\Filament\Resources\Products\Pages\ListProducts;
+use App\Filament\Resources\Products\RelationManagers\VariantsRelationManager;
+use App\Models\Category;
+use App\Models\Collection;
+use App\Models\Product;
+use App\Models\ProductVariant;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
+use Tests\TestCase;
+
+class CatalogueScreensTest extends TestCase
+{
+    use RefreshDatabase;
+
+    private User $staff;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->staff = User::factory()->create();
+        $this->actingAs($this->staff);
+    }
+
+    public function test_the_list_screens_load(): void
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->for($category)->create();
+        ProductVariant::factory()->for($product)->withStock(4)->create(['price' => 6_500_000]);
+        $collection = Collection::factory()->create();
+
+        Livewire::test(ListCategories::class)->assertOk()->assertCanSeeTableRecords([$category]);
+        Livewire::test(ListProducts::class)->assertOk()->assertCanSeeTableRecords([$product])->assertSee('KSh 65,000');
+        Livewire::test(ListCollections::class)->assertOk()->assertCanSeeTableRecords([$collection]);
+    }
+
+    public function test_a_category_can_be_created_under_a_parent(): void
+    {
+        $parent = Category::factory()->create(['name' => 'Living room']);
+
+        Livewire::test(CreateCategory::class)
+            ->fillForm(['name' => 'Sofas', 'slug' => 'sofas', 'parent_id' => $parent->id, 'is_active' => true])
+            ->call('create')
+            ->assertHasNoFormErrors();
+
+        $this->assertTrue(Category::where('slug', 'sofas')->first()->parent->is($parent));
+    }
+
+    public function test_a_slug_must_be_unique_and_well_formed(): void
+    {
+        Category::factory()->create(['name' => 'Sofas']);
+
+        Livewire::test(CreateCategory::class)
+            ->fillForm(['name' => 'Sofas', 'slug' => 'sofas'])
+            ->call('create')
+            ->assertHasFormErrors(['slug']);
+
+        Livewire::test(CreateCategory::class)
+            ->fillForm(['name' => 'Beds', 'slug' => 'Beds & More'])
+            ->call('create')
+            ->assertHasFormErrors(['slug']);
+    }
+
+    public function test_a_collection_can_be_created_with_products(): void
+    {
+        $products = Product::factory()->count(2)->create();
+
+        Livewire::test(CreateCollection::class)
+            ->fillForm(['name' => 'Coast', 'slug' => 'coast', 'products' => $products->modelKeys(), 'is_active' => true])
+            ->call('create')
+            ->assertHasNoFormErrors();
+
+        $this->assertSame(2, Collection::where('slug', 'coast')->first()->products()->count());
+    }
+
+    public function test_a_product_can_be_created_as_a_draft(): void
+    {
+        $category = Category::factory()->create();
+
+        Livewire::test(CreateProduct::class)
+            ->fillForm([
+                'name' => 'Amani 3-seater sofa',
+                'slug' => 'amani-3-seater-sofa',
+                'category_id' => $category->id,
+                'status' => ProductStatus::Draft,
+                'summary' => 'A deep, low sofa in woven linen.',
+                'warranty_months' => 24,
+            ])
+            ->call('create')
+            ->assertHasNoFormErrors();
+
+        $product = Product::where('slug', 'amani-3-seater-sofa')->first();
+
+        $this->assertNotNull($product);
+        $this->assertSame(ProductStatus::Draft, $product->status);
+        $this->assertSame(24, $product->warranty_months);
+    }
+
+    public function test_the_edit_screen_loads_with_its_variants(): void
+    {
+        $product = Product::factory()->create();
+        $variant = ProductVariant::factory()->for($product)->create();
+
+        Livewire::test(EditProduct::class, ['record' => $product->getRouteKey()])->assertOk();
+
+        Livewire::test(VariantsRelationManager::class, ['ownerRecord' => $product, 'pageClass' => EditProduct::class])
+            ->assertOk()
+            ->assertCanSeeTableRecords([$variant]);
+    }
+
+    public function test_variants_can_be_generated_from_the_options(): void
+    {
+        $product = Product::factory()->create(['name' => 'Amani sofa']);
+        $colour = $product->options()->create(['name' => 'Colour', 'position' => 1]);
+        $colour->values()->createMany([['label' => 'Sand', 'position' => 1], ['label' => 'Forest', 'position' => 2]]);
+
+        Livewire::test(VariantsRelationManager::class, ['ownerRecord' => $product, 'pageClass' => EditProduct::class])
+            ->callTableAction('generate', data: ['price' => 65000])
+            ->assertHasNoTableActionErrors();
+
+        $this->assertSame(2, $product->variants()->count());
+        $this->assertSame(6_500_000, $product->variants()->first()->price);
+    }
+
+    public function test_a_variant_price_is_entered_in_shillings_and_stored_in_cents(): void
+    {
+        $product = Product::factory()->create();
+        $variant = ProductVariant::factory()->for($product)->create(['price' => 100_000]);
+
+        Livewire::test(VariantsRelationManager::class, ['ownerRecord' => $product, 'pageClass' => EditProduct::class])
+            ->mountTableAction('edit', $variant)
+            ->assertTableActionDataSet(['price' => 1000])
+            ->setTableActionData(['price' => 72500])
+            ->callMountedTableAction()
+            ->assertHasNoTableActionErrors();
+
+        $this->assertSame(7_250_000, $variant->fresh()->price);
+    }
+
+    public function test_stock_is_adjusted_through_the_ledger(): void
+    {
+        $product = Product::factory()->create();
+        $variant = ProductVariant::factory()->for($product)->create();
+
+        Livewire::test(VariantsRelationManager::class, ['ownerRecord' => $product, 'pageClass' => EditProduct::class])
+            ->callTableAction('adjustStock', $variant, data: [
+                'quantity' => 8,
+                'reason' => StockMovementReason::Received->value,
+                'note' => 'First delivery',
+            ])
+            ->assertHasNoTableActionErrors();
+
+        $this->assertSame(8, $variant->fresh()->stock_on_hand);
+
+        $movement = $variant->stockMovements()->first();
+        $this->assertSame(8, $movement->quantity);
+        $this->assertSame('First delivery', $movement->note);
+        $this->assertTrue($movement->user->is($this->staff));
+    }
+
+    public function test_removing_more_stock_than_there_is_changes_nothing(): void
+    {
+        $product = Product::factory()->create();
+        $variant = ProductVariant::factory()->for($product)->withStock(1)->create();
+
+        Livewire::test(VariantsRelationManager::class, ['ownerRecord' => $product, 'pageClass' => EditProduct::class])
+            ->callTableAction('adjustStock', $variant, data: [
+                'quantity' => -3,
+                'reason' => StockMovementReason::Damaged->value,
+            ])
+            ->assertNotified('Not enough stock');
+
+        $this->assertSame(1, $variant->fresh()->stock_on_hand);
+        $this->assertSame(0, $variant->stockMovements()->count());
+    }
+
+    public function test_marking_a_variant_as_default_clears_the_previous_default(): void
+    {
+        $product = Product::factory()->create();
+        $first = ProductVariant::factory()->for($product)->create(['is_default' => true]);
+        $second = ProductVariant::factory()->for($product)->create(['is_default' => false]);
+
+        $second->update(['is_default' => true]);
+
+        $this->assertFalse($first->fresh()->is_default);
+        $this->assertTrue($second->fresh()->is_default);
+    }
+}

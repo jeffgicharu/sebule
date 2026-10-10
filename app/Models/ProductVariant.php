@@ -39,6 +39,20 @@ class ProductVariant extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        // A product shows one variant first, so marking one as default clears the others.
+        static::saved(function (ProductVariant $variant): void {
+            if ($variant->is_default && ($variant->wasChanged('is_default') || $variant->wasRecentlyCreated)) {
+                static::query()
+                    ->where('product_id', $variant->product_id)
+                    ->whereKeyNot($variant->getKey())
+                    ->where('is_default', true)
+                    ->update(['is_default' => false]);
+            }
+        });
+    }
+
     /** @return BelongsTo<Product, $this> */
     public function product(): BelongsTo
     {
