@@ -61,15 +61,39 @@ class ImportCataloguePhotosTest extends TestCase
         $this->assertSame('public', Media::first()->disk);
     }
 
-    public function test_a_product_without_options_keeps_its_photo_itself(): void
+    public function test_a_product_without_options_keeps_its_photos_itself_in_gallery_order(): void
     {
+        $this->photo('kilifi-planter-basket_default_room.jpg');
+        $this->photo('kilifi-planter-basket_default_detail.jpg');
         $this->photo('kilifi-planter-basket_default_studio-34.jpg');
 
         $this->artisan('catalogue:import-photos', ['path' => $this->path])->assertSuccessful();
 
         $basket = Product::where('slug', 'kilifi-planter-basket')->first();
 
-        $this->assertSame(['kilifi-planter-basket_default_studio-34.jpg'], $basket->getMedia(Product::GALLERY)->pluck('file_name')->all());
+        $this->assertSame(
+            ['kilifi-planter-basket_default_studio-34.jpg', 'kilifi-planter-basket_default_detail.jpg', 'kilifi-planter-basket_default_room.jpg'],
+            $basket->getMedia(Product::GALLERY)->pluck('file_name')->all(),
+        );
+    }
+
+    public function test_photos_added_later_follow_the_ones_already_there(): void
+    {
+        $this->photo('amani-sofa-3s_sand_studio-34.jpg');
+        $this->artisan('catalogue:import-photos', ['path' => $this->path])->assertSuccessful();
+
+        $this->photo('amani-sofa-3s_sand_detail.jpg');
+        $this->artisan('catalogue:import-photos', ['path' => $this->path])
+            ->expectsOutputToContain('1 photos added, 0 replaced, 1 already in place.')
+            ->assertSuccessful();
+
+        $sand = Product::where('slug', 'amani-3-seater-sofa')->with('options.values')->first()
+            ->options->first()->values->firstWhere('label', 'Sand');
+
+        $this->assertSame(
+            ['amani-sofa-3s_sand_studio-34.jpg', 'amani-sofa-3s_sand_detail.jpg'],
+            $sand->getMedia(ProductOptionValue::IMAGES)->pluck('file_name')->all(),
+        );
     }
 
     public function test_rejected_takes_and_unknown_files_are_ignored(): void

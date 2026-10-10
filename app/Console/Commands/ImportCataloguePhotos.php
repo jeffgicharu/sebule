@@ -14,9 +14,10 @@ use Spatie\MediaLibrary\HasMedia;
  * Attaches photo files to the catalogue's products.
  *
  * Files are named <photo id>_<option value>_<shot>.jpg, where the option
- * value is "default" for a product with no options. A room shot belongs to
- * the product whatever colour is chosen; every other shot belongs to the
- * colour or finish it shows.
+ * value is "default" for a product with no options and the shot is one of
+ * studio-34, studio-front, studio-side, studio-back, detail (or detail-arm
+ * and the like) and room. A room shot belongs to the product whatever colour
+ * is chosen; every other shot belongs to the colour or finish it shows.
  */
 #[Signature('catalogue:import-photos {path : Directory holding the photo files} {--replace : Swap in the file when a photo of the same name is already attached}')]
 #[Description('Attach product photos from a directory to the catalogue')]
@@ -110,7 +111,7 @@ class ImportCataloguePhotos extends Command
 
         foreach (File::glob("{$path}/{$photoId}_*.{jpg,jpeg,png,webp}", GLOB_BRACE) as $file) {
             $name = basename($file);
-            $pattern = '/^'.preg_quote($photoId, '/').'_([a-z0-9-]+)_(studio-34|studio-front|studio-side|studio-back|room|detail-[a-z0-9-]+)\.[a-z]+$/';
+            $pattern = '/^'.preg_quote($photoId, '/').'_([a-z0-9-]+)_(studio-34|studio-front|studio-side|studio-back|room|detail(?:-[a-z0-9-]+)?)\.[a-z]+$/';
 
             // Anything else, such as a rejected take, is not a catalogue photo.
             if (! preg_match($pattern, $name, $match)) {

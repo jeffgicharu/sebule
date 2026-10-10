@@ -4,13 +4,14 @@
 
 <x-shop.layout :description="$about" :schema="\App\Seo\StructuredData::store($about)">
     {{-- Hero. On a phone the words sit on paper above a photo cut for that shape;
-         from tablet up they sit on the quiet left side of the wide photo. --}}
-    <section class="relative md:min-h-[min(44vw,40rem)]">
+         from tablet up they sit on the quiet left side of the wide photo. The photo stops
+         growing at 1920 pixels, so on a wider screen the words stay on its quiet side. --}}
+    <section class="relative mx-auto max-w-[120rem] md:min-h-[min(44vw,40rem)]">
         <div class="wrap relative z-10 py-10 md:absolute md:inset-0 md:flex md:items-center md:py-0">
             <div class="max-w-xl md:max-w-[34%]">
                 <p class="eyebrow">Made in Kenya</p>
                 <h1 class="mt-3 text-[2.5rem] sm:text-5xl lg:text-[3.6rem]">Furniture for the way Kenya lives.</h1>
-                <p class="mt-5 max-w-md text-lg text-ink-soft md:text-ink">Designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered to your door anywhere in the country.</p>
+                <p class="mt-5 max-w-md text-lg text-ink-soft md:text-ink 2xl:max-w-sm">Designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered to your door anywhere in the country.</p>
                 <p class="mt-7 flex flex-wrap gap-3">
                     <a href="{{ route('shop.category', 'living-room') }}" class="btn btn-primary">Shop living room</a>
                     <a href="#collections" class="btn btn-quiet md:bg-paper/70">See the collections</a>
@@ -46,7 +47,7 @@
                             @if ($room->lead?->mainPhoto())
                                 <x-shop.photo :media="$room->lead->mainPhoto()" alt="" :eager="$loop->first"
                                     :sizes="$loop->index < 3 ? '(min-width: 48rem) 33vw, '.($loop->first ? '100vw' : '50vw') : '(min-width: 48rem) 25vw, 50vw'"
-                                    class="h-full w-full object-contain transition duration-500 ease-out group-hover:scale-[1.04]" />
+                                    class="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.04]" />
                             @endif
                         </div>
                         <h3 class="mt-4 text-xl lg:text-2xl">{{ $room->name }}</h3>
