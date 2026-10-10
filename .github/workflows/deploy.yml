@@ -1,0 +1,165 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# One deploy at a time. A newer push waits for the running deploy to finish.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: sebule
+          POSTGRES_PASSWORD: sebule
+          POSTGRES_DB: sebule_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U sebule"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DB_HOST: 127.0.0.1
+      DB_USERNAME: sebule
+      DB_PASSWORD: sebule
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pgsql, pdo_pgsql, mbstring, xml, curl, intl, gd, zip, bcmath
+          coverage: none
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: composer install --no-interaction --prefer-dist --no-progress
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: cp .env.example .env && php artisan key:generate
+
+      - run: vendor/bin/pint --test
+
+      - run: php artisan test
+
+  build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pgsql, pdo_pgsql, mbstring, xml, curl, intl, gd, zip, bcmath
+          coverage: none
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # Only what the server needs to run the application. The server keeps
+      # its own storage directory and environment file.
+      - name: Assemble the release
+        run: |
+          echo "$GITHUB_SHA" > REVISION
+          mkdir "$RUNNER_TEMP/release"
+          rsync -a \
+            --exclude='/.git' --exclude='/.github' --exclude='/node_modules' \
+            --exclude='/tests' --exclude='/storage' --exclude='/deploy' \
+            --exclude='/.env*' --exclude='/phpunit.xml' --exclude='/README.md' \
+            --exclude='/package.json' --exclude='/package-lock.json' \
+            --exclude='/vite.config.js' --exclude='/resources/css' --exclude='/resources/js' \
+            ./ "$RUNNER_TEMP/release/"
+          tar -C "$RUNNER_TEMP/release" -czf release.tar.gz .
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release
+          path: release.tar.gz
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    name: Deploy to sebule.jeffgicharu.com
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://sebule.jeffgicharu.com
+    env:
+      VPS_HOST: ${{ secrets.VPS_HOST }}
+      VPS_USER: ${{ secrets.VPS_USER }}
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+
+      - run: mkdir release && tar -xzf release.tar.gz -C release
+
+      - name: Configure SSH
+        env:
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_ACTIVATE_SSH_KEY: ${{ secrets.VPS_ACTIVATE_SSH_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/upload_key
+          printf '%s\n' "$VPS_ACTIVATE_SSH_KEY" > ~/.ssh/activate_key
+          chmod 600 ~/.ssh/upload_key ~/.ssh/activate_key
+          printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      # The upload key is limited to rsync into the releases directory,
+      # so the remote path is relative to that directory.
+      - name: Upload the release
+        run: |
+          rsync -az --delete --delay-updates \
+            -e "ssh -i ~/.ssh/upload_key -o IdentitiesOnly=yes" \
+            release/ "$VPS_USER@$VPS_HOST:./$GITHUB_SHA/"
+
+      # The activate key can run one script on the server and nothing else.
+      # It migrates the database, switches the site to this release and
+      # restarts the workers.
+      - name: Activate the release
+        run: ssh -i ~/.ssh/activate_key -o IdentitiesOnly=yes "$VPS_USER@$VPS_HOST" "$GITHUB_SHA"
+
+      - name: Check the live site serves this release
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            if curl -fsSI https://sebule.jeffgicharu.com/up | grep -qi "^x-release: $GITHUB_SHA"; then
+              echo "sebule.jeffgicharu.com is serving ${GITHUB_SHA::7}"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "sebule.jeffgicharu.com is not serving ${GITHUB_SHA::7}"
+          exit 1

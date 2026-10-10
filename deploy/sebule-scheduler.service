@@ -1,0 +1,15 @@
+[Unit]
+Description=Sebule scheduled tasks
+After=network.target postgresql.service redis.service
+ConditionPathExists=/var/www/sebule.jeffgicharu.com/current/artisan
+
+[Service]
+Type=oneshot
+User=sebule
+Group=sebule
+WorkingDirectory=/var/www/sebule.jeffgicharu.com/current
+ExecStart=/usr/bin/php8.4 artisan schedule:run
+MemoryMax=300M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true

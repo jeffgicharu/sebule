@@ -41,6 +41,22 @@ Code style is checked with Pint:
 vendor/bin/pint --test
 ```
 
+## Deployment
+
+Every push to `main` runs `.github/workflows/deploy.yml`, which tests the code, builds a release and puts it live at https://sebule.jeffgicharu.com.
+
+1. **Test.** Pint and the test suite run against PostgreSQL 16.
+2. **Build.** Composer dependencies without dev packages and the Vite assets are built in the workflow, so the server needs neither Composer nor Node.
+3. **Upload.** The release is copied to `releases/<commit>` on the server with a key that can only rsync into that directory.
+4. **Activate.** A second key can run one script, `deploy/activate.sh`, and nothing else. It links the shared storage and environment file, migrates the database, switches the `current` link to the new release, reloads PHP-FPM and restarts the queue worker.
+5. **Verify.** The workflow reads the `X-Release` header from the live site and fails unless it matches the commit.
+
+The last five releases are kept on the server. To go back to one of them, run `sudo -u deploy /usr/local/bin/sebule-activate <commit>` there.
+
+The `deploy/` directory holds everything the server runs with: the nginx site, the PHP-FPM pool, the systemd units for the queue worker and the scheduler, and `provision.sh`, which sets a new server up from scratch.
+
+The workflow needs these repository secrets: `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`, `VPS_ACTIVATE_SSH_KEY` and `VPS_KNOWN_HOSTS`.
+
 ## Configuration
 
 | Variable | Purpose |

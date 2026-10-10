@@ -1,0 +1,19 @@
+[Unit]
+Description=Sebule queue worker
+After=network.target postgresql.service redis.service
+ConditionPathExists=/var/www/sebule.jeffgicharu.com/current/artisan
+
+[Service]
+User=sebule
+Group=sebule
+WorkingDirectory=/var/www/sebule.jeffgicharu.com/current
+ExecStart=/usr/bin/php8.4 artisan queue:work --sleep=3 --tries=3 --timeout=90 --max-time=3600
+Restart=always
+RestartSec=5
+MemoryMax=300M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
