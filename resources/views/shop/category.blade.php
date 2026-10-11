@@ -52,12 +52,14 @@
                 @foreach ([
                     'price' => ['Price', collect(ProductListing::PRICE_BANDS)->map(fn ($band) => $band[2])->all()],
                     'colour' => ['Colour or finish', $colours->mapWithKeys(fn ($colour) => [$colour->label => $colour->label])->all()],
+                    'material' => ['Material', $materials],
+                    'width' => ['Size', collect(ProductListing::WIDTH_BANDS)->map(fn ($band) => $band[2])->all()],
                     'availability' => ['Availability', ProductListing::AVAILABILITY],
                 ] as $name => [$label, $options])
                     @if ($options)
                         <label class="block text-sm">
                             <span class="eyebrow block">{{ $label }}</span>
-                            <select name="{{ $name }}" onchange="this.form.requestSubmit()" class="mt-1.5 min-h-11 w-full border border-rule bg-paper px-3 pr-8 text-[0.95rem] sm:w-auto sm:min-w-44">
+                            <select name="{{ $name }}" onchange="this.form.requestSubmit()" class="mt-1.5 min-h-11 w-full border border-rule bg-paper px-3 pr-8 text-[0.95rem] sm:w-auto sm:min-w-36">
                                 <option value="">Any</option>
                                 @foreach ($options as $value => $text)
                                     <option value="{{ $value }}" @selected(($filters[$name] ?? null) === (string) $value)>{{ $text }}</option>
@@ -69,7 +71,7 @@
 
                 <label class="block text-sm sm:ml-auto">
                     <span class="eyebrow block">Sort by</span>
-                    <select name="sort" data-default="featured" onchange="this.form.requestSubmit()" class="mt-1.5 min-h-11 w-full border border-rule bg-paper px-3 pr-8 text-[0.95rem] sm:w-auto sm:min-w-44">
+                    <select name="sort" data-default="featured" onchange="this.form.requestSubmit()" class="mt-1.5 min-h-11 w-full border border-rule bg-paper px-3 pr-8 text-[0.95rem] sm:w-auto sm:min-w-36">
                         @foreach (ProductListing::SORTS as $value => $text)
                             <option value="{{ $value }}" @selected(($filters['sort'] ?? 'featured') === $value)>{{ $text }}</option>
                         @endforeach

@@ -19,13 +19,14 @@ class CategoryController extends Controller
         // A room lists everything in its sub-categories.
         $categoryIds = $category->children->modelKeys() ?: [$category->getKey()];
 
-        $filters = $request->only(['sort', 'price', 'colour', 'availability']);
+        $filters = $request->only(['sort', 'price', 'colour', 'material', 'width', 'availability']);
         $inCategory = ProductListing::cards()->whereIn('category_id', $categoryIds);
 
         return view('shop.category', [
             'category' => $category,
             'siblings' => $category->parent?->children()->where('is_active', true)->get() ?? $category->children,
             'colours' => ProductListing::colours($inCategory),
+            'materials' => ProductListing::materials($inCategory),
             'filters' => $filters,
             'products' => ProductListing::apply($inCategory->clone(), $filters)->paginate(12)->withQueryString(),
         ]);

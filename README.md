@@ -70,6 +70,10 @@ A room shot is attached to the product; every other shot is attached to the colo
 - Prices are whole numbers of cents. Nothing in the application holds money as a float.
 - Stock changes only through `App\Inventory\StockLedger`. It locks the variant's row, refuses to go below zero, and writes a movement recording who changed it, why, and the balance left. The database has its own check constraint as a second line of defence. Staff read the movements under Catalogue, Stock history; they cannot be edited.
 
+## Listings
+
+A category page can be narrowed by price, colour or finish, material, width and availability, and sorted by price, newest or most popular (units paid for in the last 90 days). Every choice is in the address, so a filtered page can be shared, and the form works without script (`App\Catalogue\ProductListing`).
+
 ## Search
 
 Search runs in PostgreSQL with the `pg_trgm` extension, so there is no search service to run beside the database. Each product carries a `search_text` column holding the words it might be looked for by: its name, category and room, collections, colours and finishes, materials and description, plus everyday words for the store's own colour names, so that "green" finds Forest and Olive. `App\Catalogue\SearchIndex` rewrites it whenever a product, a colour or a category name changes, and `catalogue:index-search` rewrites all of them each night.

@@ -19,6 +19,38 @@ class ProductListing
         'price-asc' => 'Price, low to high',
         'price-desc' => 'Price, high to low',
         'newest' => 'Newest',
+        'popular' => 'Most popular',
+    ];
+
+    /** How far back "most popular" looks at what has sold, in days. */
+    private const POPULAR_DAYS = 90;
+
+    /** @var array<string, array{0: int, 1: int|null, 2: string}> lower and upper bound in centimetres, and the label */
+    public const WIDTH_BANDS = [
+        'under-60' => [0, 60, 'Under 60 cm wide'],
+        '60-120' => [60, 120, '60 to 120 cm wide'],
+        '120-180' => [120, 180, '120 to 180 cm wide'],
+        'over-180' => [180, null, 'Over 180 cm wide'],
+    ];
+
+    /**
+     * The materials a customer can ask for, by the word that names each in a product's materials.
+     *
+     * @var array<string, string>
+     */
+    public const MATERIALS = [
+        'mvule' => 'Mvule',
+        'mahogany' => 'Mahogany',
+        'oak' => 'Meru oak',
+        'cypress' => 'Cypress',
+        'cane' => 'Cane',
+        'rattan' => 'Rattan',
+        'sisal' => 'Sisal',
+        'linen' => 'Linen',
+        'cotton' => 'Cotton',
+        'leather' => 'Leather',
+        'steel' => 'Steel',
+        'stoneware' => 'Stoneware',
     ];
 
     /** @var array<string, array{0: int, 1: int|null, 2: string}> lower and upper bound in shillings, and the label */
@@ -57,7 +89,7 @@ class ProductListing
 
     /**
      * @param  Builder<Product>  $query
-     * @param  array{sort?: string|null, price?: string|null, colour?: string|null, availability?: string|null}  $filters
+     * @param  array{sort?: string|null, price?: string|null, colour?: string|null, availability?: string|null, material?: string|null, width?: string|null}  $filters
      * @return Builder<Product>
      */
     public static function apply(Builder $query, array $filters): Builder
@@ -76,6 +108,20 @@ class ProductListing
             $query->whereHas('options.values', fn (Builder $values) => $values->where('label', $filters['colour']));
         }
 
+        if (isset(self::MATERIALS[$filters['material'] ?? ''])) {
+            $query->where('products.materials', 'ilike', '%'.$filters['material'].'%');
+        }
+
+        if ($band = self::WIDTH_BANDS[$filters['width'] ?? ''] ?? null) {
+            $query->whereHas('variants', function (Builder $variants) use ($band): void {
+                $variants->where('is_active', true)->where('width_cm', '>=', $band[0]);
+
+                if ($band[1] !== null) {
+                    $variants->where('width_cm', '<', $band[1]);
+                }
+            });
+        }
+
         match ($filters['availability'] ?? null) {
             'in-stock' => $query->whereHas('variants', fn (Builder $variants) => $variants->where('is_active', true)->where('stock_on_hand', '>', 0)),
             'made-to-order' => $query->whereHas('variants', fn (Builder $variants) => $variants->where('is_active', true)->where('made_to_order', true)),
@@ -86,8 +132,30 @@ class ProductListing
             'price-asc' => $query->orderBy('price_from')->orderBy('products.id'),
             'price-desc' => $query->orderByDesc('price_from')->orderBy('products.id'),
             'newest' => $query->orderByDesc('published_at')->orderByDesc('products.id'),
+            // By how many have been bought and paid for lately, and then in the usual order.
+            'popular' => $query->orderByRaw(
+                '(select coalesce(sum(order_items.quantity), 0) from order_items
+                    join product_variants on product_variants.id = order_items.product_variant_id
+                    join orders on orders.id = order_items.order_id
+                    where product_variants.product_id = products.id
+                        and orders.paid_at >= ? and orders.status <> ?) desc',
+                [now()->subDays(self::POPULAR_DAYS), 'cancelled'],
+            )->orderBy('products.id'),
             default => $query->orderBy('products.id'),
         };
+    }
+
+    /**
+     * The materials found among a set of products, in the order they are listed above.
+     *
+     * @param  Builder<Product>  $products
+     * @return array<string, string> the word in the address => the name shown
+     */
+    public static function materials(Builder $products): array
+    {
+        $described = $products->clone()->reorder()->toBase()->pluck('products.materials')->filter()->map(fn (string $text) => mb_strtolower($text));
+
+        return array_filter(self::MATERIALS, fn (string $word) => $described->contains(fn (string $text) => str_contains($text, $word)), ARRAY_FILTER_USE_KEY);
     }
 
     /**
