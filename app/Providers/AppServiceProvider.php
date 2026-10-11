@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Cart\CartManager;
 use App\Catalogue\SearchIndex;
+use App\Demo\DemoGuard;
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Page;
@@ -73,6 +74,7 @@ class AppServiceProvider extends ServiceProvider
         $this->limitRequests();
 
         StoreSettings::apply();
+        DemoGuard::register();
 
         // A colour renamed or a category renamed changes what its products are found by.
         ProductOptionValue::saved(fn (ProductOptionValue $value) => ($product = $value->option?->product) ? SearchIndex::refresh($product) : null);
@@ -99,6 +101,7 @@ class AppServiceProvider extends ServiceProvider
      */
     private function limitRequests(): void
     {
+        RateLimiter::for('demo', fn (Request $request) => Limit::perMinute(12)->by('demo|'.$request->ip()));
         RateLimiter::for('search', fn (Request $request) => Limit::perMinute(40)->by('search|'.$request->ip()));
         RateLimiter::for('cart', fn (Request $request) => Limit::perMinute(90)->by('cart|'.$request->ip()));
         RateLimiter::for('checkout', fn (Request $request) => Limit::perMinute(30)->by('checkout|'.$request->ip()));

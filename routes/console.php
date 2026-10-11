@@ -12,3 +12,6 @@ Schedule::command('model:prune', ['--model' => [Cart::class]])->daily();
 // Products are indexed for search as they change. This catches what no single change announces,
 // such as a product joining a collection.
 Schedule::command('catalogue:index-search')->dailyAt('03:10');
+
+// A demonstration store starts each day as it was the day before, whatever visitors did to it.
+Schedule::command('demo:reset')->dailyAt('03:30')->when(fn () => (bool) config('store.demo'));

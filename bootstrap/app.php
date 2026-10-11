@@ -1,5 +1,6 @@
 <?php
 
+use App\Demo\DemoAccountCannotChange;
 use App\Http\Middleware\AddResponseHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -23,6 +24,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(fn (Request $request) => route('account.show'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        // A demonstration account that tries to change what customers see is told why not, in plain words.
+        $exceptions->dontReport(DemoAccountCannotChange::class);
+        $exceptions->render(fn (DemoAccountCannotChange $refused) => response()->view('errors.demo', ['message' => $refused->getMessage()], 403));
+
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );

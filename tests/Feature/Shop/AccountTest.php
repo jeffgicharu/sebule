@@ -313,16 +313,16 @@ class AccountTest extends TestCase
     {
         config(['mail.default' => 'smtp']);
         Mail::fake();
-        $customer = $this->customer();
+        $customer = $this->customer('wanjiru@kamau.co.ke');
 
         $this->get(route('account.password.request'))->assertOk();
-        $this->post(route('account.password.email'), ['email' => 'Wanjiru@example.com'])
+        $this->post(route('account.password.email'), ['email' => 'Wanjiru@kamau.co.ke'])
             ->assertSessionHas('shop.notice', 'If that address has an account, a link to choose a new password is on its way to it. The link works for one hour.');
 
         // The message log keeps the email but not the link that opens the account.
         $logged = Message::sole();
 
-        $this->assertSame([$customer->id, 'password_reset', 'wanjiru@example.com', MessageStatus::Sent], [$logged->customer_id, $logged->kind, $logged->recipient, $logged->status]);
+        $this->assertSame([$customer->id, 'password_reset', 'wanjiru@kamau.co.ke', MessageStatus::Sent], [$logged->customer_id, $logged->kind, $logged->recipient, $logged->status]);
         $this->assertStringContainsString(TellAccountHolder::PRIVATE_LINK, $logged->html);
         $this->assertStringNotContainsString('reset-password', $logged->html.$logged->body);
 
@@ -332,22 +332,22 @@ class AccountTest extends TestCase
             preg_match('~href="([^"]*/account/reset-password/[^"]+)"~', $html, $found);
             $link = html_entity_decode($found[1] ?? '');
 
-            return $mail->hasTo('wanjiru@example.com') && $link !== '' && ! str_contains($html, TellAccountHolder::PRIVATE_LINK);
+            return $mail->hasTo('wanjiru@kamau.co.ke') && $link !== '' && ! str_contains($html, TellAccountHolder::PRIVATE_LINK);
         });
 
-        $this->get($link)->assertOk()->assertSee('value="wanjiru@example.com"', escape: false)->assertSee('<meta name="referrer" content="no-referrer">', escape: false);
+        $this->get($link)->assertOk()->assertSee('value="wanjiru@kamau.co.ke"', escape: false)->assertSee('<meta name="referrer" content="no-referrer">', escape: false);
 
         $token = Str::of(parse_url($link, PHP_URL_PATH))->afterLast('/')->toString();
 
-        $this->post(route('account.password.update'), ['token' => $token, 'email' => 'wanjiru@example.com', 'password' => 'short'])
+        $this->post(route('account.password.update'), ['token' => $token, 'email' => 'wanjiru@kamau.co.ke', 'password' => 'short'])
             ->assertSessionHasErrors(['password' => 'Use at least 8 characters for your password.']);
-        $this->post(route('account.password.update'), ['token' => $token, 'email' => 'wanjiru@example.com', 'password' => 'a-brand-new-password'])
+        $this->post(route('account.password.update'), ['token' => $token, 'email' => 'wanjiru@kamau.co.ke', 'password' => 'a-brand-new-password'])
             ->assertRedirect(route('account.login'))->assertSessionHas('shop.notice', 'Your password is changed. Sign in with the new one.');
 
         $this->assertTrue(Hash::check('a-brand-new-password', $customer->refresh()->password));
 
         // The link works once.
-        $this->post(route('account.password.update'), ['token' => $token, 'email' => 'wanjiru@example.com', 'password' => 'yet-another-password'])
+        $this->post(route('account.password.update'), ['token' => $token, 'email' => 'wanjiru@kamau.co.ke', 'password' => 'yet-another-password'])
             ->assertSessionHasErrors(['email' => 'This link has expired or has already been used. Ask for a new one below.']);
         $this->assertTrue(Hash::check('a-brand-new-password', $customer->refresh()->password));
     }

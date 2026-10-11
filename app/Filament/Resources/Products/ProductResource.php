@@ -28,6 +28,12 @@ class ProductResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    /** What customers see and pay is changed by owners and store managers only. */
+    public static function canAccess(): bool
+    {
+        return (bool) auth()->user()?->role->managesCatalogue();
+    }
+
     public static function form(Schema $schema): Schema
     {
         return ProductForm::configure($schema);

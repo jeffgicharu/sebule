@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * A member of staff. Customers have their own accounts and never sign in here.
  */
-#[Fillable(['name', 'email', 'password', 'role', 'is_active'])]
+#[Fillable(['name', 'email', 'password', 'role', 'is_active', 'is_demo'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
 {
@@ -40,6 +40,7 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
             'role' => StaffRole::class,
             'is_active' => 'boolean',
+            'is_demo' => 'boolean',
         ];
     }
 

@@ -50,6 +50,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Demonstration
+    |--------------------------------------------------------------------------
+    |
+    | When true, visitors can be let into marked demonstration accounts, and
+    | the orders and customers are replaced each night with a fresh set. Never
+    | switch this on for a store that trades.
+    |
+    */
+
+    'demo' => (bool) env('STORE_DEMO', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Test payments
     |--------------------------------------------------------------------------
     |

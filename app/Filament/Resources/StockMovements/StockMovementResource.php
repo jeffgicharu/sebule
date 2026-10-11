@@ -24,7 +24,7 @@ class StockMovementResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Catalogue';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 5;
 
     protected static ?string $navigationLabel = 'Stock history';
 
@@ -39,6 +39,11 @@ class StockMovementResource extends Resource
     public static function table(Table $table): Table
     {
         return StockMovementsTable::configure($table);
+    }
+
+    public static function canAccess(): bool
+    {
+        return (bool) auth()->user()?->role->handlesStock();
     }
 
     public static function canCreate(): bool

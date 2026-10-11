@@ -21,6 +21,18 @@ enum StaffRole: string implements HasLabel
         };
     }
 
+    /** Creates and changes products, categories and collections, their prices and their photos. */
+    public function managesCatalogue(): bool
+    {
+        return in_array($this, [self::Owner, self::Manager], true);
+    }
+
+    /** Counts stock in and out, and reads the record of every change. */
+    public function handlesStock(): bool
+    {
+        return in_array($this, [self::Owner, self::Manager, self::Fulfilment], true);
+    }
+
     /** Moves orders on: being made, ready, out for delivery, delivered. */
     public function fulfilsOrders(): bool
     {

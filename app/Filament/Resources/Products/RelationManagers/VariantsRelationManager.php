@@ -3,18 +3,15 @@
 namespace App\Filament\Resources\Products\RelationManagers;
 
 use App\Catalogue\VariantGenerator;
-use App\Enums\StockMovementReason;
 use App\Filament\Resources\StockMovements\StockMovementResource;
+use App\Filament\Support\AdjustStockAction;
 use App\Filament\Support\MoneyInput;
-use App\Inventory\InsufficientStock;
-use App\Inventory\StockLedger;
 use App\Models\ProductVariant;
 use App\Support\Money;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
@@ -147,50 +144,7 @@ class VariantsRelationManager extends RelationManager
                     }),
             ])
             ->recordActions([
-                Action::make('adjustStock')
-                    ->label('Adjust stock')
-                    ->icon(Heroicon::OutlinedArrowsUpDown)
-                    ->modalHeading(fn (ProductVariant $record): string => 'Adjust stock: '.$record->label())
-                    ->modalDescription(fn (ProductVariant $record): string => "There are {$record->stock_on_hand} in stock now.")
-                    ->schema([
-                        TextInput::make('quantity')
-                            ->label('Change')
-                            ->helperText('Use a minus sign to remove stock, for example -2.')
-                            ->integer()
-                            ->required()
-                            ->notIn([0]),
-                        Select::make('reason')
-                            ->options(collect(StockMovementReason::manual())
-                                ->mapWithKeys(fn (StockMovementReason $reason) => [$reason->value => $reason->getLabel()])
-                                ->all())
-                            ->required(),
-                        TextInput::make('note')
-                            ->maxLength(255),
-                    ])
-                    ->action(function (ProductVariant $record, array $data, StockLedger $ledger): void {
-                        try {
-                            $movement = $ledger->adjust(
-                                $record,
-                                (int) $data['quantity'],
-                                StockMovementReason::from($data['reason']),
-                                $data['note'] ?? null,
-                                auth()->user(),
-                            );
-                        } catch (InsufficientStock $exception) {
-                            Notification::make()
-                                ->title('Not enough stock')
-                                ->body("Only {$exception->available} in stock, so {$exception->requested} cannot be removed.")
-                                ->danger()
-                                ->send();
-
-                            return;
-                        }
-
-                        Notification::make()
-                            ->title("Stock is now {$movement->balance_after}.")
-                            ->success()
-                            ->send();
-                    }),
+                AdjustStockAction::make(),
                 // The less frequent actions sit in a menu so the row never runs off the side of the table.
                 ActionGroup::make([
                     Action::make('stockHistory')

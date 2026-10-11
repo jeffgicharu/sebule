@@ -26,6 +26,11 @@ class EmailAllowance
             return 'Email sending is not switched on.';
         }
 
+        // example.com and its kin are set aside for examples and reach nobody, so nothing is spent on them.
+        if (preg_match('/@(.+\.)?example\.(com|org|net)$/i', $address) || str_ends_with(strtolower($address), '.test')) {
+            return 'This address is an example, not a real mailbox.';
+        }
+
         $today = Message::query()
             ->where('channel', MessageChannel::Email)
             ->whereIn('status', [MessageStatus::Waiting, MessageStatus::Sent])

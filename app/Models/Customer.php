@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * A customer's account. Staff are users and sign in to the back office; a
  * customer signs in to the shop and to nothing else.
  */
-#[Fillable(['name', 'email', 'phone', 'password', 'marketing_opt_in'])]
+#[Fillable(['name', 'email', 'phone', 'password', 'marketing_opt_in', 'is_demo'])]
 #[Hidden(['password', 'remember_token'])]
 class Customer extends Authenticatable
 {
@@ -22,6 +22,7 @@ class Customer extends Authenticatable
         return [
             'password' => 'hashed',
             'marketing_opt_in' => 'boolean',
+            'is_demo' => 'boolean',
         ];
     }
 

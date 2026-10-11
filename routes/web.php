@@ -5,6 +5,7 @@ use App\Http\Controllers\Account\AddressController;
 use App\Http\Controllers\Account\PasswordResetController;
 use App\Http\Controllers\Account\RegisterController;
 use App\Http\Controllers\Account\SessionController;
+use App\Http\Controllers\DemoLoginController;
 use App\Http\Controllers\Shop\CartController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CheckoutController;
@@ -87,6 +88,15 @@ Route::prefix('account')->name('account.')->group(function () {
         Route::delete('/addresses/{address}', [AddressController::class, 'destroy'])->name('addresses.destroy');
         Route::post('/addresses/{address}/default', [AddressController::class, 'makeDefault'])->name('addresses.default');
     });
+});
+
+/*
+ * A way into the demonstration accounts, where the store is marked as a
+ * demonstration. Nothing in the shop links here.
+ */
+Route::middleware('throttle:demo')->group(function () {
+    Route::get('/demo/staff/{role?}', [DemoLoginController::class, 'staff'])->name('demo.staff');
+    Route::get('/demo/customer', [DemoLoginController::class, 'customer'])->name('demo.customer');
 });
 
 // The store's own pages, by their names: /delivery, /returns, /about. Last, so every address above is tried first.

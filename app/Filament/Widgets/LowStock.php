@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Enums\ProductStatus;
 use App\Filament\Resources\Products\ProductResource;
+use App\Filament\Resources\Stock\StockResource;
 use App\Models\ProductVariant;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -17,6 +18,11 @@ use Illuminate\Database\Eloquent\Builder;
 class LowStock extends TableWidget
 {
     protected static ?int $sort = 3;
+
+    public static function canView(): bool
+    {
+        return (bool) auth()->user()?->role->handlesStock();
+    }
 
     public function table(Table $table): Table
     {
@@ -42,7 +48,10 @@ class LowStock extends TableWidget
                 TextColumn::make('low_stock_threshold')
                     ->label('Warns at'),
             ])
-            ->recordUrl(fn (ProductVariant $record): string => ProductResource::getUrl('edit', ['record' => $record->product]))
+            // To the product for those who manage the catalogue; to the stock screen for those who count it.
+            ->recordUrl(fn (ProductVariant $record): string => auth()->user()->role->managesCatalogue()
+                ? ProductResource::getUrl('edit', ['record' => $record->product])
+                : StockResource::getUrl('index', ['search' => $record->sku]))
             ->paginated([5, 10, 25])
             ->defaultPaginationPageOption(5)
             ->emptyStateHeading('Stock is healthy')

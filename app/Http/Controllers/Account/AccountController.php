@@ -20,6 +20,9 @@ use Illuminate\Validation\Rules\Password;
  */
 class AccountController extends Controller
 {
+    /** The next visitor has to find the demonstration account as this one did. */
+    private const DEMO = 'This is a demonstration account, so its name, email and password stay as they are. Its addresses and orders are yours to try.';
+
     /** The orders placed from this account, newest first. */
     public function show(Request $request): View
     {
@@ -37,6 +40,10 @@ class AccountController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $customer = $this->customer();
+
+        if ($customer->is_demo) {
+            return back()->with('shop.problem', self::DEMO);
+        }
         $request->merge(['email' => Str::lower(trim((string) $request->input('email')))]);
 
         $data = $request->validate([
@@ -69,6 +76,10 @@ class AccountController extends Controller
     public function updatePassword(Request $request): RedirectResponse
     {
         $customer = $this->customer();
+
+        if ($customer->is_demo) {
+            return back()->with('shop.problem', self::DEMO);
+        }
 
         $data = $request->validateWithBag('password', [
             'current_password' => ['required', 'string', function (string $attribute, mixed $value, Closure $fail) use ($customer): void {

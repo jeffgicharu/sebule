@@ -32,12 +32,12 @@ The shop is at http://localhost:8000 and the back office at http://localhost:800
 
 Staff sign in to the back office with their own accounts, which are separate from customer accounts. The roles are `owner`, `manager`, `fulfilment` and `support`.
 
-| Role | Orders | Payments and customers | Pages, home page, store settings, delivery zones | Staff |
-|---|---|---|---|---|
-| `owner` | Read, move on, cancel (paid or not), record refunds | Read | Change | Manage |
-| `manager` | Read, move on, cancel unpaid | Read | Change | |
-| `fulfilment` | Read, move on, cancel unpaid | | | |
-| `support` | Read, cancel unpaid | Read | | |
+| Role | Orders | Payments and customers | Stock | Catalogue, pages, home page, store settings, delivery zones | Staff |
+|---|---|---|---|---|---|
+| `owner` | Read, move on, cancel (paid or not), record refunds | Read | Count in and out | Change | Manage |
+| `manager` | Read, move on, cancel unpaid | Read | Count in and out | Change | |
+| `fulfilment` | Read, move on, cancel unpaid | | Count in and out | | |
+| `support` | Read, cancel unpaid | Read | | | |
 
 The rules live in `App\Enums\StaffRole` and `App\Policies\OrderPolicy`, and the server checks them on every action: an action a role may not take is neither shown nor accepted.
 
@@ -122,6 +122,15 @@ Delivery zones are groups of counties with one fee and a promised time, set unde
 
 Every message is stored in full before anything is sent, and staff read them under Sales, Messages exactly as the customer got them. An email is queued when the customer gave an address and a real mailer is configured; with the `log` mailer it is stored and marked as not sent. Because an email goes to whatever address was typed at checkout, sending is capped per address and for the whole store each day. Text messages are written and stored but not sent.
 
+## Running it as a demonstration
+
+With `STORE_DEMO=true` the store can be shown to people who are not its staff.
+
+- `php artisan demo:reset` replaces the orders, customers, messages and stock movements with a fixed set: about four months of orders in every state, counted back from today, with customers at example addresses. It runs each night at 03:30, so the store starts every day the same whatever visitors did to it. It does not touch the catalogue, the pages, the settings or staff accounts that are not demonstration accounts, and it refuses to run when `STORE_DEMO` is off.
+- `/demo/staff`, `/demo/staff/fulfilment` and `/demo/staff/support` sign a visitor in to a demonstration staff account of that role, and `/demo/customer` to a customer account with orders behind it. Nothing in the shop links to them, and they do not exist when `STORE_DEMO` is off.
+- A demonstration staff account can open every screen its role allows and can work orders and stock, but cannot change anything customers see: products, prices, photos, pages, delivery fees, store settings or staff. `App\Demo\DemoGuard` enforces that on the models themselves, so it holds for every screen and action. The demonstration customer's name, email and password cannot be changed, so the next visitor finds the account as this one did.
+- Email is never sent to an address at example.com, example.org, example.net or .test, on any installation. Such a message is kept in the log and marked as not sent.
+
 ## Tests
 
 The tests run against PostgreSQL, in a database named `sebule_test` that the same user can reach.
@@ -163,6 +172,7 @@ The workflow needs these repository secrets: `VPS_HOST`, `VPS_USER`, `VPS_SSH_KE
 | `APP_TIMEZONE` | Defaults to `Africa/Nairobi`. |
 | `STORE_ALLOW_INDEXING` | Set to `true` to let search engines index the site. Off by default. |
 | `STORE_HOLD_MINUTES` | How long stock is held for an order while its customer pays. 15 by default. |
+| `STORE_DEMO` | Set to `true` only for a store that is being shown, not traded from. See "Running it as a demonstration". Off by default. |
 | `STORE_TEST_PAYMENTS` | Set to `true` to let an order be completed with a test payment, with no money moving. Off by default. |
 | `MAIL_MAILER`, `MAIL_FROM_ADDRESS` | How order emails leave. With `log`, emails are stored in the message log and not sent. |
 | `STORE_REPLY_TO`, `STORE_PHONE`, `STORE_WHATSAPP` | How customers reach the store, until staff set them under Settings, Store. Optional. |
