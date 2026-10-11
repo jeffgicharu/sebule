@@ -131,6 +131,19 @@ With `STORE_DEMO=true` the store can be shown to people who are not its staff.
 - A demonstration staff account can open every screen its role allows and can work orders and stock, but cannot change anything customers see: products, prices, photos, pages, delivery fees, store settings or staff. `App\Demo\DemoGuard` enforces that on the models themselves, so it holds for every screen and action. The demonstration customer's name, email and password cannot be changed, so the next visitor finds the account as this one did.
 - Email is never sent to an address at example.com, example.org, example.net or .test, on any installation. Such a message is kept in the log and marked as not sent.
 
+## Backups and alerts
+
+`store:backup` writes a compressed SQL copy of the database to `storage/app/private/backups` every night at 02:15 and keeps a fortnight of them. With `--photos`, run weekly, it also packs the product photos and keeps the last two. The copies live in the shared storage directory, so releases come and go around them. They are on the same server as the store: copy them elsewhere as well if the server itself is what you are guarding against.
+
+To restore, load a copy into an empty database and point the application at it:
+
+```sh
+createdb sebule_restored
+gunzip -c storage/app/private/backups/database-2026-10-11-0215.sql.gz | psql sebule_restored
+```
+
+Anything the application reports as an error, a queued job that runs out of tries and a backup that fails are written to the log and, when `STORE_ALERT_EMAIL` is set, emailed to it: once in fifteen minutes for the same trouble (`App\Support\Alert`). `.github/workflows/uptime.yml` opens the live site from outside every hour and fails when a page does not load, which GitHub reports to whoever watches the repository.
+
 ## Tests
 
 The tests run against PostgreSQL, in a database named `sebule_test` that the same user can reach.
@@ -172,6 +185,7 @@ The workflow needs these repository secrets: `VPS_HOST`, `VPS_USER`, `VPS_SSH_KE
 | `APP_TIMEZONE` | Defaults to `Africa/Nairobi`. |
 | `STORE_ALLOW_INDEXING` | Set to `true` to let search engines index the site. Off by default. |
 | `STORE_HOLD_MINUTES` | How long stock is held for an order while its customer pays. 15 by default. |
+| `STORE_ALERT_EMAIL` | Where errors, failed jobs and failed backups are emailed. Without it they are only logged. |
 | `STORE_DEMO` | Set to `true` only for a store that is being shown, not traded from. See "Running it as a demonstration". Off by default. |
 | `STORE_TEST_PAYMENTS` | Set to `true` to let an order be completed with a test payment, with no money moving. Off by default. |
 | `MAIL_MAILER`, `MAIL_FROM_ADDRESS` | How order emails leave. With `log`, emails are stored in the message log and not sent. |

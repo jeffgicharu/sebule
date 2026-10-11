@@ -73,3 +73,41 @@ if (watch) {
 
     window.setTimeout(ask, 3000);
 }
+
+// Product photos: a photo opens over the page to be looked at closely, and a click or tap on it
+// there shows it at its full size. Without this script, or in a browser with no dialogs, the
+// link opens the photo by itself.
+document.addEventListener('click', (event) => {
+    const link = event.target.closest?.('[data-zoom]');
+    const dialog = document.querySelector('[data-zoom-dialog]');
+
+    if (link && typeof dialog?.showModal === 'function') {
+        event.preventDefault();
+
+        const photo = dialog.querySelector('img');
+        photo.src = link.href;
+        photo.alt = link.querySelector('img')?.alt ?? '';
+
+        dialog.classList.remove('is-closer');
+        dialog.showModal();
+
+        return;
+    }
+
+    if (event.target.matches?.('[data-zoom-dialog] img')) {
+        const stage = event.target.parentElement;
+        const closer = event.target.closest('[data-zoom-dialog]').classList.toggle('is-closer');
+
+        // Coming closer keeps the spot that was clicked in view.
+        if (closer) {
+            const box = event.target.getBoundingClientRect();
+            const across = (event.clientX - box.left) / box.width;
+            const down = (event.clientY - box.top) / box.height;
+
+            requestAnimationFrame(() => {
+                stage.scrollLeft = across * stage.scrollWidth - stage.clientWidth / 2;
+                stage.scrollTop = down * stage.scrollHeight - stage.clientHeight / 2;
+            });
+        }
+    }
+});

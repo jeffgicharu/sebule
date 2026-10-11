@@ -47,21 +47,33 @@
         <x-shop.breadcrumbs :trail="$trail" />
 
         <div class="mt-6 grid gap-8 lg:mt-8 lg:grid-cols-12 lg:gap-12">
-            {{-- Photos: the first one large, the rest in pairs. No script and nothing to swipe past. --}}
+            {{-- Photos: the first one large, the rest in pairs, with nothing to swipe past. Each is a link to its
+                 largest size: with script it opens over the page to be looked at closely, without it the photo opens by itself. --}}
             <div class="lg:col-span-7">
                 <ul class="grid grid-cols-2 gap-3 lg:gap-4">
                     @forelse ($photos as $photo)
+                        @php $alt = $loop->first ? $product->name.($option ? ' in '.$selected->label() : '') : $product->name.', photo '.$loop->iteration; @endphp
                         {{-- An odd one out at the end takes the full width, so no half of the grid is left empty. --}}
                         <li class="tile {{ $loop->first || ($loop->last && $loop->count % 2 === 0) ? 'col-span-2' : '' }} aspect-square">
-                            <x-shop.photo :media="$photo" :eager="$loop->first"
-                                :alt="$loop->first ? $product->name.($option ? ' in '.$selected->label() : '') : $product->name.', photo '.$loop->iteration"
-                                :sizes="$loop->first ? '(min-width: 64rem) 58vw, 100vw' : '(min-width: 64rem) 29vw, 50vw'"
-                                class="h-full w-full object-contain" />
+                            <a href="{{ $photo->hasGeneratedConversion('large') ? $photo->getUrl('large') : $photo->getUrl() }}" data-zoom
+                                class="block h-full w-full cursor-zoom-in" aria-label="Look closer: {{ $alt }}">
+                                <x-shop.photo :media="$photo" :eager="$loop->first" :alt="$alt"
+                                    :sizes="$loop->first ? '(min-width: 64rem) 58vw, 100vw' : '(min-width: 64rem) 29vw, 50vw'"
+                                    class="h-full w-full object-contain" />
+                            </a>
                         </li>
                     @empty
                         <li class="tile col-span-2 flex aspect-square items-center justify-center text-ink-soft">Photo coming soon</li>
                     @endforelse
                 </ul>
+
+                {{-- Where a photo opens to be looked at closely. One click or tap on it there shows it at its full size. --}}
+                <dialog data-zoom-dialog class="zoom" aria-label="Photo, enlarged">
+                    <form method="dialog">
+                        <button class="btn btn-primary zoom-close">Close</button>
+                    </form>
+                    <div class="zoom-stage"><img src="data:," alt=""></div>
+                </dialog>
 
                 @if ($photosAreOfDefault)
                     <p class="mt-3 text-sm text-ink-soft">Shown in {{ $defaultLabel }}. The piece is the same in {{ $selected->label() }}.</p>

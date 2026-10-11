@@ -15,3 +15,8 @@ Schedule::command('catalogue:index-search')->dailyAt('03:10');
 
 // A demonstration store starts each day as it was the day before, whatever visitors did to it.
 Schedule::command('demo:reset')->dailyAt('03:30')->when(fn () => (bool) config('store.demo'));
+
+// A copy of the database every night and of the photos every week, kept on the server
+// under storage/app/private/backups. A backup that fails is reported like any other error.
+Schedule::command('store:backup')->dailyAt('02:15');
+Schedule::command('store:backup --photos')->weeklyOn(0, '02:40');

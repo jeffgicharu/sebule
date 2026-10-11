@@ -24,10 +24,12 @@ class StockTable
                     ->weight('medium')
                     ->searchable()
                     ->sortable()
-                    ->description(fn (ProductVariant $record): string => $record->optionValues->isNotEmpty() ? $record->label() : 'One variant'),
+                    // The SKU sits under the name, so the table keeps to a laptop's width.
+                    ->description(fn (ProductVariant $record): string => ($record->optionValues->isNotEmpty() ? $record->label().' · ' : '').$record->sku),
                 TextColumn::make('sku')
                     ->label('SKU')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('stock_on_hand')
                     ->label('In stock')
                     ->numeric()

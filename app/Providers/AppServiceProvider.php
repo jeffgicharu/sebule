@@ -10,12 +10,15 @@ use App\Models\Collection;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductOptionValue;
+use App\Support\Alert;
 use App\Support\StoreSettings;
 use Filament\Tables\Table;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -75,6 +78,12 @@ class AppServiceProvider extends ServiceProvider
 
         StoreSettings::apply();
         DemoGuard::register();
+
+        // A queued job that has run out of tries, such as an email that will not send, is somebody's to look at.
+        Queue::failing(fn (JobFailed $event) => Alert::raise(
+            'A background job failed: '.class_basename($event->job->resolveName()),
+            mb_substr($event->exception->getMessage(), 0, 500),
+        ));
 
         // A colour renamed or a category renamed changes what its products are found by.
         ProductOptionValue::saved(fn (ProductOptionValue $value) => ($product = $value->option?->product) ? SearchIndex::refresh($product) : null);

@@ -1,0 +1,30 @@
+name: Uptime
+
+# Looks at the live site from outside every hour. If it is down or erroring,
+# this run fails, and GitHub emails whoever watches the repository.
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  check:
+    name: Check sebule.jeffgicharu.com
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Open the pages a customer needs
+        run: |
+          for path in /up / /c/living-room /search?q=sofa /cart /delivery; do
+            status=000
+            for attempt in 1 2 3; do
+              status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "https://sebule.jeffgicharu.com$path" || true)
+              [ "$status" = "200" ] && break
+              sleep 10
+            done
+            echo "$status $path"
+            [ "$status" = "200" ] || failed=1
+          done
+          [ -z "${failed:-}" ]
