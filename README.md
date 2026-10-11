@@ -70,6 +70,12 @@ A room shot is attached to the product; every other shot is attached to the colo
 - Prices are whole numbers of cents. Nothing in the application holds money as a float.
 - Stock changes only through `App\Inventory\StockLedger`. It locks the variant's row, refuses to go below zero, and writes a movement recording who changed it, why, and the balance left. The database has its own check constraint as a second line of defence. Staff read the movements under Catalogue, Stock history; they cannot be edited.
 
+## Search
+
+Search runs in PostgreSQL with the `pg_trgm` extension, so there is no search service to run beside the database. Each product carries a `search_text` column holding the words it might be looked for by: its name, category and room, collections, colours and finishes, materials and description, plus everyday words for the store's own colour names, so that "green" finds Forest and Olive. `App\Catalogue\SearchIndex` rewrites it whenever a product, a colour or a category name changes, and `catalogue:index-search` rewrites all of them each night.
+
+`App\Catalogue\ProductSearch` requires every typed word to match a product, either as written or closely enough to be a misspelling ("soffa", "dinning table"). Words of three letters or fewer must match as written. Products whose own name matches are ranked first.
+
 ## From cart to paid
 
 A cart belongs to a browser: a cookie holds its token and nothing else. It is created when the first piece is added, and it flags a line whose price has moved or whose stock has run short since.

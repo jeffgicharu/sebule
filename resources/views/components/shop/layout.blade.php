@@ -91,10 +91,11 @@
             <div class="wrap flex items-center justify-between gap-6 py-4 lg:py-5">
                 <a href="{{ route('home') }}" class="font-display text-[1.75rem] leading-none lg:text-[2rem]">{{ config('app.name') }}</a>
 
-                <div class="flex items-center gap-3 lg:gap-8">
+                {{-- On a small laptop the rooms take the width, so the icons on the right go without their words until there is room. --}}
+                <div class="flex items-center gap-3 lg:gap-4 xl:gap-7">
                 {{-- Desktop: rooms across the bar, each opening its sub-categories. --}}
                 <nav aria-label="Shop" class="hidden lg:block">
-                    <ul class="flex items-center gap-x-7 text-[0.95rem] font-medium">
+                    <ul class="flex items-center gap-x-5 whitespace-nowrap text-[0.95rem] font-medium xl:gap-x-7">
                         @foreach ($menuRooms as $room)
                             <li class="group relative">
                                 <a href="{{ route('shop.category', $room['slug']) }}" class="block border-b-2 border-transparent py-2 transition-colors hover:border-ink group-focus-within:border-ink">{{ $room['name'] }}</a>
@@ -112,6 +113,14 @@
                     </ul>
                 </nav>
 
+                <a href="{{ route('shop.search') }}" class="flex min-h-11 items-center gap-2 px-1 text-[0.95rem] font-medium" aria-label="Search">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" class="size-[1.35rem]" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="10.8" cy="10.8" r="6.3" />
+                        <path d="m15.6 15.6 4.4 4.4" />
+                    </svg>
+                    <span class="hidden xl:inline">Search</span>
+                </a>
+
                 {{-- The account: a customer's own name once they are signed in. --}}
                 <a href="{{ $shopper ? route('account.show') : route('account.login') }}" class="flex min-h-11 items-center gap-2 px-1 text-[0.95rem] font-medium"
                     aria-label="{{ $shopper ? 'Your account, signed in as '.$shopper->name : 'Sign in to your account' }}">
@@ -119,7 +128,7 @@
                         <circle cx="12" cy="8" r="3.6" />
                         <path d="M4.8 20c.9-3.6 3.7-5.6 7.2-5.6s6.3 2 7.2 5.6" />
                     </svg>
-                    <span class="hidden max-w-[7rem] truncate sm:inline">{{ $shopper ? Str::of($shopper->name)->before(' ') : 'Sign in' }}</span>
+                    <span class="hidden max-w-[7rem] truncate sm:inline lg:hidden xl:inline">{{ $shopper ? Str::of($shopper->name)->before(' ') : 'Sign in' }}</span>
                 </a>
 
                 <a href="{{ route('cart.show') }}" class="flex min-h-11 items-center gap-2 px-1 text-[0.95rem] font-medium"
@@ -128,7 +137,7 @@
                         <path d="M5 8h14l-1 12H6L5 8Z" />
                         <path d="M9 8V6.5a3 3 0 0 1 6 0V8" />
                     </svg>
-                    <span class="hidden sm:inline">Cart</span>
+                    <span class="hidden sm:inline lg:hidden xl:inline">Cart</span>
                     @if ($cartPieces > 0)
                         <span class="grid h-5 min-w-5 place-items-center rounded-full bg-forest px-1.5 text-xs font-semibold leading-none text-paper">{{ $cartPieces }}</span>
                     @endif

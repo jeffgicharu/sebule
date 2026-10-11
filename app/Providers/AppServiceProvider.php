@@ -3,8 +3,11 @@
 namespace App\Providers;
 
 use App\Cart\CartManager;
+use App\Catalogue\SearchIndex;
 use App\Models\Category;
 use App\Models\Collection;
+use App\Models\Product;
+use App\Models\ProductOptionValue;
 use Filament\Tables\Table;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -62,6 +65,15 @@ class AppServiceProvider extends ServiceProvider
 
         $this->limitRequests();
 
+        // A colour renamed or a category renamed changes what its products are found by.
+        ProductOptionValue::saved(fn (ProductOptionValue $value) => ($product = $value->option?->product) ? SearchIndex::refresh($product) : null);
+        ProductOptionValue::deleted(fn (ProductOptionValue $value) => ($product = $value->option?->product) ? SearchIndex::refresh($product) : null);
+        Category::saved(function (Category $category): void {
+            if ($category->wasChanged('name')) {
+                Product::query()->whereIn('category_id', [$category->id, ...$category->children()->pluck('id')])->get()->each(SearchIndex::refresh(...));
+            }
+        });
+
         $forgetMenu = fn () => Cache::forget(self::NAVIGATION);
 
         Category::saved($forgetMenu);
@@ -76,6 +88,7 @@ class AppServiceProvider extends ServiceProvider
      */
     private function limitRequests(): void
     {
+        RateLimiter::for('search', fn (Request $request) => Limit::perMinute(40)->by('search|'.$request->ip()));
         RateLimiter::for('cart', fn (Request $request) => Limit::perMinute(90)->by('cart|'.$request->ip()));
         RateLimiter::for('checkout', fn (Request $request) => Limit::perMinute(30)->by('checkout|'.$request->ip()));
         // Placing an order holds stock and writes to the customer, so one visitor may place only so many.

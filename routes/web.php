@@ -13,6 +13,7 @@ use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MpesaConfirmationController;
 use App\Http\Controllers\Shop\OrderController;
 use App\Http\Controllers\Shop\ProductController;
+use App\Http\Controllers\Shop\SearchController;
 use App\Http\Controllers\Shop\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/c/{category}', CategoryController::class)->name('shop.category');
 Route::get('/collections/{collection}', CollectionController::class)->name('shop.collection');
 Route::get('/p/{product}', ProductController::class)->name('shop.product');
+Route::get('/search', SearchController::class)->middleware('throttle:search')->name('shop.search');
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 Route::get('/cart', [CartController::class, 'show'])->name('cart.show');

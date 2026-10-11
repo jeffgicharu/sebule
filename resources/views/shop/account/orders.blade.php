@@ -28,6 +28,6 @@
             @endforeach
         </ul>
 
-        <div class="mt-8">{{ $orders->links() }}</div>
+        <div class="mt-8">{{ $orders->links('shop.pagination') }}</div>
     @endif
 </x-shop.account>

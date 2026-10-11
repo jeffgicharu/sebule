@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Catalogue\ProductImage;
+use App\Catalogue\SearchIndex;
 use App\Enums\ProductStatus;
 use App\Models\Concerns\HasSlug;
 use Database\Factories\ProductFactory;
@@ -46,6 +47,9 @@ class Product extends Model implements HasMedia
                 $product->published_at = now();
             }
         });
+
+        // Whatever changed, the words the product is searched by are written again.
+        static::saved(fn (Product $product) => SearchIndex::refresh($product));
     }
 
     /** @return BelongsTo<Category, $this> */
