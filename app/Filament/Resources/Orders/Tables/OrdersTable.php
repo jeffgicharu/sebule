@@ -31,7 +31,9 @@ class OrdersTable
                     ->description(fn (Order $record): string => (int) $record->pieces.' '.str('piece')->plural((int) $record->pieces)),
                 TextColumn::make('created_at')
                     ->label('Placed')
-                    ->dateTime('j M Y, H:i')
+                    // Without the year, so the table keeps to a laptop's width. The whole date is in the tip.
+                    ->dateTime('j M, H:i')
+                    ->dateTimeTooltip('j F Y, H:i')
                     ->sortable(),
                 TextColumn::make('customer_name')
                     ->label('Customer')

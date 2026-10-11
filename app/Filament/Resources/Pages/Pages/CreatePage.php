@@ -10,6 +10,8 @@ class CreatePage extends CreateRecord
 {
     protected static string $resource = PageResource::class;
 
+    protected static ?string $title = 'New page';
+
     /** A new page goes to the end of its list. */
     protected function mutateFormDataBeforeCreate(array $data): array
     {

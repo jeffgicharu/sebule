@@ -32,3 +32,11 @@
         flex: 1 1 auto;
     }
 }
+
+/*
+ * A month's sales run to seven figures. The figure stays on one line beside
+ * its neighbours, a size smaller until the screen is wide enough for the full one.
+ */
+.fi-wi-stats-overview-stat-value {
+    @apply text-2xl whitespace-nowrap 2xl:text-3xl;
+}

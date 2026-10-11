@@ -290,17 +290,19 @@ class DemoTest extends TestCase
         $this->get('/demo/staff');
         $page = Page::where('slug', 'returns')->firstOrFail();
 
-        try {
-            Livewire::test(EditPage::class, ['record' => $page->id])->fillForm(['title' => 'Vandalised'])->call('save');
-            $this->fail('A demonstration account changed a page.');
-        } catch (DemoAccountCannotChange $refused) {
-            // The browser is shown this, not an error page of the framework's.
-            $response = app(ExceptionHandler::class)->render(request(), $refused);
+        // In the back office the refusal is a notice on the screen the visitor is on.
+        Livewire::test(EditPage::class, ['record' => $page->id])
+            ->fillForm(['title' => 'Vandalised'])
+            ->call('save')
+            ->assertOk()
+            ->assertNotified('That change was not saved');
 
-            $this->assertSame(403, $response->getStatusCode());
-            $this->assertStringContainsString('That change was not saved.', $response->getContent());
-            $this->assertStringContainsString('cannot change what customers see', $response->getContent());
-        }
+        // Anywhere else it is a page that says the same, not an error page of the framework's.
+        $response = app(ExceptionHandler::class)->render(request(), new DemoAccountCannotChange);
+
+        $this->assertSame(403, $response->getStatusCode());
+        $this->assertStringContainsString('That change was not saved.', $response->getContent());
+        $this->assertStringContainsString('cannot change what customers see', $response->getContent());
 
         $this->assertSame('Returns', $page->fresh()->title);
     }

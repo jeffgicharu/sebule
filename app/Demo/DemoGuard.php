@@ -13,9 +13,13 @@ use App\Models\ProductOptionValue;
 use App\Models\ProductVariant;
 use App\Models\Setting;
 use App\Models\User;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Throwable;
+
+use function Livewire\on;
 
 /**
  * Keeps a demonstration account from changing what customers see.
@@ -38,6 +42,20 @@ class DemoGuard
             $model::saving(fn (Model $changed) => self::refuse($changed));
             $model::deleting(fn (Model $changed) => self::refuse($changed));
         }
+
+        // In the back office the refusal is said where the person is, as a notice on the screen they are on.
+        on('exception', function (mixed $component, Throwable $problem, callable $stopPropagation): void {
+            if ($problem instanceof DemoAccountCannotChange) {
+                Notification::make()
+                    ->title('That change was not saved')
+                    ->body($problem->getMessage())
+                    ->warning()
+                    ->persistent()
+                    ->send();
+
+                $stopPropagation();
+            }
+        });
     }
 
     private static function refuse(Model $changed): void
