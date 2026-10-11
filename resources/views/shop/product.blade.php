@@ -159,6 +159,13 @@
                         </p>
                     @endif
 
+                    {{-- A chat with the store that opens already saying which piece it is about. --}}
+                    @if ($chat = \App\Support\WhatsApp::link('Hello Sebule, I have a question about the '.$product->name.($selected->optionValues->isNotEmpty() ? ' in '.$selected->label() : '').': '.url()->full()))
+                        <p class="mt-4 text-[0.95rem]">
+                            <a href="{{ $chat }}" rel="noopener" class="link">Ask about this piece on WhatsApp</a>
+                        </p>
+                    @endif
+
                     <dl class="mt-7 divide-y divide-rule border-y border-rule text-[0.95rem]">
                         @if ($size->count() === 3)
                             <div class="flex justify-between gap-6 py-3">

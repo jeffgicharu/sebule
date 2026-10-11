@@ -6,8 +6,10 @@ use App\Cart\CartManager;
 use App\Catalogue\SearchIndex;
 use App\Models\Category;
 use App\Models\Collection;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductOptionValue;
+use App\Support\StoreSettings;
 use Filament\Tables\Table;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -54,6 +56,11 @@ class AppServiceProvider extends ServiceProvider
                     ])
                     ->all(),
                 'menuCollections' => Collection::query()->active()->orderBy('position')->get()->map->only(['name', 'slug'])->all(),
+                // The store's own pages, by the footer list each belongs in.
+                'footerPages' => Page::query()->published()->whereNotNull('footer_group')->orderBy('position')->get()
+                    ->groupBy(fn (Page $page) => $page->footer_group->value)
+                    ->map(fn ($pages) => $pages->map->only(['title', 'slug'])->values()->all())
+                    ->all(),
             ]));
         });
 
@@ -64,6 +71,8 @@ class AppServiceProvider extends ServiceProvider
         ]));
 
         $this->limitRequests();
+
+        StoreSettings::apply();
 
         // A colour renamed or a category renamed changes what its products are found by.
         ProductOptionValue::saved(fn (ProductOptionValue $value) => ($product = $value->option?->product) ? SearchIndex::refresh($product) : null);
@@ -80,6 +89,8 @@ class AppServiceProvider extends ServiceProvider
         Category::deleted($forgetMenu);
         Collection::saved($forgetMenu);
         Collection::deleted($forgetMenu);
+        Page::saved($forgetMenu);
+        Page::deleted($forgetMenu);
     }
 
     /**

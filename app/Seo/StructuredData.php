@@ -167,6 +167,24 @@ class StructuredData
         ]);
     }
 
+    /**
+     * Questions and their answers, as a page of them.
+     *
+     * @param  list<array{question: string, answer: string}>  $questions
+     * @return array<string, mixed>
+     */
+    public static function questions(array $questions): array
+    {
+        return [
+            '@type' => 'FAQPage',
+            'mainEntity' => array_map(fn (array $pair) => [
+                '@type' => 'Question',
+                'name' => $pair['question'],
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $pair['answer']],
+            ], $questions),
+        ];
+    }
+
     /** A photo in the size meant for sharing: a JPEG every service can read. */
     public static function photoUrl(Media $photo): string
     {

@@ -42,7 +42,7 @@
                         <p class="mt-3 text-[0.95rem]">Delivered in {{ $county->zone->estimate() }} once paid. Pieces that are made to order follow when they are ready.</p>
                     @else
                         <p class="mt-3 font-medium">Sebule showroom, {{ $showroom['street'] }}, {{ $showroom['city'] }}</p>
-                        <p class="text-ink-soft">Monday to Saturday, 9 am to 6 pm. We will text you when your order is ready to collect.</p>
+                        <p class="text-ink-soft">{{ \App\Messages\OrderWording::hours() }}. We will text you when your order is ready to collect.</p>
                     @endif
                 </section>
 

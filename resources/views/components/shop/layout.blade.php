@@ -14,7 +14,7 @@
 @php
     $store = config('app.name');
     $pageTitle = $title ? $title.' | '.$store : $store.' | Furniture and homeware made in Kenya';
-    $pageDescription = Str::limit(Str::squish(strip_tags($description ?: 'Furniture and homeware designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered across Kenya, with M-Pesa or card at checkout.')), 158);
+    $pageDescription = Str::limit(Str::squish(strip_tags($description ?: 'Furniture and homeware designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered across Kenya, and paid for with M-Pesa.')), 158);
     $pageUrl = $canonical ?: url()->current();
     $share = $image ?: [
         'url' => asset('images/site/share-1200.jpg'),
@@ -84,7 +84,7 @@
         <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">Skip to the content</a>
 
         <p class="bg-forest px-4 py-2 text-center text-[0.8125rem] font-medium tracking-wide text-paper">
-            Delivery across Kenya <span aria-hidden="true" class="mx-2 text-sand">/</span> Pay with M-Pesa or card
+            Delivery across Kenya <span aria-hidden="true" class="mx-2 text-sand">/</span> Pay with M-Pesa
         </p>
 
         <header class="border-b border-rule bg-paper">
@@ -186,13 +186,13 @@
         </main>
 
         <footer class="mt-24 bg-ink text-paper">
-            <div class="wrap grid gap-12 py-14 md:grid-cols-12 lg:py-20">
-                <div class="md:col-span-5">
+            <div class="wrap grid grid-cols-2 gap-x-8 gap-y-12 py-14 md:grid-cols-12 lg:py-20">
+                <div class="col-span-2 md:col-span-12 lg:col-span-3">
                     <p class="font-display text-4xl">{{ config('app.name') }}</p>
                     <p class="mt-4 max-w-sm text-paper/70">Furniture and homeware designed in Nairobi and built to be used every day, in solid mvule, mahogany and Meru oak.</p>
                 </div>
 
-                <nav aria-label="Rooms" class="md:col-span-2">
+                <nav aria-label="Rooms" class="md:col-span-3 lg:col-span-2">
                     <h2 class="eyebrow !text-sand">Rooms</h2>
                     <ul class="mt-4 space-y-2 text-paper/85">
                         @foreach ($menuRooms as $room)
@@ -201,7 +201,7 @@
                     </ul>
                 </nav>
 
-                <nav aria-label="Collections" class="md:col-span-2">
+                <nav aria-label="Collections" class="md:col-span-3 lg:col-span-2">
                     <h2 class="eyebrow !text-sand">Collections</h2>
                     <ul class="mt-4 space-y-2 text-paper/85">
                         @foreach ($menuCollections as $collection)
@@ -210,17 +210,42 @@
                     </ul>
                 </nav>
 
+                @if ($footerPages['help'] ?? [])
+                    <nav aria-label="Help" class="md:col-span-3 lg:col-span-2">
+                        <h2 class="eyebrow !text-sand">Help</h2>
+                        <ul class="mt-4 space-y-2 text-paper/85">
+                            @foreach ($footerPages['help'] as $page)
+                                <li><a href="{{ route('shop.page', $page['slug']) }}" class="hover:text-paper hover:underline">{{ $page['title'] }}</a></li>
+                            @endforeach
+                        </ul>
+                    </nav>
+                @endif
+
                 <div class="md:col-span-3">
                     <h2 class="eyebrow !text-sand">Showroom</h2>
-                    <p class="mt-4 text-paper/85">{{ config('store.showroom.street') }}, {{ config('store.showroom.city') }}<br>Monday to Saturday, 9 am to 6 pm</p>
+                    <p class="mt-4 text-paper/85">{{ config('store.showroom.street') }}, {{ config('store.showroom.city') }}</p>
+                    <p class="mt-2 text-paper/85">{!! str_replace(', ', '<br>', e(\App\Messages\OrderWording::hours())) !!}</p>
+                    @if ($footerPages['about'] ?? [])
+                        <ul class="mt-4 space-y-2 text-paper/85">
+                            @foreach ($footerPages['about'] as $page)
+                                <li><a href="{{ route('shop.page', $page['slug']) }}" class="hover:text-paper hover:underline">{{ $page['title'] }}</a></li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
 
             <div class="border-t border-paper/15">
-                <p class="wrap flex flex-col gap-2 py-6 text-sm text-paper/60 sm:flex-row sm:justify-between">
-                    <span>&copy; {{ now()->year }} {{ config('app.name') }}. All rights reserved.</span>
-                    <span>Every price includes VAT.</span>
-                </p>
+                <div class="wrap flex flex-col gap-x-8 gap-y-3 py-6 text-sm text-paper/60 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+                    <p>&copy; {{ now()->year }} {{ config('app.name') }}. All rights reserved. Every price includes VAT.</p>
+                    @if ($footerPages['legal'] ?? [])
+                        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+                            @foreach ($footerPages['legal'] as $page)
+                                <li><a href="{{ route('shop.page', $page['slug']) }}" class="hover:text-paper hover:underline">{{ $page['title'] }}</a></li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
             </div>
         </footer>
     </body>

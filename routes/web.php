@@ -12,6 +12,7 @@ use App\Http\Controllers\Shop\CollectionController;
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MpesaConfirmationController;
 use App\Http\Controllers\Shop\OrderController;
+use App\Http\Controllers\Shop\PageController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\SearchController;
 use App\Http\Controllers\Shop\SitemapController;
@@ -87,3 +88,6 @@ Route::prefix('account')->name('account.')->group(function () {
         Route::post('/addresses/{address}/default', [AddressController::class, 'makeDefault'])->name('addresses.default');
     });
 });
+
+// The store's own pages, by their names: /delivery, /returns, /about. Last, so every address above is tried first.
+Route::get('/{page}', PageController::class)->where('page', '(?!admin$)[a-z0-9-]+')->name('shop.page');

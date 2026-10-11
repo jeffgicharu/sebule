@@ -32,7 +32,7 @@ The shop is at http://localhost:8000 and the back office at http://localhost:800
 
 Staff sign in to the back office with their own accounts, which are separate from customer accounts. The roles are `owner`, `manager`, `fulfilment` and `support`.
 
-| Role | Orders | Payments and customers | Delivery zones | Staff |
+| Role | Orders | Payments and customers | Pages, home page, store settings, delivery zones | Staff |
 |---|---|---|---|---|
 | `owner` | Read, move on, cancel (paid or not), record refunds | Read | Change | Manage |
 | `manager` | Read, move on, cancel unpaid | Read | Change | |
@@ -85,6 +85,14 @@ Checkout is two pages that work without script: the customer's details, then a r
 Stock is held for `STORE_HOLD_MINUTES`. `orders:release-unpaid` runs every minute and returns the stock of orders nobody paid for; the customer can pick such an order up again from its link if the pieces are still there.
 
 Paying is an M-Pesa prompt (`App\Payments\StartMpesaPayment`). Safaricom's confirmation is posted to an address signed for that one prompt, must name that prompt and must be for the amount asked; it is recorded once however many times it arrives. If no confirmation comes, a queued job asks Safaricom what became of the prompt and settles the order either way. Every order page is reached by a secret link, so tracking needs no account.
+
+## Pages, the home page and store settings
+
+The store's own pages (delivery, returns, guarantee, questions, contact, about, showroom, terms, privacy) are rows in `pages`, written in Markdown and served at `/<slug>`. They ship with the migrations and staff edit them under Content, Pages. HTML typed into a page is shown as text. A page that is not published opens only for signed-in staff, which is how it is previewed. The delivery page lists the fees from the delivery zones as they stand, and a page whose headings are questions tells search engines so.
+
+The words on the home page are set under Content, Home page. How customers reach the store, the showroom's address and hours, the VAT rate and how long stock is held are set under Settings, Store. Both are kept in `settings` and laid over `config/store.php` as the application starts (`App\Support\StoreSettings`), so code reads `config('store.…')` either way. Only the keys listed in that class can be overridden.
+
+With a WhatsApp number set, product and order pages offer a chat that opens already saying which piece or order it is about (`App\Support\WhatsApp`).
 
 ## Customer accounts
 
@@ -157,7 +165,7 @@ The workflow needs these repository secrets: `VPS_HOST`, `VPS_USER`, `VPS_SSH_KE
 | `STORE_HOLD_MINUTES` | How long stock is held for an order while its customer pays. 15 by default. |
 | `STORE_TEST_PAYMENTS` | Set to `true` to let an order be completed with a test payment, with no money moving. Off by default. |
 | `MAIL_MAILER`, `MAIL_FROM_ADDRESS` | How order emails leave. With `log`, emails are stored in the message log and not sent. |
-| `STORE_REPLY_TO` | Where a customer's reply to an order email goes. Optional. |
+| `STORE_REPLY_TO`, `STORE_PHONE`, `STORE_WHATSAPP` | How customers reach the store, until staff set them under Settings, Store. Optional. |
 | `STORE_EMAIL_DAILY_LIMIT`, `STORE_EMAIL_ADDRESS_DAILY_LIMIT` | The most emails the store sends in a day, and the most to any one address. 80 and 12 by default. |
 | `DARAJA_ENV` | `sandbox` or `production`. |
 | `DARAJA_CONSUMER_KEY`, `DARAJA_CONSUMER_SECRET`, `DARAJA_PASSKEY`, `DARAJA_SHORTCODE` | The store's Safaricom Daraja app. Without them the M-Pesa option is not offered. |

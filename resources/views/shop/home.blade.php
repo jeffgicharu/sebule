@@ -1,5 +1,6 @@
 @php
-    $about = 'Furniture and homeware designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered across Kenya, with M-Pesa or card at checkout.';
+    $home = config('store.home');
+    $about = 'Furniture and homeware designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered across Kenya, and paid for with M-Pesa.';
 @endphp
 
 <x-shop.layout :description="$about" :schema="\App\Seo\StructuredData::store($about)">
@@ -9,9 +10,9 @@
     <section class="relative mx-auto max-w-[120rem] md:min-h-[min(44vw,40rem)]">
         <div class="wrap relative z-10 py-10 md:absolute md:inset-0 md:flex md:items-center md:py-0">
             <div class="max-w-xl md:max-w-[34%]">
-                <p class="eyebrow">Made in Kenya</p>
-                <h1 class="mt-3 text-[2.5rem] sm:text-5xl lg:text-[3.6rem]">Furniture for the way Kenya lives.</h1>
-                <p class="mt-5 max-w-md text-lg text-ink-soft md:text-ink 2xl:max-w-sm">Designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered to your door anywhere in the country.</p>
+                <p class="eyebrow">{{ $home['hero']['eyebrow'] }}</p>
+                <h1 class="mt-3 text-[2.5rem] sm:text-5xl lg:text-[3.6rem]">{{ $home['hero']['heading'] }}</h1>
+                <p class="mt-5 max-w-md text-lg text-ink-soft md:text-ink 2xl:max-w-sm">{{ $home['hero']['text'] }}</p>
                 <p class="mt-7 flex flex-wrap gap-3">
                     <a href="{{ route('shop.category', 'living-room') }}" class="btn btn-primary">Shop living room</a>
                     <a href="#collections" class="btn btn-quiet md:bg-paper/70">See the collections</a>
@@ -98,9 +99,9 @@
             </picture>
 
             <div class="bg-ink px-5 py-6 text-paper md:absolute md:bottom-0 md:left-0 md:max-w-md md:px-8 md:py-7">
-                <p class="eyebrow !text-sand">Dining</p>
-                <h2 class="mt-2 text-2xl lg:text-3xl">A table worth sitting at for hours.</h2>
-                <p class="mt-3 font-semibold underline decoration-sand underline-offset-4">Shop dining tables and chairs</p>
+                <p class="eyebrow !text-sand">{{ $home['banner']['eyebrow'] }}</p>
+                <h2 class="mt-2 text-2xl lg:text-3xl">{{ $home['banner']['heading'] }}</h2>
+                <p class="mt-3 font-semibold underline decoration-sand underline-offset-4">{{ $home['banner']['link'] }}</p>
             </div>
         </a>
     </section>
@@ -123,15 +124,10 @@
     {{-- What a customer can count on --}}
     <section class="wrap mt-20 lg:mt-28">
         <dl class="grid gap-x-8 gap-y-8 border-y border-rule py-10 sm:grid-cols-2 lg:grid-cols-4">
-            @foreach ([
-                ['Delivered across Kenya', 'Our own crew in Nairobi, and trusted carriers to every county.'],
-                ['Pay your way', 'M-Pesa or card at checkout. Every price includes VAT.'],
-                ['Made to order', 'Larger pieces are built for you in three to six weeks.'],
-                ['Guaranteed', 'Up to three years on solid wood furniture.'],
-            ] as [$heading, $text])
+            @foreach ($home['promises'] as $promise)
                 <div>
-                    <dt class="font-display text-xl">{{ $heading }}</dt>
-                    <dd class="mt-2 text-[0.95rem] text-ink-soft">{{ $text }}</dd>
+                    <dt class="font-display text-xl">{{ $promise['heading'] }}</dt>
+                    <dd class="mt-2 text-[0.95rem] text-ink-soft">{{ $promise['text'] }}</dd>
                 </div>
             @endforeach
         </dl>

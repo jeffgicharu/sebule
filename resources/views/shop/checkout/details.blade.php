@@ -71,7 +71,7 @@
 
                     <div class="for-collection mt-5 border-l-2 border-sand pl-4 text-[0.95rem]">
                         <p class="font-semibold">Sebule showroom, {{ $showroom['street'] }}, {{ $showroom['city'] }}</p>
-                        <p class="mt-1 text-ink-soft">Monday to Saturday, 9 am to 6 pm. We will text you when your order is ready to collect.</p>
+                        <p class="mt-1 text-ink-soft">{{ \App\Messages\OrderWording::hours() }}. We will write to you when your order is ready to collect.</p>
                     </div>
 
                     <div class="for-delivery mt-6 space-y-5">

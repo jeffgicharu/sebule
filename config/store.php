@@ -96,4 +96,48 @@ return [
         'closes' => '18:00',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Reaching the store
+    |--------------------------------------------------------------------------
+    |
+    | The number customers call and the WhatsApp number their chats open with,
+    | both as 2547XXXXXXXX. Either may be empty, and then it is not shown.
+    | Staff set these, and everything else in this file that a store would
+    | change in the course of trading, in the back office.
+    |
+    */
+
+    'phone' => env('STORE_PHONE'),
+
+    'whatsapp' => env('STORE_WHATSAPP'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Home page
+    |--------------------------------------------------------------------------
+    |
+    | The words on the home page, until staff change them in the back office.
+    |
+    */
+
+    'home' => [
+        'hero' => [
+            'eyebrow' => 'Made in Kenya',
+            'heading' => 'Furniture for the way Kenya lives.',
+            'text' => 'Designed in Nairobi and built in solid mvule, mahogany and Meru oak. Delivered to your door anywhere in the country.',
+        ],
+        'banner' => [
+            'eyebrow' => 'Dining',
+            'heading' => 'A table worth sitting at for hours.',
+            'link' => 'Shop dining tables and chairs',
+        ],
+        'promises' => [
+            ['heading' => 'Delivered across Kenya', 'text' => 'Our own crew in Nairobi, and trusted carriers to every county.'],
+            ['heading' => 'Pay with M-Pesa', 'text' => 'A prompt on your phone at checkout. Every price includes VAT.'],
+            ['heading' => 'Made to order', 'text' => 'Larger pieces are built for you in three to six weeks.'],
+            ['heading' => 'Guaranteed', 'text' => 'Up to three years on solid wood furniture.'],
+        ],
+    ],
+
 ];

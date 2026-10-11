@@ -105,8 +105,16 @@
                         <p class="mt-3 text-[0.95rem] text-ink-soft">Delivered in {{ DeliveryZone::describeDays($order->delivery_days_min, $order->delivery_days_max) }} from payment.@if ($made) Pieces that are made to order follow when they are ready.@endif</p>
                     @else
                         <p class="mt-1">Sebule showroom, {{ $showroom['street'] }}, {{ $showroom['city'] }}</p>
-                        <p class="mt-1 text-ink-soft">Monday to Saturday, 9 am to 6 pm</p>
+                        <p class="mt-1 text-ink-soft">{{ \App\Messages\OrderWording::hours() }}</p>
                     @endif
+
+                    <p class="mt-5 text-[0.95rem]">
+                        @if ($chat = \App\Support\WhatsApp::link('Hello Sebule, I am asking about order '.$order->number.'.'))
+                            <a href="{{ $chat }}" rel="noopener" class="link font-semibold">Ask about this order on WhatsApp</a>
+                        @else
+                            <a href="{{ route('shop.page', 'contact') }}" class="link font-semibold">Ask us about this order</a>
+                        @endif
+                    </p>
                 </section>
             </div>
 
