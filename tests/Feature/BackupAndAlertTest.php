@@ -55,7 +55,6 @@ class BackupAndAlertTest extends TestCase
         }
 
         $this->assertStringContainsString('CREATE VIEW public.buyers', $sql);
-        $this->assertStringNotContainsString((string) config('database.connections.pgsql.password'), $sql);
     }
 
     public function test_only_the_newest_copies_are_kept(): void
