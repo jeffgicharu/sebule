@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * What a shopper has put aside to buy. The browser holds the token; nothing
  * else about the shopper is known until checkout.
  */
-#[Fillable(['token'])]
+#[Fillable(['token', 'customer_id'])]
 class Cart extends Model
 {
     use Prunable;

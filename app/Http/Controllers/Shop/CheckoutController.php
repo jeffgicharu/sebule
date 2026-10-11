@@ -7,15 +7,20 @@ use App\Checkout\CartHasChanged;
 use App\Checkout\PlaceOrder;
 use App\Checkout\Totals;
 use App\Enums\DeliveryMethod;
+use App\Http\Controllers\Account\AddressController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutDetailsRequest;
 use App\Models\Cart;
 use App\Models\County;
+use App\Models\Customer;
+use App\Models\CustomerAddress;
 use App\Models\DeliveryZone;
 use App\Models\Order;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 /**
@@ -38,9 +43,14 @@ class CheckoutController extends Controller
             return $cart;
         }
 
+        $customer = Auth::guard('customer')->user();
+        $addresses = $customer?->addresses()->with('county')->get() ?? collect();
+
         return view('shop.checkout.details', [
             'cart' => $cart,
-            'details' => $request->session()->get(self::DETAILS, []),
+            'details' => $this->startingDetails($request, $customer, $addresses),
+            'customer' => $customer,
+            'addresses' => $addresses,
             'counties' => County::query()->deliveredTo()->with('zone')->orderBy('name')->get(),
             'zones' => DeliveryZone::query()->active()->has('counties')->with('counties')->orderBy('position')->get(),
         ]);
@@ -48,7 +58,7 @@ class CheckoutController extends Controller
 
     public function saveDetails(CheckoutDetailsRequest $request): RedirectResponse
     {
-        $request->session()->put(self::DETAILS, $request->details());
+        $request->session()->put(self::DETAILS, $request->details() + ['keep_address' => $request->boolean('keep_address')]);
 
         // One key for this checkout, kept through any number of visits to the review page.
         if (! $request->session()->has(self::KEY)) {
@@ -109,9 +119,14 @@ class CheckoutController extends Controller
         }
 
         try {
-            $order = $placeOrder($cart, $details, $data['key'], (int) $data['total']);
+            $customer = Auth::guard('customer')->user();
+            $order = $placeOrder($cart, $details, $data['key'], (int) $data['total'], $customer);
         } catch (CartHasChanged $changed) {
             return redirect()->route('cart.show')->with('shop.problem', $changed->getMessage().' Nothing was ordered. Please check your cart and try again.');
+        }
+
+        if ($customer !== null && ($details['keep_address'] ?? false)) {
+            $this->keepAddress($customer, $order);
         }
 
         // The cart became the order, so the browser can let go of it.
@@ -119,6 +134,56 @@ class CheckoutController extends Controller
         $this->carts->forget();
 
         return redirect()->route('orders.pay', $order);
+    }
+
+    /**
+     * What the details page starts with. What was typed earlier in this
+     * checkout comes first. A signed-in customer otherwise starts from their
+     * account and the address they picked, or the one they prefer.
+     *
+     * @param  Collection<int, CustomerAddress>  $addresses
+     * @return array<string, mixed>
+     */
+    private function startingDetails(Request $request, ?Customer $customer, Collection $addresses): array
+    {
+        $details = $request->session()->get(self::DETAILS, []);
+
+        if ($customer === null) {
+            return $details;
+        }
+
+        $picked = $addresses->firstWhere('id', (int) $request->query('address'));
+        $address = $picked ?? ($details ? null : $addresses->first());
+
+        return array_merge(
+            ['name' => $customer->name, 'phone' => $customer->phone, 'email' => $customer->email, 'marketing' => $customer->marketing_opt_in],
+            $details,
+            $address ? [
+                'method' => DeliveryMethod::Delivery->value,
+                'county_id' => $address->county_id,
+                'town' => $address->town,
+                'estate' => $address->estate,
+                'house' => $address->house,
+                'directions' => $address->directions,
+            ] : [],
+        );
+    }
+
+    /** Keep the address an order went to in the customer's account, unless it is already there. */
+    private function keepAddress(Customer $customer, Order $order): void
+    {
+        if ($order->delivery_method !== DeliveryMethod::Delivery || $customer->addresses()->count() >= AddressController::LIMIT) {
+            return;
+        }
+
+        $county = County::query()->where('name', $order->county)->value('id');
+        $same = ['county_id' => $county, 'town' => $order->town, 'estate' => $order->estate, 'house' => $order->house];
+
+        if ($county === null || $customer->addresses()->where($same)->exists()) {
+            return;
+        }
+
+        $customer->addresses()->create($same + ['directions' => $order->directions, 'is_default' => ! $customer->addresses()->exists()]);
     }
 
     /** The cart being checked out, or the way back to the cart page when it cannot be. */

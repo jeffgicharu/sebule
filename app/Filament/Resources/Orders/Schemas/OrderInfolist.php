@@ -40,10 +40,11 @@ class OrderInfolist
                             RepeatableEntry::make('items')
                                 ->hiddenLabel()
                                 ->table([
+                                    // The narrow columns are given their width, so an amount is never cut short by a long name beside it.
                                     TableColumn::make('Piece'),
-                                    TableColumn::make('Quantity'),
-                                    TableColumn::make('Each'),
-                                    TableColumn::make('Total'),
+                                    TableColumn::make('Quantity')->width('5.5rem'),
+                                    TableColumn::make('Each')->width('8.5rem'),
+                                    TableColumn::make('Total')->width('8.5rem'),
                                 ])
                                 ->schema([
                                     TextEntry::make('product_name')
@@ -70,11 +71,11 @@ class OrderInfolist
                                 ->hiddenLabel()
                                 ->placeholder('No payment has been tried for this order.')
                                 ->table([
-                                    TableColumn::make('When'),
+                                    TableColumn::make('When')->width('7.5rem'),
                                     TableColumn::make('How'),
                                     TableColumn::make('Result'),
-                                    TableColumn::make('Asked for'),
-                                    TableColumn::make('Receipt'),
+                                    TableColumn::make('Asked for')->width('7rem'),
+                                    TableColumn::make('Receipt')->width('10rem'),
                                 ])
                                 ->schema([
                                     TextEntry::make('created_at')->dateTime('j M, H:i')->extraAttributes(['class' => 'whitespace-nowrap']),
@@ -96,9 +97,9 @@ class OrderInfolist
                             RepeatableEntry::make('events')
                                 ->hiddenLabel()
                                 ->table([
-                                    TableColumn::make('When'),
+                                    TableColumn::make('When')->width('10.5rem'),
                                     TableColumn::make('What happened'),
-                                    TableColumn::make('By'),
+                                    TableColumn::make('By')->width('9rem'),
                                 ])
                                 ->schema([
                                     TextEntry::make('created_at')->dateTime('j M Y, H:i')->extraAttributes(['class' => 'whitespace-nowrap']),

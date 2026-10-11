@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * prices as they were when it was placed. Amounts are in cents.
  */
 #[Fillable([
-    'number', 'token', 'checkout_key', 'status', 'customer_name', 'phone', 'email', 'marketing_opt_in',
+    'number', 'token', 'checkout_key', 'customer_id', 'status', 'customer_name', 'phone', 'email', 'marketing_opt_in',
     'delivery_method', 'delivery_zone_id', 'zone_name', 'county', 'town', 'estate', 'house', 'directions',
     'delivery_days_min', 'delivery_days_max', 'subtotal', 'delivery_fee', 'total', 'vat_rate', 'vat_amount',
     'held_until', 'paid_at', 'closed_at',
@@ -69,6 +69,16 @@ class Order extends Model
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class)->orderByDesc('id');
+    }
+
+    /**
+     * The account the order was placed from, when the customer was signed in.
+     *
+     * @return BelongsTo<Customer, $this>
+     */
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 
     /** @return BelongsTo<DeliveryZone, $this> */

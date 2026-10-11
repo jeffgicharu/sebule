@@ -17,7 +17,12 @@
         <x-shop.steps :current="1" />
 
         <h1 class="mt-6 text-4xl lg:text-5xl">Your details</h1>
-        <p class="mt-3 max-w-xl text-ink-soft">No account needed. We use these only to deliver your order and keep you posted on it.</p>
+        @if ($customer)
+            <p class="mt-3 max-w-xl text-ink-soft">Signed in as {{ $customer->name }}. We have filled in what your account holds; change anything that is different for this order.</p>
+        @else
+            <p class="mt-3 max-w-xl text-ink-soft">No account needed. We use these only to deliver your order and keep you posted on it.
+                <a href="{{ route('account.login', ['next' => 'checkout']) }}" class="link whitespace-nowrap text-ink">Have an account? Sign in</a></p>
+        @endif
 
         <div class="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-12">
             {{-- The address is asked for only when the order is being delivered: the form hides it, without script, when collection is chosen. --}}
@@ -70,6 +75,18 @@
                     </div>
 
                     <div class="for-delivery mt-6 space-y-5">
+                        @if ($addresses->isNotEmpty())
+                            {{-- Each saved address is a link that fills the boxes below, so choosing one needs no script. --}}
+                            <div class="border-l-2 border-sand pl-4">
+                                <p class="text-[0.95rem] font-semibold">Your saved addresses</p>
+                                <ul class="mt-2 space-y-1.5 text-[0.95rem]">
+                                    @foreach ($addresses as $saved)
+                                        <li><a href="{{ route('checkout.details', ['address' => $saved->id]) }}" class="link">Use {{ $saved->line() }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <div>
                             <label for="county_id" class="block text-[0.95rem] font-semibold">County</label>
                             <select id="county_id" name="county_id" data-county
@@ -105,6 +122,14 @@
                         <x-shop.field name="house" label="House or flat number" :value="$details['house'] ?? null" autocomplete="address-line2" placeholder="B4" />
                         <x-shop.field name="directions" label="Directions for the driver" :value="$details['directions'] ?? null" multiline
                             hint="A landmark, the gate colour, or anything that helps us find you." />
+
+                        @if ($customer)
+                            <label class="flex cursor-pointer items-start gap-3 text-[0.95rem]">
+                                <input type="hidden" name="keep_address" value="0">
+                                <input type="checkbox" name="keep_address" value="1" class="mt-1 size-4 accent-forest" @checked(old('keep_address', $details['keep_address'] ?? $addresses->isEmpty()))>
+                                <span>Keep this address in my account for next time.</span>
+                            </label>
+                        @endif
                     </div>
                 </fieldset>
 

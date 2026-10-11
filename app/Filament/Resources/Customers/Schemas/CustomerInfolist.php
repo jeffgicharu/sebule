@@ -31,7 +31,7 @@ class CustomerInfolist
                                 TableColumn::make('Order'),
                                 TableColumn::make('Placed'),
                                 TableColumn::make('Status'),
-                                TableColumn::make('Total'),
+                                TableColumn::make('Total')->width('8.5rem'),
                             ])
                             ->schema([
                                 TextEntry::make('number')

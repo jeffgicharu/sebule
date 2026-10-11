@@ -9,11 +9,13 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 
 /**
- * An email exactly as it was written and kept in the message log.
+ * An email as it was written and kept in the message log. Where the log holds
+ * a stand-in for a private link, the email carries the link itself.
  */
 class CustomerEmail extends Mailable
 {
-    public function __construct(public Message $message) {}
+    /** @param  array<string, string>  $private  the real value for each stand-in in the stored message */
+    public function __construct(public Message $message, #[\SensitiveParameter] public array $private = []) {}
 
     public function envelope(): Envelope
     {
@@ -27,8 +29,8 @@ class CustomerEmail extends Mailable
     {
         return new Content(
             text: 'mail.plain',
-            htmlString: $this->message->html,
-            with: ['body' => $this->message->body],
+            htmlString: strtr($this->message->html, array_map(e(...), $this->private)),
+            with: ['body' => strtr($this->message->body, $this->private)],
         );
     }
 }

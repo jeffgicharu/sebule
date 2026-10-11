@@ -15,6 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(AddResponseHeaders::class);
         $middleware->validateCsrfTokens(except: ['payments/confirmation/*']);
+
+        // A visitor who needs to be signed in is sent to the shop's sign-in page, and a
+        // signed-in customer who opens it is sent to their account. The back office
+        // sends its own staff to its own sign-in page.
+        $middleware->redirectGuestsTo(fn (Request $request) => route('account.login'));
+        $middleware->redirectUsersTo(fn (Request $request) => route('account.show'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

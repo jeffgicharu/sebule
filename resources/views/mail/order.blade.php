@@ -14,29 +14,9 @@
     $soft = '#5d574e';
     $rule = '#ddd5c6';
 @endphp
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light">
-    <title>{{ $wording->subject }}</title>
-</head>
-<body style="margin:0; padding:0; background-color:#f4efe6; color:{{ $ink }}; font-family:{{ $sans }}; -webkit-text-size-adjust:100%;">
-    <div style="display:none; max-height:0; overflow:hidden; opacity:0;">{{ $wording->lines[0] ?? '' }}</div>
+<x-mail.shell :subject="$wording->subject" :preheader="$wording->lines[0] ?? ''"
+    :why="'You are getting this because an order was placed at '.parse_url(config('app.url'), PHP_URL_HOST).' with this address. If that was not you, there is nothing you need to do.'">
 
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4efe6;">
-        <tr>
-            <td align="center" style="padding:28px 12px;">
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
-                    <tr>
-                        <td style="padding:0 8px 18px; font-family:{{ $serif }}; font-size:26px; color:#2f4a3a;">
-                            <a href="{{ route('home') }}" style="color:#2f4a3a; text-decoration:none;">Sebule</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td style="background-color:#fffdf9; border:1px solid {{ $rule }}; padding:32px 28px;">
                             <p style="margin:0; font-size:12px; font-weight:600; letter-spacing:1.6px; text-transform:uppercase; color:{{ $soft }};">Order {{ $order->number }}</p>
                             <h1 style="margin:10px 0 0; font-family:{{ $serif }}; font-size:28px; line-height:1.2; font-weight:400; color:{{ $ink }};">{{ $wording->heading }}</h1>
 
@@ -92,21 +72,4 @@
                                     <span style="color:{{ $soft }};">{{ \App\Messages\OrderWording::hours() }}</span>
                                 @endif
                             </p>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td style="padding:20px 8px 0; font-size:13px; line-height:1.55; color:{{ $soft }};">
-                            Sebule, {{ $showroom['street'] }}, {{ $showroom['city'] }}. Every price includes VAT.<br>
-                            You are getting this because an order was placed at <a href="{{ route('home') }}" style="color:{{ $soft }};">{{ parse_url(config('app.url'), PHP_URL_HOST) }}</a> with this address. If that was not you, there is nothing you need to do.
-                            @unless (config('store.email.reply_to'))
-                                <br>This message was sent from an address that does not take replies.
-                            @endunless
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-</body>
-</html>
+</x-mail.shell>

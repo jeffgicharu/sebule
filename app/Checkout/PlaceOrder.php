@@ -12,6 +12,7 @@ use App\Messages\TellCustomer;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\County;
+use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -30,13 +31,14 @@ class PlaceOrder
 
     /**
      * @param  array<string, mixed>  $details  the customer and delivery details, already validated
+     * @param  Customer|null  $customer  the account the order is placed from, when the customer is signed in
      *
      * @throws CartHasChanged
      */
-    public function __invoke(Cart $cart, array $details, string $checkoutKey, int $expectedTotal): Order
+    public function __invoke(Cart $cart, array $details, string $checkoutKey, int $expectedTotal, ?Customer $customer = null): Order
     {
         try {
-            return DB::transaction(function () use ($cart, $details, $checkoutKey, $expectedTotal): Order {
+            return DB::transaction(function () use ($cart, $details, $checkoutKey, $expectedTotal, $customer): Order {
                 // Two submissions of the same cart take turns here, and the second finds the first one's order.
                 $cart = Cart::query()->lockForUpdate()->find($cart->getKey());
 
@@ -73,6 +75,7 @@ class PlaceOrder
                     'number' => $this->number(),
                     'token' => Str::random(40),
                     'checkout_key' => $checkoutKey,
+                    'customer_id' => $customer?->getKey(),
                     'status' => OrderStatus::PendingPayment,
                     'customer_name' => $details['name'],
                     'phone' => $details['phone'],

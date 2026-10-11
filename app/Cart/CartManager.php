@@ -4,8 +4,11 @@ namespace App\Cart;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Customer;
 use App\Models\ProductVariant;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -44,6 +47,13 @@ class CartManager
             $this->cart = Cart::query()->where('token', $token)->with(self::WITH)->first();
         }
 
+        // An account's cart is shown only to that account. A browser still holding its cookie after the customer has gone gets nothing.
+        if ($this->cart !== null && $this->cart->customer_id !== null && $this->cart->customer_id !== Auth::guard('customer')->id()) {
+            $this->forget();
+
+            return null;
+        }
+
         return $this->cart;
     }
 
@@ -60,8 +70,12 @@ class CartManager
             return $this->cart->pieces();
         }
 
+        $customer = Auth::guard('customer')->id();
+
         return (int) CartItem::query()
-            ->whereRelation('cart', 'token', $token)
+            ->whereHas('cart', fn (Builder $cart) => $cart
+                ->where('token', $token)
+                ->where(fn (Builder $owner) => $owner->whereNull('customer_id')->when($customer, fn (Builder $mine) => $mine->orWhere('customer_id', $customer))))
             ->sum('quantity');
     }
 
@@ -112,6 +126,49 @@ class CartManager
         $this->changed($cart);
     }
 
+    /**
+     * A customer has signed in on this browser. Their cart is the one kept
+     * with their account, so it follows them from device to device, and
+     * whatever this browser was carrying goes into it.
+     */
+    public function signedIn(Customer $customer): void
+    {
+        DB::transaction(function () use ($customer): void {
+            $carried = $this->current();
+            $kept = Cart::query()->where('customer_id', $customer->getKey())->lockForUpdate()->first();
+
+            if ($carried !== null && $kept === null && $carried->customer_id === null) {
+                // Nothing was waiting in the account, so the browser's cart becomes the account's.
+                $carried->update(['customer_id' => $customer->getKey()]);
+
+                return;
+            }
+
+            if ($kept === null) {
+                $this->forgetUnlessGuest($carried);
+
+                return;
+            }
+
+            if ($carried !== null && $carried->customer_id === null && ! $carried->is($kept)) {
+                $this->pour($carried, $kept);
+            }
+
+            $this->carry($kept);
+        });
+    }
+
+    /**
+     * A customer is signing out. A browser left signed out should not show
+     * the next person their cart; it waits in the account.
+     */
+    public function signedOut(): void
+    {
+        if ($this->current()?->customer_id !== null) {
+            $this->forget();
+        }
+    }
+
     /** Let go of a cart that no longer exists, as when its contents have become an order. */
     public function forget(): void
     {
@@ -127,6 +184,13 @@ class CartManager
         if ($this->loadedFor !== request()) {
             $this->cart = null;
             $this->loadedFor = request();
+
+            // A signed-in customer whose browser has lost its cookie still has the cart kept with their account.
+            if (! Str::isUuid((string) request()->cookie(self::COOKIE)) && ($customer = Auth::guard('customer')->id())) {
+                if ($kept = Cart::query()->where('customer_id', $customer)->first()) {
+                    $this->carry($kept);
+                }
+            }
         }
 
         return request()->cookie(self::COOKIE);
@@ -134,14 +198,50 @@ class CartManager
 
     private function create(): Cart
     {
-        $cart = Cart::create(['token' => (string) Str::uuid()]);
+        $cart = Cart::create(['token' => (string) Str::uuid(), 'customer_id' => Auth::guard('customer')->id()]);
 
-        Cookie::queue(self::COOKIE, $cart->token, config('store.cart_days') * 24 * 60);
-
-        // So the rest of this request finds the cart it has just made.
-        request()->cookies->set(self::COOKIE, $cart->token);
+        $this->carry($cart);
 
         return $this->cart = $cart->setRelation('items', $cart->items()->getModel()->newCollection());
+    }
+
+    /** Have this browser carry a cart from now on. */
+    private function carry(Cart $cart): void
+    {
+        Cookie::queue(self::COOKIE, $cart->token, config('store.cart_days') * 24 * 60);
+
+        // So the rest of this request finds the cart it has just been given.
+        request()->cookies->set(self::COOKIE, $cart->token);
+
+        $this->cart = null;
+    }
+
+    /** Move every line of one cart into another, never past what can be bought, and delete the emptied cart. */
+    private function pour(Cart $from, Cart $into): void
+    {
+        $from->items()->with('variant')->get()->each(function (CartItem $line) use ($into): void {
+            $limit = $line->variant?->purchasableLimit() ?? 0;
+
+            if ($limit === 0) {
+                return;
+            }
+
+            $existing = $into->items()->where('product_variant_id', $line->product_variant_id)->lockForUpdate()->first()
+                ?? $into->items()->make(['product_variant_id' => $line->product_variant_id, 'quantity' => 0]);
+
+            $existing->fill(['quantity' => min($existing->quantity + $line->quantity, $limit), 'unit_price' => $line->variant->price])->save();
+        });
+
+        $from->delete();
+        $into->touch();
+    }
+
+    /** A cart that belongs to some other account is not this customer's to carry. */
+    private function forgetUnlessGuest(?Cart $carried): void
+    {
+        if ($carried !== null && $carried->customer_id !== null) {
+            $this->forget();
+        }
     }
 
     /** Forget what was loaded, and note that the shopper is still using the cart. */

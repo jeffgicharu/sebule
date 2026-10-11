@@ -8,6 +8,7 @@ use App\Models\Collection;
 use Filament\Tables\Table;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
@@ -53,8 +54,11 @@ class AppServiceProvider extends ServiceProvider
             ]));
         });
 
-        // The cart belongs to the visitor, so it is never part of what is cached above.
-        View::composer('components.shop.layout', fn ($view) => $view->with('cartPieces', app(CartManager::class)->pieces()));
+        // The cart and the account belong to the visitor, so they are never part of what is cached above.
+        View::composer('components.shop.layout', fn ($view) => $view->with([
+            'cartPieces' => app(CartManager::class)->pieces(),
+            'shopper' => Auth::guard('customer')->user(),
+        ]));
 
         $this->limitRequests();
 
@@ -86,10 +90,12 @@ class AppServiceProvider extends ServiceProvider
             Limit::perMinute(20)->by('login|'.$request->ip()),
         ]);
         RateLimiter::for('account-register', fn (Request $request) => Limit::perHour(10)->by('register|'.$request->ip()));
+        // A link by email costs an email, so one address is sent only a few an hour. Choosing the new password is rationed separately.
         RateLimiter::for('account-reset', fn (Request $request) => [
             Limit::perMinutes(10, 5)->by('reset|'.$request->ip()),
             Limit::perHour(3)->by('reset|'.Str::lower((string) $request->input('email'))),
         ]);
+        RateLimiter::for('account-new-password', fn (Request $request) => Limit::perMinutes(10, 10)->by('new-password|'.$request->ip()));
 
         RateLimiter::for('payment-status', fn (Request $request) => Limit::perMinute(120)->by('payment-status|'.$request->ip()));
         RateLimiter::for('payment-confirmations', fn (Request $request) => Limit::perMinute(600)->by('payment-confirmations|'.$request->ip()));

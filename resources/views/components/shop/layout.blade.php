@@ -112,6 +112,16 @@
                     </ul>
                 </nav>
 
+                {{-- The account: a customer's own name once they are signed in. --}}
+                <a href="{{ $shopper ? route('account.show') : route('account.login') }}" class="flex min-h-11 items-center gap-2 px-1 text-[0.95rem] font-medium"
+                    aria-label="{{ $shopper ? 'Your account, signed in as '.$shopper->name : 'Sign in to your account' }}">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" class="size-[1.35rem]" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="3.6" />
+                        <path d="M4.8 20c.9-3.6 3.7-5.6 7.2-5.6s6.3 2 7.2 5.6" />
+                    </svg>
+                    <span class="hidden max-w-[7rem] truncate sm:inline">{{ $shopper ? Str::of($shopper->name)->before(' ') : 'Sign in' }}</span>
+                </a>
+
                 <a href="{{ route('cart.show') }}" class="flex min-h-11 items-center gap-2 px-1 text-[0.95rem] font-medium"
                     aria-label="Cart, {{ $cartPieces }} {{ Str::plural('piece', $cartPieces) }}">
                     <svg aria-hidden="true" viewBox="0 0 24 24" class="size-[1.35rem]" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">

@@ -22,7 +22,11 @@ class DeliverMessage implements ShouldQueue
     /** @var list<int> Seconds to wait before the second and third tries. */
     public array $backoff = [30, 180];
 
-    public function __construct(public Message $message) {}
+    /**
+     * @param  array<string, string>  $private  what to put in place of each stand-in the stored message holds,
+     *                                          for a link that must reach the customer and nobody else
+     */
+    public function __construct(public Message $message, #[\SensitiveParameter] public array $private = []) {}
 
     public function handle(): void
     {
@@ -30,7 +34,7 @@ class DeliverMessage implements ShouldQueue
             return;
         }
 
-        Mail::to($this->message->recipient)->send(new CustomerEmail($this->message));
+        Mail::to($this->message->recipient)->send(new CustomerEmail($this->message, $this->private));
 
         $this->message->update(['status' => MessageStatus::Sent, 'sent_at' => now(), 'error' => null]);
     }

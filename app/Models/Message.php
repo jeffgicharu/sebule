@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * One message written to a customer, as it was written. The plain words are
  * in the body; an email also keeps the page it was sent as.
  */
-#[Fillable(['order_id', 'channel', 'kind', 'recipient', 'subject', 'body', 'html', 'status', 'error', 'sent_at'])]
+#[Fillable(['order_id', 'customer_id', 'channel', 'kind', 'recipient', 'subject', 'body', 'html', 'status', 'error', 'sent_at'])]
 class Message extends Model
 {
     protected function casts(): array
@@ -28,5 +28,11 @@ class Message extends Model
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    /** @return BelongsTo<Customer, $this> */
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

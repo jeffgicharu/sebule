@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'store' => env('SESSION_STORE'),
+    'store' => env('SESSION_STORE', 'sessions'),
 
     /*
     |--------------------------------------------------------------------------

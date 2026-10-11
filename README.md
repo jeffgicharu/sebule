@@ -80,6 +80,16 @@ Stock is held for `STORE_HOLD_MINUTES`. `orders:release-unpaid` runs every minut
 
 Paying is an M-Pesa prompt (`App\Payments\StartMpesaPayment`). Safaricom's confirmation is posted to an address signed for that one prompt, must name that prompt and must be for the amount asked; it is recorded once however many times it arrives. If no confirmation comes, a queued job asks Safaricom what became of the prompt and settles the order either way. Every order page is reached by a secret link, so tracking needs no account.
 
+## Customer accounts
+
+Nobody needs an account to buy. One keeps addresses for next time, lists the orders placed from it and carries the cart between devices. Customers sign in with their own guard (`customer`), separate from staff: a customer's session cannot open the back office, and signing out of the shop leaves a member of staff signed in.
+
+- An order belongs to an account only when it was placed while signed in. Orders are never matched to an account by phone number or email, which anybody could type.
+- A signed-in customer has one cart, kept with the account. Signing in pours whatever the browser was carrying into it, never past what can be bought, and signing out takes it off the device.
+- Checkout starts from the account's details and usual address; each saved address is a plain link that fills the form, so choosing one needs no script.
+- A forgotten password is replaced through an emailed link that works once, for an hour. The message log keeps the email with a stand-in where the link was, so nobody reading the log can use it.
+- Offers by message are opt-in: the box is separate from everything else, starts unticked and can be cleared at any time under Your details.
+
 ## From paid to delivered
 
 Staff work orders under Sales, Orders. A paid order moves one step at a time (`App\Orders\MoveOrderOn`): into the workshop if it holds a made-to-order piece, then ready, then out for delivery, then delivered. An order that is collected skips the delivery step. Each step is its own action, so a button pressed on a page that has gone stale does nothing rather than skipping ahead, and the order's history records who took it.
@@ -113,6 +123,8 @@ vendor/bin/pint --test
 ```
 
 ## Deployment
+
+Each release caches under its own prefix, so nothing cached by old code is read by new code. Sessions are the exception: they are kept through the `sessions` cache store, whose prefix never changes, so a deploy does not sign anybody out or lose a checkout in progress.
 
 Every push to `main` runs `.github/workflows/deploy.yml`, which tests the code, builds a release and puts it live at https://sebule.jeffgicharu.com.
 

@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\AddressController;
+use App\Http\Controllers\Account\PasswordResetController;
+use App\Http\Controllers\Account\RegisterController;
+use App\Http\Controllers\Account\SessionController;
 use App\Http\Controllers\Shop\CartController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CheckoutController;
@@ -46,3 +51,37 @@ Route::post('/payments/confirmation/{payment}/{signature}', MpesaConfirmationCon
     ->whereNumber('payment')
     ->middleware('throttle:payment-confirmations')
     ->name('payments.mpesa.callback');
+
+/*
+ * Customer accounts. Nobody needs one to buy. Signing in and out use the
+ * "customer" guard, which has nothing to do with the back office's.
+ */
+Route::prefix('account')->name('account.')->group(function () {
+    Route::middleware('guest:customer')->group(function () {
+        Route::get('/register', [RegisterController::class, 'create'])->name('register');
+        Route::post('/register', [RegisterController::class, 'store'])->middleware('throttle:account-register')->name('register.store');
+        Route::get('/sign-in', [SessionController::class, 'create'])->name('login');
+        Route::post('/sign-in', [SessionController::class, 'store'])->middleware('throttle:account-login')->name('login.store');
+        Route::get('/forgot-password', [PasswordResetController::class, 'request'])->name('password.request');
+        Route::post('/forgot-password', [PasswordResetController::class, 'email'])->middleware('throttle:account-reset')->name('password.email');
+        Route::get('/reset-password/{token}', [PasswordResetController::class, 'edit'])->name('password.reset');
+        Route::post('/reset-password', [PasswordResetController::class, 'update'])->middleware('throttle:account-new-password')->name('password.update');
+    });
+
+    Route::middleware('auth:customer')->group(function () {
+        Route::get('/', [AccountController::class, 'show'])->name('show');
+        Route::post('/sign-out', [SessionController::class, 'destroy'])->name('logout');
+
+        Route::get('/details', [AccountController::class, 'details'])->name('details');
+        Route::put('/details', [AccountController::class, 'update'])->name('details.update');
+        Route::put('/password', [AccountController::class, 'updatePassword'])->name('password.change');
+
+        Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+        Route::get('/addresses/new', [AddressController::class, 'create'])->name('addresses.create');
+        Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
+        Route::get('/addresses/{address}/edit', [AddressController::class, 'edit'])->name('addresses.edit');
+        Route::put('/addresses/{address}', [AddressController::class, 'update'])->name('addresses.update');
+        Route::delete('/addresses/{address}', [AddressController::class, 'destroy'])->name('addresses.destroy');
+        Route::post('/addresses/{address}/default', [AddressController::class, 'makeDefault'])->name('addresses.default');
+    });
+});

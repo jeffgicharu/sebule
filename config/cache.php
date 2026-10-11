@@ -85,6 +85,19 @@ return [
             'lock_connection' => env('REDIS_CACHE_LOCK_CONNECTION', 'default'),
         ],
 
+        /*
+         * Sessions held in Redis are kept through this store. Its prefix never
+         * changes, so a new release does not sign everybody out or lose a
+         * checkout in progress. Everything else is cached under the prefix
+         * below, which changes with each release.
+         */
+        'sessions' => [
+            'driver' => 'redis',
+            'connection' => env('SESSION_CONNECTION', 'default'),
+            'lock_connection' => env('REDIS_CACHE_LOCK_CONNECTION', 'default'),
+            'prefix' => Str::slug((string) env('APP_NAME', 'laravel')).'-session-',
+        ],
+
         'dynamodb' => [
             'driver' => 'dynamodb',
             'key' => env('AWS_ACCESS_KEY_ID'),
