@@ -13,7 +13,9 @@
                 <p class="eyebrow">{{ $home['hero']['eyebrow'] }}</p>
                 <h1 class="mt-3 text-[2.5rem] sm:text-5xl lg:text-[3.6rem]">{{ $home['hero']['heading'] }}</h1>
                 <p class="mt-5 max-w-md text-lg text-ink-soft md:text-ink 2xl:max-w-sm">{{ $home['hero']['text'] }}</p>
-                <p class="mt-7 flex flex-wrap gap-3">
+                {{-- One above the other on a phone. Side by side they only just fit there, so they would start
+                     on two lines and jump to one as the font arrived, moving the photo under them. --}}
+                <p class="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <a href="{{ route('shop.category', 'living-room') }}" class="btn btn-primary">Shop living room</a>
                     <a href="#collections" class="btn btn-quiet md:bg-paper/70">See the collections</a>
                 </p>
