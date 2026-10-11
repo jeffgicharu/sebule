@@ -22,14 +22,15 @@ class StockTable
                 TextColumn::make('product.name')
                     ->label('Piece')
                     ->weight('medium')
-                    ->searchable()
+                    // Found by the product's name or the variant's SKU.
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->where(
+                        fn (Builder $either) => $either
+                            ->whereRelation('product', 'name', 'ilike', "%{$search}%")
+                            ->orWhere('sku', 'ilike', "%{$search}%"),
+                    ))
                     ->sortable()
                     // The SKU sits under the name, so the table keeps to a laptop's width.
                     ->description(fn (ProductVariant $record): string => ($record->optionValues->isNotEmpty() ? $record->label().' · ' : '').$record->sku),
-                TextColumn::make('sku')
-                    ->label('SKU')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('stock_on_hand')
                     ->label('In stock')
                     ->numeric()

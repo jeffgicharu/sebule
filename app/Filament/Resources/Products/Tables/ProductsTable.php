@@ -2,11 +2,17 @@
 
 namespace App\Filament\Resources\Products\Tables;
 
+use App\Catalogue\DuplicateProduct;
 use App\Enums\ProductStatus;
+use App\Filament\Resources\Products\ProductResource;
 use App\Models\Product;
 use App\Support\Money;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Notifications\Notification;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -64,7 +70,24 @@ class ProductsTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
+                // The less frequent actions sit in a menu so the row never runs off the side of the table.
+                ActionGroup::make([
+                    Action::make('duplicate')
+                        ->label('Duplicate')
+                        ->icon(Heroicon::OutlinedDocumentDuplicate)
+                        ->requiresConfirmation()
+                        ->modalHeading(fn (Product $record): string => 'Duplicate '.$record->name.'?')
+                        ->modalDescription('The copy is a draft with the same details, options, variants and prices, new SKUs, no stock and no photos. Nothing changes on this product.')
+                        ->modalSubmitActionLabel('Duplicate')
+                        ->action(function (Product $record, DuplicateProduct $duplicate) {
+                            $copy = $duplicate($record);
+
+                            Notification::make()->title('Copied as a draft. Give it its own name, SKUs and photos.')->success()->send();
+
+                            return redirect(ProductResource::getUrl('edit', ['record' => $copy]));
+                        }),
+                    DeleteAction::make(),
+                ]),
             ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Catalogue\DuplicateProduct;
 use App\Enums\ProductStatus;
 use App\Enums\StockMovementReason;
 use App\Filament\Resources\Categories\CategoryResource;
@@ -22,7 +23,10 @@ use App\Models\Product;
 use App\Models\ProductOptionValue;
 use App\Models\ProductVariant;
 use App\Models\User;
+use Database\Seeders\CatalogueSeeder;
+use Database\Seeders\CategorySeeder;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -294,5 +298,39 @@ class CatalogueScreensTest extends TestCase
 
         $this->assertFalse($first->fresh()->is_default);
         $this->assertTrue($second->fresh()->is_default);
+    }
+
+    public function test_a_product_is_duplicated_as_a_draft_with_its_options_and_variants_and_none_of_its_stock(): void
+    {
+        $this->seed([CategorySeeder::class, CatalogueSeeder::class]);
+        $sofa = Product::where('slug', 'amani-3-seater-sofa')->firstOrFail();
+        $sofa->load('variants.optionValues', 'options.values', 'collections');
+
+        Livewire::test(ListProducts::class)
+            ->callAction(TestAction::make('duplicate')->table($sofa))
+            ->assertNotified('Copied as a draft. Give it its own name, SKUs and photos.');
+
+        $copy = Product::where('name', 'Copy of Amani 3-seater sofa')->with('variants.optionValues', 'options.values', 'collections')->sole();
+
+        $this->assertSame([ProductStatus::Draft, null, 'copy-of-amani-3-seater-sofa'], [$copy->status, $copy->published_at, $copy->slug]);
+        $this->assertSame([$sofa->summary, $sofa->materials, $sofa->category_id], [$copy->summary, $copy->materials, $copy->category_id]);
+        $this->assertSame($sofa->collections->modelKeys(), $copy->collections->modelKeys());
+
+        // The same choices and the same prices, under SKUs of its own, with nothing in stock and no photos.
+        $this->assertSame($sofa->options->first()->values->pluck('label')->all(), $copy->options->first()->values->pluck('label')->all());
+        $this->assertSame($sofa->variants->pluck('price')->all(), $copy->variants->pluck('price')->all());
+        $this->assertSame($sofa->variants->map->label()->all(), $copy->variants->map->label()->all());
+        $this->assertSame($sofa->variants->map(fn ($variant) => $variant->sku.'-COPY')->all(), $copy->variants->pluck('sku')->all());
+        $this->assertSame(0, (int) $copy->variants->sum('stock_on_hand'));
+        $this->assertSame(0, $copy->media()->count());
+        $this->assertEmpty(array_intersect($sofa->options->first()->values->modelKeys(), $copy->options->first()->values->modelKeys()));
+
+        // The original is untouched, the copy is not on sale, and a second copy gets SKUs of its own again.
+        $this->assertSame($sofa->variants->pluck('stock_on_hand')->all(), $sofa->fresh()->variants->pluck('stock_on_hand')->all());
+        $this->withoutVite()->get(route('shop.product', $copy))->assertNotFound();
+
+        $second = app(DuplicateProduct::class)($sofa);
+        $this->assertSame('copy-of-amani-3-seater-sofa-2', $second->slug);
+        $this->assertStringEndsWith('-COPY-2', $second->variants()->first()->sku);
     }
 }
