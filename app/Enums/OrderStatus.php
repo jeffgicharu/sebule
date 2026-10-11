@@ -46,6 +46,18 @@ enum OrderStatus: string implements HasColor, HasLabel
         return in_array($this, [self::Delivered, self::Cancelled, self::Expired], true);
     }
 
+    /** What the order's history says when staff move it to this status. */
+    public function event(): ?OrderEventType
+    {
+        return match ($this) {
+            self::InProduction => OrderEventType::InProduction,
+            self::Ready => OrderEventType::Ready,
+            self::OutForDelivery => OrderEventType::OutForDelivery,
+            self::Delivered => OrderEventType::Delivered,
+            default => null,
+        };
+    }
+
     public function isPaid(): bool
     {
         return in_array($this, [self::Paid, self::InProduction, self::Ready, self::OutForDelivery, self::Delivered], true);

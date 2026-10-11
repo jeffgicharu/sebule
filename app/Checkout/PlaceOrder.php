@@ -8,6 +8,7 @@ use App\Enums\OrderStatus;
 use App\Enums\StockMovementReason;
 use App\Inventory\InsufficientStock;
 use App\Inventory\StockLedger;
+use App\Messages\TellCustomer;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\County;
@@ -25,7 +26,7 @@ use Illuminate\Support\Str;
  */
 class PlaceOrder
 {
-    public function __construct(private readonly StockLedger $stock) {}
+    public function __construct(private readonly StockLedger $stock, private readonly TellCustomer $tell) {}
 
     /**
      * @param  array<string, mixed>  $details  the customer and delivery details, already validated
@@ -99,6 +100,8 @@ class PlaceOrder
 
                 $order->record(OrderEventType::Placed);
                 $cart->delete();
+
+                ($this->tell)($order, OrderEventType::Placed);
 
                 return $order;
             });

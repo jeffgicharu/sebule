@@ -31,4 +31,24 @@ class Phone
 
         return trim(substr($local, 0, 4).' '.substr($local, 4, 3).' '.substr($local, 7));
     }
+
+    /**
+     * The digits to look for when staff search by phone number. Numbers are
+     * stored as 2547XXXXXXXX, so the leading 0 of "0712" is dropped, and a word
+     * that is not part of a phone number gives nothing to look for.
+     */
+    public static function searchDigits(string $typed): ?string
+    {
+        if (! preg_match('/^\+?[\d\s\-()]{3,}$/', $typed)) {
+            return null;
+        }
+
+        $digits = preg_replace('/\D+/', '', $typed);
+
+        if (strlen($digits) >= 4 && $digits[0] === '0') {
+            $digits = substr($digits, 1);
+        }
+
+        return strlen($digits) >= 3 ? $digits : null;
+    }
 }

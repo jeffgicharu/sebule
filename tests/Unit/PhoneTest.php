@@ -39,4 +39,21 @@ class PhoneTest extends TestCase
     {
         $this->assertSame('0712 345 678', Phone::display('254712345678'));
     }
+
+    public function test_a_search_finds_a_number_however_staff_type_it(): void
+    {
+        $this->assertSame('712345678', Phone::searchDigits('0712345678'));
+        $this->assertSame('712', Phone::searchDigits('0712'));
+        $this->assertSame('254712345678', Phone::searchDigits('+254 712 345678'));
+        $this->assertSame('000', Phone::searchDigits('000'));
+        $this->assertSame('345', Phone::searchDigits('345'));
+    }
+
+    public function test_a_search_word_that_is_no_part_of_a_number_is_not_looked_for_among_phones(): void
+    {
+        $this->assertNull(Phone::searchDigits('Wanjiru'));
+        $this->assertNull(Phone::searchDigits('SB-123456'));
+        $this->assertNull(Phone::searchDigits('A2'));
+        $this->assertNull(Phone::searchDigits('12'));
+    }
 }

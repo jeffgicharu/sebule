@@ -32,6 +32,15 @@ The shop is at http://localhost:8000 and the back office at http://localhost:800
 
 Staff sign in to the back office with their own accounts, which are separate from customer accounts. The roles are `owner`, `manager`, `fulfilment` and `support`.
 
+| Role | Orders | Payments | Delivery zones | Staff |
+|---|---|---|---|---|
+| `owner` | Read, move on, cancel (paid or not) | Read | Change | Manage |
+| `manager` | Read, move on, cancel unpaid | Read | Change | |
+| `fulfilment` | Read, move on, cancel unpaid | | | |
+| `support` | Read, cancel unpaid | Read | | |
+
+The rules live in `App\Enums\StaffRole` and `App\Policies\OrderPolicy`, and the server checks them on every action: an action a role may not take is neither shown nor accepted.
+
 Owners add and manage staff in the back office under Settings, Staff. Accounts are switched off when someone leaves, never deleted, so stock history keeps the name of whoever made each change.
 
 The first owner has to be created from the command line:
@@ -70,6 +79,20 @@ Checkout is two pages that work without script: the customer's details, then a r
 Stock is held for `STORE_HOLD_MINUTES`. `orders:release-unpaid` runs every minute and returns the stock of orders nobody paid for; the customer can pick such an order up again from its link if the pieces are still there.
 
 Paying is an M-Pesa prompt (`App\Payments\StartMpesaPayment`). Safaricom's confirmation is posted to an address signed for that one prompt, must name that prompt and must be for the amount asked; it is recorded once however many times it arrives. If no confirmation comes, a queued job asks Safaricom what became of the prompt and settles the order either way. Every order page is reached by a secret link, so tracking needs no account.
+
+## From paid to delivered
+
+Staff work orders under Sales, Orders. A paid order moves one step at a time (`App\Orders\MoveOrderOn`): into the workshop if it holds a made-to-order piece, then ready, then out for delivery, then delivered. An order that is collected skips the delivery step. Each step is its own action, so a button pressed on a page that has gone stale does nothing rather than skipping ahead, and the order's history records who took it.
+
+Cancelling (`App\Orders\CancelOrder`) needs a reason, returns the order's stock through the ledger and closes it. If the order was paid for, the history notes what is owed back; the refund itself is made by hand. Money that arrives for an order already cancelled does not revive it and is noted the same way.
+
+Delivery zones are groups of counties with one fee and a promised time, set under Settings, Delivery zones. A county belongs to one zone at a time, and a county in no zone, or in a zone that is switched off, is not offered at checkout. An order keeps the fee and the promise it was placed with.
+
+## Messages to customers
+
+`App\Messages\TellCustomer` writes to the customer when an order is placed, paid for, fails to be paid for (once), is being made, is ready, goes out, is delivered or is cancelled. The wording is in `App\Messages\OrderWording`.
+
+Every message is stored in full before anything is sent, and staff read them under Sales, Messages exactly as the customer got them. An email is queued when the customer gave an address and a real mailer is configured; with the `log` mailer it is stored and marked as not sent. Because an email goes to whatever address was typed at checkout, sending is capped per address and for the whole store each day. Text messages are written and stored but not sent.
 
 ## Tests
 
@@ -111,6 +134,9 @@ The workflow needs these repository secrets: `VPS_HOST`, `VPS_USER`, `VPS_SSH_KE
 | `STORE_ALLOW_INDEXING` | Set to `true` to let search engines index the site. Off by default. |
 | `STORE_HOLD_MINUTES` | How long stock is held for an order while its customer pays. 15 by default. |
 | `STORE_TEST_PAYMENTS` | Set to `true` to let an order be completed with a test payment, with no money moving. Off by default. |
+| `MAIL_MAILER`, `MAIL_FROM_ADDRESS` | How order emails leave. With `log`, emails are stored in the message log and not sent. |
+| `STORE_REPLY_TO` | Where a customer's reply to an order email goes. Optional. |
+| `STORE_EMAIL_DAILY_LIMIT`, `STORE_EMAIL_ADDRESS_DAILY_LIMIT` | The most emails the store sends in a day, and the most to any one address. 80 and 12 by default. |
 | `DARAJA_ENV` | `sandbox` or `production`. |
 | `DARAJA_CONSUMER_KEY`, `DARAJA_CONSUMER_SECRET`, `DARAJA_PASSKEY`, `DARAJA_SHORTCODE` | The store's Safaricom Daraja app. Without them the M-Pesa option is not offered. |
 | `MPESA_CHARGE_SHILLINGS` | A fixed number of shillings to ask for whatever the order comes to. Empty asks for the order's total. |

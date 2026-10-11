@@ -49,6 +49,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarWidth('17rem')
             ->maxContentWidth(Width::Full)
             ->navigationGroups([
+                'Sales',
                 'Catalogue',
                 'Settings',
             ])

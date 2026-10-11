@@ -16,4 +16,13 @@ enum PaymentMethod: string implements HasLabel
             self::Test => 'Test payment',
         };
     }
+
+    /** The method as it reads after "Paid by". */
+    public function inSentence(): string
+    {
+        return match ($this) {
+            self::Mpesa => 'M-Pesa',
+            self::Test => 'a test payment',
+        };
+    }
 }

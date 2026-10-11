@@ -64,6 +64,12 @@ class Order extends Model
         return $this->hasMany(Payment::class)->orderByDesc('id');
     }
 
+    /** @return HasMany<Message, $this> */
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class)->orderByDesc('id');
+    }
+
     /** @return BelongsTo<DeliveryZone, $this> */
     public function zone(): BelongsTo
     {
@@ -79,6 +85,28 @@ class Order extends Model
     public function openPayment(): ?Payment
     {
         return $this->payments->firstWhere('state', PaymentState::Pending);
+    }
+
+    /**
+     * The step staff take next. It depends on what the order holds and how it
+     * reaches the customer: only made-to-order pieces go through the workshop,
+     * and an order that is collected never goes out for delivery.
+     */
+    public function nextStatus(): ?OrderStatus
+    {
+        return match ($this->status) {
+            OrderStatus::Paid => $this->items->contains('made_to_order', true) ? OrderStatus::InProduction : OrderStatus::Ready,
+            OrderStatus::InProduction => OrderStatus::Ready,
+            OrderStatus::Ready => $this->delivery_method === DeliveryMethod::Delivery ? OrderStatus::OutForDelivery : OrderStatus::Delivered,
+            OrderStatus::OutForDelivery => OrderStatus::Delivered,
+            default => null,
+        };
+    }
+
+    /** An order can be cancelled until it has reached the customer or been closed. */
+    public function canBeCancelled(): bool
+    {
+        return ! $this->status->isClosed();
     }
 
     public function record(OrderEventType $type, ?string $note = null, ?User $by = null): OrderEvent

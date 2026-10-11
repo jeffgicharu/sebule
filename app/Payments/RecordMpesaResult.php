@@ -4,6 +4,7 @@ namespace App\Payments;
 
 use App\Enums\OrderEventType;
 use App\Enums\PaymentState;
+use App\Messages\TellCustomer;
 use App\Models\Payment;
 use App\Orders\MarkOrderPaid;
 use App\Payments\Mpesa\MpesaResult;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\DB;
  */
 class RecordMpesaResult
 {
-    public function __construct(private readonly MarkOrderPaid $markOrderPaid) {}
+    public function __construct(private readonly MarkOrderPaid $markOrderPaid, private readonly TellCustomer $tell) {}
 
     /**
      * @param  int|null  $paidShillings  the amount M-Pesa says was paid, when it says
@@ -61,7 +62,14 @@ class RecordMpesaResult
             if ($state === PaymentState::Paid) {
                 ($this->markOrderPaid)($payment->order, $payment);
             } else {
+                // One message about a payment that failed is enough, however many times the customer tries.
+                $firstFailure = ! $payment->order->events()->where('type', OrderEventType::PaymentFailed)->exists();
+
                 $payment->order->record(OrderEventType::PaymentFailed, $state->getLabel());
+
+                if ($firstFailure && $payment->order->awaitsPayment()) {
+                    ($this->tell)($payment->order, OrderEventType::PaymentFailed);
+                }
             }
 
             return $payment;

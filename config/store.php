@@ -62,6 +62,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Email to customers
+    |--------------------------------------------------------------------------
+    |
+    | An order email goes to whatever address was typed at checkout, so sending
+    | is rationed: for the whole store each day, and for any one address.
+    | Replies go to the reply address when there is one.
+    |
+    */
+
+    'email' => [
+        'daily_limit' => (int) env('STORE_EMAIL_DAILY_LIMIT', 80),
+        'address_daily_limit' => (int) env('STORE_EMAIL_ADDRESS_DAILY_LIMIT', 12),
+        'reply_to' => env('STORE_REPLY_TO'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Showroom
     |--------------------------------------------------------------------------
     |

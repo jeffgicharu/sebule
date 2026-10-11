@@ -7,6 +7,7 @@ use App\Enums\OrderStatus;
 use App\Enums\StockMovementReason;
 use App\Inventory\InsufficientStock;
 use App\Inventory\StockLedger;
+use App\Messages\TellCustomer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\DB;
  */
 class MarkOrderPaid
 {
-    public function __construct(private readonly StockLedger $stock) {}
+    public function __construct(private readonly StockLedger $stock, private readonly TellCustomer $tell) {}
 
     public function __invoke(Order $order, Payment $payment): void
     {
@@ -25,6 +26,15 @@ class MarkOrderPaid
             $order = Order::query()->lockForUpdate()->with('items.variant')->findOrFail($order->getKey());
 
             if ($order->status->isPaid()) {
+                return;
+            }
+
+            // Money for an order staff have cancelled does not bring it back. It is owed to the customer.
+            if ($order->status === OrderStatus::Cancelled) {
+                if ($payment->charged > 0) {
+                    $order->record(OrderEventType::RefundDue, 'Paid after the order was cancelled: '.CancelOrder::owed($payment->charged, $payment->phone));
+                }
+
                 return;
             }
 
@@ -40,6 +50,8 @@ class MarkOrderPaid
             if ($short->isNotEmpty()) {
                 $order->record(OrderEventType::Paid, 'Paid after the hold ran out. No longer in stock: '.$short->join(', ').'.');
             }
+
+            ($this->tell)($order, OrderEventType::Paid);
         });
     }
 
