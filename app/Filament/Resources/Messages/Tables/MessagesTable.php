@@ -28,12 +28,15 @@ class MessagesTable
                 TextColumn::make('recipient')
                     ->label('To')
                     ->formatStateUsing(fn (string $state, Message $record): string => $record->channel === MessageChannel::Sms ? Phone::display($state) : $state)
+                    // A long address is cut short so the table keeps to the screen. The whole of it is in the tip and in the message itself.
+                    ->limit(26)
+                    ->tooltip(fn (Message $record): ?string => strlen($record->recipient) > 26 ? $record->recipient : null)
                     ->searchable()
                     ->description(fn (Message $record): ?string => $record->order?->customer_name),
                 TextColumn::make('subject')
                     ->label('Message')
                     ->state(fn (Message $record): string => $record->subject ?? $record->body)
-                    ->limit(48)
+                    ->limit(44)
                     ->description(fn (Message $record): string => $record->channel->getLabel()),
                 TextColumn::make('order.number')
                     ->label('Order')

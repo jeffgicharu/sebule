@@ -41,6 +41,8 @@ final class OrderWording
         $weeks = $order->items->where('made_to_order', true)->max('lead_time_weeks');
         $showroom = config('store.showroom');
         $paid = $order->payments->firstWhere('state', PaymentState::Paid);
+        // Money is owed back only where some was taken: a test payment takes none.
+        $owed = $paid !== null && $paid->charged > 0;
 
         return match ($event) {
             OrderEventType::Placed => new self(
@@ -130,10 +132,10 @@ final class OrderWording
                 'Your order has been cancelled.',
                 array_values(array_filter([
                     $note,
-                    $paid ? 'Your payment will be sent back to the M-Pesa number that paid, within two working days.' : 'Nothing was taken from you.',
+                    $owed ? 'Your payment will be sent back to the M-Pesa number that paid, within two working days.' : 'Nothing was taken from you.',
                 ])),
                 'See your order', $track,
-                "Sebule: order {$number} has been cancelled. ".($paid ? 'Your payment will be sent back within two working days.' : 'Nothing was taken from you.'),
+                "Sebule: order {$number} has been cancelled. ".($owed ? 'Your payment will be sent back within two working days.' : 'Nothing was taken from you.'),
             ),
 
             default => null,

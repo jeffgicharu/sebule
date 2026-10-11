@@ -35,9 +35,10 @@ class CustomerInfolist
                             ])
                             ->schema([
                                 TextEntry::make('number')
+                                    ->label('Order')
                                     ->weight('medium')
                                     ->url(fn (Order $record): string => OrderResource::getUrl('view', ['record' => $record])),
-                                TextEntry::make('created_at')->dateTime('j M Y, H:i'),
+                                TextEntry::make('created_at')->label('Placed')->dateTime('j M Y, H:i'),
                                 TextEntry::make('status')->badge(),
                                 TextEntry::make('total')
                                     ->formatStateUsing(fn (int $state): string => Money::format($state))

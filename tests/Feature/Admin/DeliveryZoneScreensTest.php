@@ -148,7 +148,9 @@ class DeliveryZoneScreensTest extends TestCase
         foreach ([StaffRole::Fulfilment, StaffRole::Support] as $role) {
             $this->actingAs(User::factory()->create(['role' => $role]));
 
-            $this->get(DeliveryZoneResource::getUrl('index'))->assertForbidden();
+            $this->withoutVite()->get(DeliveryZoneResource::getUrl('index'))->assertForbidden()
+                ->assertSeeText('You do not have access to this page.')
+                ->assertSeeText('Back to the back office');
             $this->get(DeliveryZoneResource::getUrl('create'))->assertForbidden();
             $this->get(DeliveryZoneResource::getUrl('edit', ['record' => $zone]))->assertForbidden();
             Livewire::test(EditDeliveryZone::class, ['record' => $zone->getRouteKey()])->assertForbidden();

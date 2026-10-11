@@ -445,7 +445,7 @@ class OrderPaymentTest extends TestCase
         $this->assertSame([PaymentMethod::Test, PaymentState::Paid, 10050000, 0], [$payment->method, $payment->state, $payment->amount, $payment->charged]);
         $this->assertStringStartsWith('TEST', $payment->receipt);
         $this->assertSame(OrderStatus::Paid, $order->fresh()->status);
-        $this->get(route('orders.show', $order))->assertSeeText('Paid by Test payment');
+        $this->get(route('orders.show', $order))->assertSeeText('Paid by a test payment');
     }
 
     public function test_without_mpesa_set_up_the_prompt_cannot_be_sent(): void

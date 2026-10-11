@@ -118,7 +118,7 @@
 
                     @if ($paid)
                         <p class="mt-5 border-t border-rule pt-4 text-[0.95rem]">
-                            Paid by {{ $paid->method->getLabel() }} on {{ $paid->settled_at->format('j F Y') }}@if ($paid->receipt), receipt {{ $paid->receipt }}@endif.
+                            Paid by {{ $paid->method->inSentence() }} on {{ $paid->settled_at->format('j F Y') }}@if ($paid->receipt), receipt {{ $paid->receipt }}@endif.
                         </p>
                     @endif
                 </div>

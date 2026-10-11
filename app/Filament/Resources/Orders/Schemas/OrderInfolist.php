@@ -41,6 +41,7 @@ class OrderInfolist
                                 ->hiddenLabel()
                                 ->table([
                                     // The narrow columns are given their width, so an amount is never cut short by a long name beside it.
+                                    // On a phone each row becomes a card, and every entry below is labelled as its column is headed.
                                     TableColumn::make('Piece'),
                                     TableColumn::make('Quantity')->width('5.5rem'),
                                     TableColumn::make('Each')->width('8.5rem'),
@@ -48,12 +49,13 @@ class OrderInfolist
                                 ])
                                 ->schema([
                                     TextEntry::make('product_name')
+                                        ->label('Piece')
                                         ->state(fn (OrderItem $record): string => $record->title())
                                         ->weight('medium')
                                         ->helperText(fn (OrderItem $record): string => $record->sku.($record->made_to_order ? '. Made to order, about '.$record->lead_time_weeks.' weeks' : '')),
                                     TextEntry::make('quantity'),
-                                    TextEntry::make('unit_price')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
-                                    TextEntry::make('line_total')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
+                                    TextEntry::make('unit_price')->label('Each')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
+                                    TextEntry::make('line_total')->label('Total')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
                                 ]),
                             Grid::make(4)
                                 ->schema([
@@ -78,15 +80,17 @@ class OrderInfolist
                                     TableColumn::make('Receipt')->width('10rem'),
                                 ])
                                 ->schema([
-                                    TextEntry::make('created_at')->dateTime('j M, H:i')->extraAttributes(['class' => 'whitespace-nowrap']),
+                                    TextEntry::make('created_at')->label('When')->dateTime('j M, H:i')->extraAttributes(['class' => 'whitespace-nowrap']),
                                     TextEntry::make('method')
+                                        ->label('How')
                                         ->helperText(fn (Payment $record): ?string => $record->phone ? Phone::display($record->phone) : null),
                                     TextEntry::make('state')
+                                        ->label('Result')
                                         ->badge()
                                         ->helperText(fn (Payment $record): ?string => $record->state->isFinal() && $record->result_code !== null && $record->result_code !== '0'
                                             ? $record->result_description
                                             : null),
-                                    TextEntry::make('charged')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
+                                    TextEntry::make('charged')->label('Asked for')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
                                     TextEntry::make('receipt')->placeholder('None')->copyable()->extraAttributes(['class' => 'whitespace-nowrap']),
                                 ]),
                         ]),
@@ -102,10 +106,11 @@ class OrderInfolist
                                     TableColumn::make('By')->width('9rem'),
                                 ])
                                 ->schema([
-                                    TextEntry::make('created_at')->dateTime('j M Y, H:i')->extraAttributes(['class' => 'whitespace-nowrap']),
+                                    TextEntry::make('created_at')->label('When')->dateTime('j M Y, H:i')->extraAttributes(['class' => 'whitespace-nowrap']),
                                     TextEntry::make('type')
+                                        ->label('What happened')
                                         ->helperText(fn (OrderEvent $record): ?string => $record->note),
-                                    TextEntry::make('user.name')->placeholder('The shop'),
+                                    TextEntry::make('user.name')->label('By')->placeholder('The shop'),
                                 ]),
                         ]),
                 ])->columnSpan(['default' => 3, 'xl' => 2]),
