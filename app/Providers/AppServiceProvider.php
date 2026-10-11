@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -73,6 +74,23 @@ class AppServiceProvider extends ServiceProvider
     {
         RateLimiter::for('cart', fn (Request $request) => Limit::perMinute(90)->by('cart|'.$request->ip()));
         RateLimiter::for('checkout', fn (Request $request) => Limit::perMinute(30)->by('checkout|'.$request->ip()));
+        // Placing an order holds stock and writes to the customer, so one visitor may place only so many.
+        RateLimiter::for('orders', fn (Request $request) => [
+            Limit::perMinutes(10, 6)->by('orders|'.$request->ip()),
+            Limit::perDay(25)->by('orders-day|'.$request->ip()),
+        ]);
+
+        // Signing in, opening accounts and asking for password links are rationed against guessing and flooding.
+        RateLimiter::for('account-login', fn (Request $request) => [
+            Limit::perMinute(5)->by('login|'.Str::lower((string) $request->input('email')).'|'.$request->ip()),
+            Limit::perMinute(20)->by('login|'.$request->ip()),
+        ]);
+        RateLimiter::for('account-register', fn (Request $request) => Limit::perHour(10)->by('register|'.$request->ip()));
+        RateLimiter::for('account-reset', fn (Request $request) => [
+            Limit::perMinutes(10, 5)->by('reset|'.$request->ip()),
+            Limit::perHour(3)->by('reset|'.Str::lower((string) $request->input('email'))),
+        ]);
+
         RateLimiter::for('payment-status', fn (Request $request) => Limit::perMinute(120)->by('payment-status|'.$request->ip()));
         RateLimiter::for('payment-confirmations', fn (Request $request) => Limit::perMinute(600)->by('payment-confirmations|'.$request->ip()));
 

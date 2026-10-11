@@ -99,6 +99,9 @@
                         <td style="padding:20px 8px 0; font-size:13px; line-height:1.55; color:{{ $soft }};">
                             Sebule, {{ $showroom['street'] }}, {{ $showroom['city'] }}. Every price includes VAT.<br>
                             You are getting this because an order was placed at <a href="{{ route('home') }}" style="color:{{ $soft }};">{{ parse_url(config('app.url'), PHP_URL_HOST) }}</a> with this address. If that was not you, there is nothing you need to do.
+                            @unless (config('store.email.reply_to'))
+                                <br>This message was sent from an address that does not take replies.
+                            @endunless
                         </td>
                     </tr>
                 </table>

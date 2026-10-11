@@ -41,7 +41,6 @@ class OrderInfolist
                                 ->hiddenLabel()
                                 ->table([
                                     TableColumn::make('Piece'),
-                                    TableColumn::make('SKU'),
                                     TableColumn::make('Quantity'),
                                     TableColumn::make('Each'),
                                     TableColumn::make('Total'),
@@ -50,8 +49,7 @@ class OrderInfolist
                                     TextEntry::make('product_name')
                                         ->state(fn (OrderItem $record): string => $record->title())
                                         ->weight('medium')
-                                        ->helperText(fn (OrderItem $record): ?string => $record->made_to_order ? 'Made to order, about '.$record->lead_time_weeks.' weeks' : null),
-                                    TextEntry::make('sku'),
+                                        ->helperText(fn (OrderItem $record): string => $record->sku.($record->made_to_order ? '. Made to order, about '.$record->lead_time_weeks.' weeks' : '')),
                                     TextEntry::make('quantity'),
                                     TextEntry::make('unit_price')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
                                     TextEntry::make('line_total')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
@@ -77,20 +75,18 @@ class OrderInfolist
                                     TableColumn::make('Result'),
                                     TableColumn::make('Asked for'),
                                     TableColumn::make('Receipt'),
-                                    TableColumn::make('Phone'),
                                 ])
                                 ->schema([
-                                    TextEntry::make('created_at')->dateTime('j M Y, H:i'),
-                                    TextEntry::make('method'),
+                                    TextEntry::make('created_at')->dateTime('j M, H:i')->extraAttributes(['class' => 'whitespace-nowrap']),
+                                    TextEntry::make('method')
+                                        ->helperText(fn (Payment $record): ?string => $record->phone ? Phone::display($record->phone) : null),
                                     TextEntry::make('state')
                                         ->badge()
                                         ->helperText(fn (Payment $record): ?string => $record->state->isFinal() && $record->result_code !== null && $record->result_code !== '0'
                                             ? $record->result_description
                                             : null),
                                     TextEntry::make('charged')->formatStateUsing($money)->extraAttributes(['class' => 'whitespace-nowrap']),
-                                    TextEntry::make('receipt')->placeholder('None')->copyable(),
-                                    TextEntry::make('phone')->placeholder('None')
-                                        ->formatStateUsing(fn (?string $state): ?string => $state ? Phone::display($state) : null),
+                                    TextEntry::make('receipt')->placeholder('None')->copyable()->extraAttributes(['class' => 'whitespace-nowrap']),
                                 ]),
                         ]),
 
@@ -105,7 +101,7 @@ class OrderInfolist
                                     TableColumn::make('By'),
                                 ])
                                 ->schema([
-                                    TextEntry::make('created_at')->dateTime('j M Y, H:i'),
+                                    TextEntry::make('created_at')->dateTime('j M Y, H:i')->extraAttributes(['class' => 'whitespace-nowrap']),
                                     TextEntry::make('type')
                                         ->helperText(fn (OrderEvent $record): ?string => $record->note),
                                     TextEntry::make('user.name')->placeholder('The shop'),

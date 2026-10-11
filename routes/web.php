@@ -28,7 +28,7 @@ Route::middleware('throttle:cart')->group(function () {
 Route::get('/checkout', [CheckoutController::class, 'details'])->name('checkout.details');
 Route::post('/checkout/details', [CheckoutController::class, 'saveDetails'])->middleware('throttle:checkout')->name('checkout.details.save');
 Route::get('/checkout/review', [CheckoutController::class, 'review'])->name('checkout.review');
-Route::post('/checkout', [CheckoutController::class, 'place'])->middleware('throttle:checkout')->name('checkout.place');
+Route::post('/checkout', [CheckoutController::class, 'place'])->middleware(['throttle:checkout', 'throttle:orders'])->name('checkout.place');
 
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 Route::get('/orders/{order}/pay', [OrderController::class, 'pay'])->name('orders.pay');
