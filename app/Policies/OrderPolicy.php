@@ -25,4 +25,10 @@ class OrderPolicy
 
         return $order->status->isPaid() ? $user->role->sendsMoneyBack() : true;
     }
+
+    /** Note that money owed on the order has been sent back. */
+    public function recordRefund(User $user, Order $order): bool
+    {
+        return $user->role->sendsMoneyBack() && $order->refundDue() !== null;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Orders\Pages;
 
 use App\Enums\DeliveryMethod;
+use App\Enums\OrderEventType;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentState;
 use App\Filament\Resources\Orders\OrderResource;
@@ -13,6 +14,7 @@ use App\Orders\OrderCannotMove;
 use App\Support\Money;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Support\Icons\Heroicon;
@@ -74,6 +76,26 @@ class ViewOrder extends ViewRecord
                     }
 
                     $this->changed("Order {$record->number} is cancelled.");
+                }),
+
+            Action::make('recordRefund')
+                ->label('Record the refund')
+                ->icon(Heroicon::OutlinedBanknotes)
+                ->color('warning')
+                ->visible(fn (Order $record): bool => auth()->user()->can('recordRefund', $record))
+                ->modalHeading('Record the refund')
+                ->modalDescription(fn (Order $record): string => 'Owed: '.$record->refundDue()?->note.'. Send it by M-Pesa first, then note the confirmation here. This takes the order off the list of payments needing attention.')
+                ->schema([
+                    TextInput::make('reference')
+                        ->label('M-Pesa confirmation code')
+                        ->required()
+                        ->maxLength(40),
+                ])
+                ->modalSubmitActionLabel('Record it')
+                ->action(function (Order $record, array $data): void {
+                    $record->record(OrderEventType::RefundSent, $record->refundDue()?->note.', M-Pesa '.trim($data['reference']), auth()->user());
+
+                    $this->changed("The refund for order {$record->number} is recorded.");
                 }),
 
             Action::make('customerPage')

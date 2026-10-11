@@ -48,7 +48,7 @@ class MarkOrderPaid
             $order->record(OrderEventType::Paid, $payment->method->getLabel().($payment->receipt ? ', receipt '.$payment->receipt : ''));
 
             if ($short->isNotEmpty()) {
-                $order->record(OrderEventType::Paid, 'Paid after the hold ran out. No longer in stock: '.$short->join(', ').'.');
+                $order->record(OrderEventType::StockShort, 'Paid after the hold ran out: '.$short->join(', ').'.');
             }
 
             ($this->tell)($order, OrderEventType::Paid);

@@ -7,6 +7,7 @@ use App\Enums\OrderEventType;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentState;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -107,6 +108,32 @@ class Order extends Model
     public function canBeCancelled(): bool
     {
         return ! $this->status->isClosed();
+    }
+
+    /**
+     * Orders with money still to send back: a refund is noted as due and no
+     * refund has been recorded since.
+     *
+     * @param  Builder<Order>  $query
+     */
+    public function scopeOwedARefund(Builder $query): void
+    {
+        $query->whereHas('events', fn (Builder $due) => $due
+            ->where('type', OrderEventType::RefundDue)
+            ->whereNotExists(fn ($sent) => $sent
+                ->from('order_events as sent')
+                ->whereColumn('sent.order_id', 'order_events.order_id')
+                ->where('sent.type', OrderEventType::RefundSent->value)
+                ->whereColumn('sent.id', '>', 'order_events.id')));
+    }
+
+    /** What the history says is owed back, when a refund is still due. */
+    public function refundDue(): ?OrderEvent
+    {
+        $due = $this->events->where('type', OrderEventType::RefundDue)->last();
+        $sent = $this->events->where('type', OrderEventType::RefundSent)->last();
+
+        return $due !== null && ($sent === null || $sent->id < $due->id) ? $due : null;
     }
 
     public function record(OrderEventType $type, ?string $note = null, ?User $by = null): OrderEvent

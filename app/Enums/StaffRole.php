@@ -33,6 +33,12 @@ enum StaffRole: string implements HasLabel
         return in_array($this, [self::Owner, self::Manager, self::Support], true);
     }
 
+    /** Reads who the customers are and what each has bought. */
+    public function seesCustomers(): bool
+    {
+        return in_array($this, [self::Owner, self::Manager, self::Support], true);
+    }
+
     /** Changes how the store runs: delivery zones and fees. */
     public function changesSettings(): bool
     {

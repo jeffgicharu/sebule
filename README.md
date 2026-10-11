@@ -32,9 +32,9 @@ The shop is at http://localhost:8000 and the back office at http://localhost:800
 
 Staff sign in to the back office with their own accounts, which are separate from customer accounts. The roles are `owner`, `manager`, `fulfilment` and `support`.
 
-| Role | Orders | Payments | Delivery zones | Staff |
+| Role | Orders | Payments and customers | Delivery zones | Staff |
 |---|---|---|---|---|
-| `owner` | Read, move on, cancel (paid or not) | Read | Change | Manage |
+| `owner` | Read, move on, cancel (paid or not), record refunds | Read | Change | Manage |
 | `manager` | Read, move on, cancel unpaid | Read | Change | |
 | `fulfilment` | Read, move on, cancel unpaid | | | |
 | `support` | Read, cancel unpaid | Read | | |
@@ -84,7 +84,11 @@ Paying is an M-Pesa prompt (`App\Payments\StartMpesaPayment`). Safaricom's confi
 
 Staff work orders under Sales, Orders. A paid order moves one step at a time (`App\Orders\MoveOrderOn`): into the workshop if it holds a made-to-order piece, then ready, then out for delivery, then delivered. An order that is collected skips the delivery step. Each step is its own action, so a button pressed on a page that has gone stale does nothing rather than skipping ahead, and the order's history records who took it.
 
-Cancelling (`App\Orders\CancelOrder`) needs a reason, returns the order's stock through the ledger and closes it. If the order was paid for, the history notes what is owed back; the refund itself is made by hand. Money that arrives for an order already cancelled does not revive it and is noted the same way.
+Cancelling (`App\Orders\CancelOrder`) needs a reason, returns the order's stock through the ledger and closes it. If the order was paid for, the history notes what is owed back; the refund itself is made by hand, and an owner records it on the order once it is sent. Money that arrives for an order already cancelled does not revive it and is noted the same way.
+
+The back office opens on the day's figures: sales today and this month (orders counted by the day they were paid for), paid orders waiting for their next step, pieces at or below their stock warning level, and cancelled orders with money still to send back.
+
+Customers need no account, so staff know a customer by the phone number on their orders. Sales, Customers reads from the `buyers` view, which groups orders by phone number, so it is never out of step with the orders themselves.
 
 Delivery zones are groups of counties with one fee and a promised time, set under Settings, Delivery zones. A county belongs to one zone at a time, and a county in no zone, or in a zone that is switched off, is not offered at checkout. An order keeps the fee and the promise it was placed with.
 

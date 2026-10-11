@@ -16,6 +16,8 @@ enum OrderEventType: string implements HasLabel
     case Resumed = 'resumed';
     case Cancelled = 'cancelled';
     case RefundDue = 'refund_due';
+    case RefundSent = 'refund_sent';
+    case StockShort = 'stock_short';
     case InProduction = 'in_production';
     case Ready = 'ready';
     case OutForDelivery = 'out_for_delivery';
@@ -31,6 +33,8 @@ enum OrderEventType: string implements HasLabel
             self::Resumed => 'Items held again for payment',
             self::Cancelled => 'Order cancelled',
             self::RefundDue => 'Money to send back',
+            self::RefundSent => 'Money sent back',
+            self::StockShort => 'Paid for, but no longer in stock',
             self::InProduction => 'Being made',
             self::Ready => 'Ready',
             self::OutForDelivery => 'Out for delivery',
