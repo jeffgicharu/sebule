@@ -36,7 +36,7 @@
 
                     <tr>
                         <td style="padding:20px 8px 0; font-size:13px; line-height:1.55; color:{{ $soft }};">
-                            Sebule, {{ $showroom['street'] }}, {{ $showroom['city'] }}. Every price includes VAT.<br>
+                            Sebule, {{ $showroom['street'] }}, {{ $showroom['city'] }}.<br>
                             {{ $why }}
                             @unless (config('store.email.reply_to'))
                                 <br>This message was sent from an address that does not take replies.

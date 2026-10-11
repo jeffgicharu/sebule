@@ -12,6 +12,7 @@ use App\Enums\StaffRole;
 use App\Jobs\DeliverMessage;
 use App\Mail\CustomerEmail;
 use App\Messages\TellCustomer;
+use App\Models\Customer;
 use App\Models\Message;
 use App\Models\Order;
 use App\Models\Payment;
@@ -52,6 +53,8 @@ class CustomerMessagesTest extends TestCase
 
     public function test_placing_an_order_emails_the_customer_a_link_to_pay(): void
     {
+        $this->travelTo('2026-10-14 15:00:00');
+
         $order = $this->placeOrder();
 
         $email = $this->emails($order)->sole();
@@ -73,6 +76,27 @@ class CustomerMessagesTest extends TestCase
         Mail::assertSent(CustomerEmail::class, fn (CustomerEmail $mail) => $mail->hasTo('wanjiru@kamau.co.ke')
             && $mail->hasSubject("We have your order {$order->number}")
             && $mail->hasReplyTo('hello@sebule.test'));
+    }
+
+    public function test_a_hold_that_ends_after_midnight_is_written_with_its_date(): void
+    {
+        $this->travelTo('2026-10-14 23:55:00');
+
+        $order = $this->placeOrder();
+
+        $this->assertStringContainsString('held for you until '.$order->held_until->format('g:i a').' on 15 October', $this->emails($order)->sole()->body);
+    }
+
+    public function test_account_emails_say_nothing_about_prices(): void
+    {
+        $customer = Customer::create(['name' => 'Wanjiru Kamau', 'email' => 'wanjiru@kamau.co.ke', 'password' => 'a-good-password']);
+
+        $this->post(route('account.password.email'), ['email' => $customer->email]);
+
+        $email = Message::query()->where('recipient', $customer->email)->sole();
+
+        $this->assertStringContainsString('Sebule, Ngong Road, Nairobi.', $email->html);
+        $this->assertStringNotContainsString('VAT', $email->html);
     }
 
     public function test_each_step_of_an_order_writes_to_the_customer(): void
