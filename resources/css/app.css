@@ -4,8 +4,10 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Young Serif', ui-serif, Georgia, serif;
+    /* The "fallback" faces are made by the build: a font the device already has, sized to match ours,
+       so nothing moves when ours arrives a moment after the page. */
+    --font-sans: 'Hanken Grotesk', 'Hanken Grotesk fallback', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Young Serif', 'Young Serif fallback', ui-serif, Georgia, serif;
 
     /* Paper is the page. Tile is the exact background of the studio photos,
        so a product photo sits in its tile with no visible edge. */

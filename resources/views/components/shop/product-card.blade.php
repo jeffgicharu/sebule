@@ -36,7 +36,7 @@
     </h3>
 
     <p class="mt-1.5 flex flex-wrap items-baseline gap-x-2 text-[0.95rem]">
-        <span class="{{ $onSale ? 'font-semibold text-clay' : 'text-ink' }}">
+        <span class="{{ $onSale ? 'font-semibold text-clay-deep' : 'text-ink' }}">
             @if ($product->price_to > $product->price_from)<span class="text-ink-soft">From</span> @endif{{ Money::format((int) $product->price_from) }}
         </span>
         @if ($onSale)
