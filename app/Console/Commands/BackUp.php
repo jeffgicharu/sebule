@@ -43,17 +43,21 @@ class BackUp extends Command
         $connection = config('database.connections.'.config('database.default'));
         $file = $directory.'/database-'.now()->format('Y-m-d-Hi').'.sql.gz';
 
+        // pg_dump compresses the copy itself and is run without a shell, so there is no pipe whose failure could go unnoticed.
         $result = Process::timeout(600)
             // The password goes in the environment, never on the command line, where other users of the server could read it.
             ->env(['PGPASSWORD' => (string) $connection['password']])
-            ->run(sprintf(
-                'set -o pipefail; pg_dump --host=%s --port=%s --username=%s --no-owner --no-privileges %s | gzip -9 > %s',
-                escapeshellarg((string) $connection['host']),
-                escapeshellarg((string) $connection['port']),
-                escapeshellarg((string) $connection['username']),
-                escapeshellarg((string) $connection['database']),
-                escapeshellarg($file),
-            ));
+            ->run([
+                'pg_dump',
+                '--host='.$connection['host'],
+                '--port='.$connection['port'],
+                '--username='.$connection['username'],
+                '--no-owner',
+                '--no-privileges',
+                '--compress=9',
+                '--file='.$file,
+                (string) $connection['database'],
+            ]);
 
         if ($result->failed() || ! is_file($file) || filesize($file) < 1024) {
             File::delete($file);
@@ -70,11 +74,7 @@ class BackUp extends Command
     {
         $file = $directory.'/photos-'.now()->format('Y-m-d').'.tar.gz';
 
-        $result = Process::timeout(1800)->run(sprintf(
-            'tar --create --gzip --file=%s --directory=%s public',
-            escapeshellarg($file),
-            escapeshellarg(storage_path('app')),
-        ));
+        $result = Process::timeout(1800)->run(['tar', '--create', '--gzip', '--file='.$file, '--directory='.storage_path('app'), 'public']);
 
         if ($result->failed()) {
             File::delete($file);
