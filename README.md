@@ -5,8 +5,8 @@ The online store for Sebule, a Kenyan furniture and home brand. One Laravel appl
 ## Stack
 
 - PHP 8.4 and Laravel 13
-- Livewire 4 and Tailwind CSS 4 for the shop
-- Filament 5 for the back office, at `/admin`
+- Blade templates and Tailwind CSS 4 for the shop, which works without script
+- Filament 5 (on Livewire 4) for the back office, at `/admin`
 - PostgreSQL 16 or newer
 
 ## Running it locally
@@ -134,6 +134,7 @@ With `STORE_DEMO=true` the store can be shown to people who are not its staff.
 - `/demo/staff`, `/demo/staff/fulfilment` and `/demo/staff/support` sign a visitor in to a demonstration staff account of that role, and `/demo/customer` to a customer account with orders behind it. Nothing in the shop links to them, and they do not exist when `STORE_DEMO` is off.
 - A demonstration staff account can open every screen its role allows and can work orders and stock, but cannot change anything customers see: products, prices, photos, pages, delivery fees, store settings or staff. `App\Demo\DemoGuard` enforces that on the models themselves, so it holds for every screen and action. The demonstration customer's name, email and password cannot be changed, so the next visitor finds the account as this one did.
 - Email is never sent to an address at example.com, example.org, example.net or .test, on any installation. Such a message is kept in the log and marked as not sent.
+- An M-Pesa prompt is never sent to a phone number from the demonstration data. The numbers are made up but have the shape of real ones, so one may be somebody's line: the payment page asks a visitor for their own number instead of offering the one on the order (`App\Demo\DemoData::invented`).
 
 ## Backups and alerts
 
