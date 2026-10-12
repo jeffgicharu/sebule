@@ -68,8 +68,8 @@
 
                             <form method="post" action="{{ route('orders.pay.mpesa', $order) }}" class="mt-6 space-y-5" data-once>
                                 @csrf
-                                <x-shop.field name="phone" label="Safaricom number to send the prompt to" type="tel" :value="Phone::display($order->phone)" required
-                                    autocomplete="tel" inputmode="tel" />
+                                <x-shop.field name="phone" label="Safaricom number to send the prompt to" type="tel" :value="$phone" required
+                                    autocomplete="tel" inputmode="tel" placeholder="0712 345 678" />
 
                                 @if ($token)
                                     <p class="border-l-2 border-sand pl-4 text-[0.95rem]">The prompt asks for {{ Money::format($charge) }}, not the full total: payments on this site run on Safaricom's test system, and no goods are delivered.</p>

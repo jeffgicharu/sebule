@@ -3,6 +3,7 @@
 namespace Tests\Feature\Shop;
 
 use App\Checkout\PlaceOrder;
+use App\Demo\DemoData;
 use App\Enums\OrderEventType;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
@@ -177,6 +178,40 @@ class OrderPaymentTest extends TestCase
             ->assertSessionHasErrors(['phone' => 'Enter the Safaricom number to send the prompt to, such as 0712 345 678.']);
 
         $this->assertSame(0, Payment::count());
+    }
+
+    public function test_a_prompt_is_never_sent_to_a_number_from_the_demonstration_data(): void
+    {
+        config(['store.demo' => true]);
+        $this->fakeDaraja();
+
+        $order = $this->order();
+        $order->forceFill(['phone' => DemoData::CUSTOMER[2]])->save();
+
+        // The number on the order is not the visitor's, so the page asks for theirs instead of offering it.
+        $this->get(route('orders.pay', $order))->assertOk()
+            ->assertDontSee('value="0700 000 100"', escape: false)
+            ->assertSee('placeholder="0712 345 678"', escape: false);
+
+        $this->post(route('orders.pay.mpesa', $order), ['phone' => '0700 000 100'])
+            ->assertSessionHasErrors(['phone' => 'We cannot send a prompt to that number. Enter the Safaricom number of the phone you have with you.']);
+
+        $this->assertSame(0, Payment::count());
+        Http::assertNothingSent();
+
+        $this->post(route('orders.pay.mpesa', $order), ['phone' => '0722 000 111']);
+
+        $this->assertSame('254722000111', Payment::sole()->phone);
+    }
+
+    public function test_a_store_that_trades_sends_the_prompt_to_any_kenyan_mobile(): void
+    {
+        $this->fakeDaraja();
+        $order = $this->order();
+
+        $this->post(route('orders.pay.mpesa', $order), ['phone' => '0700 000 100']);
+
+        $this->assertSame('254700000100', Payment::sole()->phone);
     }
 
     public function test_safaricoms_confirmation_marks_the_order_paid_and_is_recorded_once(): void

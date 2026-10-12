@@ -51,7 +51,14 @@ class DemoData
         'support' => ['Brian Kiprop', 'brian.kiprop@example.com', StaffRole::Support],
     ];
 
-    public const CUSTOMER = ['Wanjiru Kamau', 'wanjiru.kamau@example.com', '254700000100'];
+    public const CUSTOMER = ['Wanjiru Kamau', 'wanjiru.kamau@example.com', self::PHONE_BLOCK.'0100'];
+
+    /**
+     * Every phone number in the demonstration data begins with this. The
+     * numbers are made up but have the shape of real ones, so one of them may
+     * be somebody's line: nothing is ever sent to a number in this block.
+     */
+    public const PHONE_BLOCK = '25470000';
 
     private const FIRST_NAMES = ['Achieng', 'Kamau', 'Wambui', 'Otieno', 'Njoki', 'Mutua', 'Akinyi', 'Kiprono', 'Nyambura', 'Omondi', 'Wanjiku', 'Kibet', 'Atieno', 'Mwangi', 'Chebet', 'Barasa', 'Naliaka', 'Kariuki', 'Moraa', 'Juma', 'Zawadi', 'Githinji', 'Auma', 'Koech', 'Mumbi', 'Wafula', 'Nduta', 'Hassan', 'Faith', 'Dennis', 'Mercy', 'Kevin', 'Joyce', 'Peter', 'Esther', 'Samuel'];
 
@@ -95,6 +102,12 @@ class DemoData
     private int $serial = 0;
 
     public function __construct(private readonly TellCustomer $tell) {}
+
+    /** Whether a number belongs to the demonstration data on a store that is showing it. */
+    public static function invented(?string $phone): bool
+    {
+        return config('store.demo') && $phone !== null && str_starts_with($phone, self::PHONE_BLOCK);
+    }
 
     /**
      * Replace the orders, customers and stock with the demonstration set.
@@ -241,7 +254,7 @@ class DemoData
             $people[] = [
                 'name' => $first.' '.$last,
                 // Numbers in a block chosen to look like nobody's, in the shape real ones have.
-                'phone' => '2547000'.str_pad((string) (1000 + $number), 5, '0', STR_PAD_LEFT),
+                'phone' => self::PHONE_BLOCK.str_pad((string) (1000 + $number), 4, '0', STR_PAD_LEFT),
                 'email' => $this->chance(70) ? Str::lower($first.'.'.$last).$number.'@example.com' : null,
                 'marketing' => $this->chance(35),
                 'county' => $county, 'town' => $town, 'estate' => $estate,

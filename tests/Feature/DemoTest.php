@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Demo\DemoAccountCannotChange;
+use App\Demo\DemoData;
 use App\Enums\OrderEventType;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentState;
@@ -83,6 +84,15 @@ class DemoTest extends TestCase
         [$today] = SalesOverview::sales(now()->subDay(), now());
         $this->assertGreaterThan(0, $today);
         $this->assertSame(1, Order::query()->owedARefund()->count());
+    }
+
+    public function test_every_number_in_the_demonstration_data_is_one_nothing_is_sent_to(): void
+    {
+        $this->artisan('demo:reset')->assertSuccessful();
+
+        foreach ([Order::class, Customer::class, Payment::class] as $record) {
+            $this->assertSame([], $record::query()->whereNotNull('phone')->pluck('phone')->reject(fn (string $phone) => DemoData::invented($phone))->values()->all(), $record);
+        }
     }
 
     public function test_every_demonstration_order_adds_up_and_tells_a_story_that_could_have_happened(): void

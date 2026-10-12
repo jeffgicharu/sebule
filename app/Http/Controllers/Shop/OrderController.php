@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Demo\DemoData;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
 use App\Http\Controllers\Controller;
@@ -41,6 +42,8 @@ class OrderController extends Controller
         return view('shop.order.pay', [
             'order' => $order,
             'waiting' => $order->openPayment(),
+            // A number from the demonstration data is not the visitor's, so they are asked for their own.
+            'phone' => DemoData::invented($order->phone) ? null : Phone::display($order->phone),
             'last' => $order->payments->first(),
             'mpesa' => $daraja->isConfigured(),
             'charge' => StartMpesaPayment::charge($order),
@@ -58,8 +61,12 @@ class OrderController extends Controller
 
         $data = $request->validate([
             'phone' => ['required', 'string', 'max:30', function (string $attribute, mixed $value, Closure $fail): void {
-                if (Phone::normalise((string) $value) === null) {
+                $number = Phone::normalise((string) $value);
+
+                if ($number === null) {
                     $fail('Enter the Safaricom number to send the prompt to, such as 0712 345 678.');
+                } elseif (DemoData::invented($number)) {
+                    $fail('We cannot send a prompt to that number. Enter the Safaricom number of the phone you have with you.');
                 }
             }],
         ]);
