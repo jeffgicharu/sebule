@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 /**
@@ -355,6 +356,69 @@ class OrderPaymentTest extends TestCase
         $this->confirm($payment, receipt: 'TJA5K2PXQR')->assertOk();
         $this->assertSame(PaymentState::Paid, $payment->fresh()->state);
         $this->assertSame(OrderStatus::Paid, $order->fresh()->status);
+    }
+
+    #[DataProvider('answersThatSettleNothing')]
+    public function test_a_prompt_still_open_when_the_store_asks_is_not_taken_for_a_failure(string $code, string $said): void
+    {
+        $this->fakeDaraja(result: ['ResponseCode' => '0', 'ResultCode' => $code, 'ResultDesc' => $said]);
+        $order = $this->order();
+        $this->post(route('orders.pay.mpesa', $order), ['phone' => '0712345678']);
+        $payment = Payment::sole();
+
+        (new CheckMpesaPayment($payment))->handle(app(Daraja::class), app(RecordMpesaResult::class));
+
+        $this->assertSame([PaymentState::Pending, null], [$payment->fresh()->state, $payment->fresh()->result_code]);
+        $this->assertNotNull($payment->fresh()->checked_at);
+        Queue::assertPushed(CheckMpesaPayment::class, fn (CheckMpesaPayment $job) => $job->attempt === 2);
+        $this->assertFalse($order->events()->where('type', OrderEventType::PaymentFailed)->exists());
+
+        $this->get(route('orders.pay', $order))->assertOk()
+            ->assertSeeText('Check your phone')
+            ->assertDontSeeText('The payment did not go through');
+
+        // The customer finishes entering their PIN after the store asked.
+        $this->confirm($payment, receipt: 'TJA5K2PXQR')->assertOk();
+
+        $this->assertSame(PaymentState::Paid, $payment->fresh()->state);
+        $this->assertSame(OrderStatus::Paid, $order->fresh()->status);
+    }
+
+    /** @return array<string, array{string, string}> */
+    public static function answersThatSettleNothing(): array
+    {
+        return [
+            'still being processed' => ['4999', 'The transaction is still under processing'],
+            'a code the store has never seen' => ['7777', 'Something new'],
+        ];
+    }
+
+    public function test_money_that_arrives_after_mpesa_said_the_payment_failed_still_buys_the_order(): void
+    {
+        $this->fakeDaraja();
+        $order = $this->order();
+        $this->post(route('orders.pay.mpesa', $order), ['phone' => '0712345678']);
+        $payment = Payment::sole();
+
+        $this->confirm($payment, code: 1032)->assertOk();
+        $this->assertSame(PaymentState::Cancelled, $payment->fresh()->state);
+
+        // A different failure arriving afterwards changes nothing.
+        $this->confirm($payment, code: 1037)->assertOk();
+        $this->assertSame([PaymentState::Cancelled, '1032'], [$payment->fresh()->state, $payment->fresh()->result_code]);
+        $this->assertSame(1, $order->events()->where('type', OrderEventType::PaymentFailed)->count());
+
+        // Money claimed for the wrong sum does not count as having arrived.
+        $this->confirm($payment, amount: 5)->assertOk();
+        $this->assertSame([PaymentState::Cancelled, '1032'], [$payment->fresh()->state, $payment->fresh()->result_code]);
+
+        $this->confirm($payment, receipt: 'TJA5K2PXQR')->assertOk();
+        $this->confirm($payment, code: 1032)->assertOk();
+
+        $this->assertSame([PaymentState::Paid, 'TJA5K2PXQR', '0'], [$payment->fresh()->state, $payment->fresh()->receipt, $payment->fresh()->result_code]);
+        $this->assertSame(OrderStatus::Paid, $order->fresh()->status);
+        $this->assertSame(1, $order->events()->where('type', OrderEventType::Paid)->count());
+        $this->assertSame(1, $order->events()->where('type', OrderEventType::PaymentFailed)->count());
     }
 
     public function test_an_order_nobody_pays_for_gives_its_stock_back_when_the_time_is_up(): void

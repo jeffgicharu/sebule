@@ -67,12 +67,20 @@ class Daraja
 
         $answer = (array) $response->json();
 
-        // Until the prompt is answered, Safaricom replies with an error saying it is still being processed.
+        // Until the prompt is answered, Safaricom replies with an error or with a code saying it is still being processed.
         if (! $response->successful() || ! array_key_exists('ResultCode', $answer)) {
             return null;
         }
 
-        return ['code' => (string) $answer['ResultCode'], 'description' => (string) ($answer['ResultDesc'] ?? '')];
+        $code = (string) $answer['ResultCode'];
+
+        // Only a code known to be final counts as an answer. Anything else would tell a customer
+        // who is still entering their PIN that the payment had failed.
+        if (! MpesaResult::settles($code)) {
+            return null;
+        }
+
+        return ['code' => $code, 'description' => (string) ($answer['ResultDesc'] ?? '')];
     }
 
     /** The fields that prove a request comes from the store's shortcode. */

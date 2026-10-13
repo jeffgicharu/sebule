@@ -88,7 +88,7 @@ Checkout is two pages that work without script: the customer's details, then a r
 
 Stock is held for `STORE_HOLD_MINUTES`. `orders:release-unpaid` runs every minute and returns the stock of orders nobody paid for; the customer can pick such an order up again from its link if the pieces are still there.
 
-Paying is an M-Pesa prompt (`App\Payments\StartMpesaPayment`). Safaricom's confirmation is posted to an address signed for that one prompt, must name that prompt and must be for the amount asked; it is recorded once however many times it arrives. If no confirmation comes, a queued job asks Safaricom what became of the prompt and settles the order either way. Every order page is reached by a secret link, so tracking needs no account.
+Paying is an M-Pesa prompt (`App\Payments\StartMpesaPayment`). Safaricom's confirmation is posted to an address signed for that one prompt, must name that prompt and must be for the amount asked; it is recorded once however many times it arrives. If no confirmation comes, a queued job asks Safaricom what became of the prompt and settles the order either way. Only a result code the store knows to be final settles a payment that way (`App\Payments\Mpesa\MpesaResult::settles`): Safaricom also answers with codes that mean the customer has still to respond. A confirmation that the money arrived replaces an earlier failure, so a payment is never lost to one. Every order page is reached by a secret link, so tracking needs no account.
 
 ## Pages, the home page and store settings
 

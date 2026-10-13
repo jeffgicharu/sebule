@@ -11,6 +11,18 @@ class MpesaResult
 {
     public const PAID = '0';
 
+    /** The codes the store knows to be M-Pesa's last word on a prompt. */
+    private const LAST_WORD = [self::PAID, '1', '1001', '1019', '1025', '1032', '1037', '2001'];
+
+    /**
+     * Whether a code settles a prompt. M-Pesa also answers with codes that mean
+     * the customer has still to respond, 4999 among them, and may add more.
+     */
+    public static function settles(string $code): bool
+    {
+        return in_array($code, self::LAST_WORD, true);
+    }
+
     public static function state(string $code): PaymentState
     {
         return match ($code) {

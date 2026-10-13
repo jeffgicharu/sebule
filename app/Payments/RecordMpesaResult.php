@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\DB;
 /**
  * Writes down what M-Pesa says became of a prompt, whether the news came from
  * Safaricom's confirmation or from the store asking. A result is recorded once:
- * the same news arriving again changes nothing.
+ * the same news arriving again changes nothing, and only word that the money
+ * arrived replaces a failure.
  */
 class RecordMpesaResult
 {
@@ -37,17 +38,18 @@ class RecordMpesaResult
                 return $payment;
             }
 
-            // A result M-Pesa gave stands. One the store assumed, having heard nothing, gives way to real news.
-            if ($payment->state->isFinal() && $payment->result_code !== null) {
-                return $payment;
-            }
-
             $state = MpesaResult::state($code);
 
             // The amount comes from the store's own record, never from the message: a paid result for a different sum is refused.
             if ($state === PaymentState::Paid && $paidShillings !== null && $paidShillings * 100 !== $payment->charged) {
                 $state = PaymentState::Failed;
                 $description = "Paid {$paidShillings} where {$payment->charged} cents was asked. ".$description;
+            }
+
+            // A result M-Pesa gave stands, except that money which did arrive is never lost to an earlier
+            // word that it had not. One the store assumed, having heard nothing, gives way to any real news.
+            if ($payment->state->isFinal() && $payment->result_code !== null && $state !== PaymentState::Paid) {
+                return $payment;
             }
 
             $payment->update([
