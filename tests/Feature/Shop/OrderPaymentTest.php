@@ -274,7 +274,7 @@ class OrderPaymentTest extends TestCase
     {
         $messages = [
             '1032' => [PaymentState::Cancelled, 'You cancelled the prompt on your phone, so nothing was paid.'],
-            '1037' => [PaymentState::TimedOut, 'The prompt could not reach your phone.'],
+            '1037' => [PaymentState::TimedOut, 'The prompt was not answered in time, or it could not reach your phone.'],
             '1019' => [PaymentState::TimedOut, 'The prompt ran out of time before it was answered.'],
             '1' => [PaymentState::Failed, 'There was not enough money in the M-Pesa account.'],
             '2001' => [PaymentState::Failed, 'The M-Pesa PIN was not right, so nothing was paid.'],

@@ -38,7 +38,7 @@ class MpesaResult
     {
         return match ($code) {
             '1032' => 'You cancelled the prompt on your phone, so nothing was paid. Send it again when you are ready.',
-            '1037' => 'The prompt could not reach your phone. Check that it is on and has signal, then send it again.',
+            '1037' => 'The prompt was not answered in time, or it could not reach your phone. Check that your phone is on and has signal, then send it again.',
             '1019' => 'The prompt ran out of time before it was answered. Send it again and enter your PIN when it appears.',
             '1' => 'There was not enough money in the M-Pesa account. Top up or use another number, then try again.',
             '2001' => 'The M-Pesa PIN was not right, so nothing was paid. Send the prompt again and take your time.',
