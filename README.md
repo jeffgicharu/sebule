@@ -78,7 +78,7 @@ A category page can be narrowed by price, colour or finish, material, width and 
 
 Moving from page to page uses the browser's own page transitions. A product's photo glides from its card into place on the product page and back again while the header stays still; a short script in the page itself (`components/shop/layout.blade.php`) names the photo before the new page's first frame. Further down a page, sections and cards rise into place as they come into view. Only what is still below the screen is held back, so nothing already in view is ever hidden. Adding to the cart sends the photo flying into the cart before the form is sent as usual, and the cart page then marks the new line and the count. With a mouse, a product photo comes closer wherever the pointer is.
 
-All of it is extra. Without script, in a browser without page transitions, or for a visitor whose device asks for less motion, every page is the same and still.
+All of it is extra. Without script nothing is held back and every page works as before, with only the movement that needs no script (the home page's opening, the fade between pages and the cart count). A browser without page transitions simply opens the next page. A visitor whose device asks for less motion gets every page still.
 
 ## Search
 
