@@ -3,6 +3,7 @@
 namespace App\Catalogue;
 
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * The sizes every product photo is produced in, shared by the models that hold photos.
@@ -22,6 +23,15 @@ class ProductImage
 
     /** The conversion shown when a page is shared or listed by a search engine. */
     public const SHARE = 'share';
+
+    /** Every width a photo has been produced at, as an image's srcset. */
+    public static function srcset(Media $media): string
+    {
+        return collect(self::WIDTHS)->except('thumb')
+            ->filter(fn (int $width, string $name) => $media->hasGeneratedConversion($name))
+            ->map(fn (int $width, string $name) => $media->getUrl($name).' '.$width.'w')
+            ->implode(', ');
+    }
 
     public static function registerConversions(HasMedia $model): void
     {

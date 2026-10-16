@@ -2,11 +2,8 @@
 
 @php
     // Every product photo is square and has the same set of widths generated for it.
-    $widths = collect(\App\Catalogue\ProductImage::WIDTHS)->except('thumb')
-        ->filter(fn (int $width, string $name) => $media->hasGeneratedConversion($name));
-
-    $src = $widths->has('medium') ? $media->getUrl('medium') : $media->getUrl();
-    $srcset = $widths->map(fn (int $width, string $name) => $media->getUrl($name).' '.$width.'w')->implode(', ');
+    $src = $media->hasGeneratedConversion('medium') ? $media->getUrl('medium') : $media->getUrl();
+    $srcset = \App\Catalogue\ProductImage::srcset($media);
 @endphp
 
 <img

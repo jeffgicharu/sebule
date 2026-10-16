@@ -113,16 +113,42 @@
                 // Leaving: the photo of the piece about to open, or the photo of the piece being left. A piece
                 // just added to the cart has already flown there, so it does not travel a second time.
                 addEventListener('pageswap', (event) => {
-                    if (event.viewTransition) {
-                        const sent = document.querySelector('form[data-to-cart][data-sent]');
-                        hold(event.viewTransition, sent ? null : photoOf(pieceAt(event.activation?.entry?.url ?? chosen)) || mainPhoto());
+                    if (!event.viewTransition) {
+                        return;
                     }
+
+                    const going = pieceAt(event.activation?.entry?.url ?? chosen);
+                    const piece = document.querySelector('form[data-to-cart][data-sent]') ? null : photoOf(going) || mainPhoto();
+                    const shown = piece?.querySelector('img')?.currentSrc;
+
+                    hold(event.viewTransition, piece);
+
+                    // The piece's page may open before its large photo has arrived. Until it has, the photo
+                    // already on screen here stands in for it, so the photo never lands in an empty frame.
+                    try {
+                        going && shown ? sessionStorage.setItem('lifted', JSON.stringify({ going, shown })) : sessionStorage.removeItem('lifted');
+                    } catch {}
                 });
 
                 // Arriving: the piece's own photo, or, back from a piece, its photo in the list.
                 addEventListener('pagereveal', (event) => {
-                    if (event.viewTransition) {
-                        hold(event.viewTransition, mainPhoto() || photoOf(pieceAt(window.navigation?.activation?.from?.url ?? document.referrer)));
+                    if (!event.viewTransition) {
+                        return;
+                    }
+
+                    hold(event.viewTransition, mainPhoto() || photoOf(pieceAt(window.navigation?.activation?.from?.url ?? document.referrer)));
+
+                    let lifted = null;
+                    try {
+                        lifted = JSON.parse(sessionStorage.getItem('lifted'));
+                        sessionStorage.removeItem('lifted');
+                    } catch {}
+
+                    const lead = document.querySelector('[data-piece-main] img');
+
+                    if (lead && !lead.complete && lifted?.going === location.pathname) {
+                        lead.style.background = `url("${lifted.shown}") center / contain no-repeat`;
+                        lead.addEventListener('load', () => lead.style.removeProperty('background'), { once: true });
                     }
                 });
             })();

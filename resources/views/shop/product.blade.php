@@ -132,10 +132,13 @@
                                     @php
                                         $value = $variant->optionValues->first();
                                         $isSelected = $variant->is($selected);
+                                        $look = $isSelected ? null : $value?->getFirstMedia(\App\Models\ProductOptionValue::IMAGES);
                                     @endphp
                                     <li>
+                                        {{-- Pointing at a colour starts loading its photo, so it is ready when the page changes. --}}
                                         <a href="{{ route('shop.product', ['product' => $product, 'v' => ProductController::key($variant)]) }}"
                                             @if ($isSelected) aria-current="true" @endif
+                                            @if ($look) data-look="{{ ProductImage::srcset($look) }}" @endif
                                             class="flex min-h-11 items-center gap-2.5 rounded-full border py-1.5 pl-1.5 pr-4 text-[0.95rem] transition-colors {{ $isSelected ? 'border-ink bg-tile font-semibold' : 'border-rule hover:border-ink' }}">
                                             @if ($value?->swatch)
                                                 <span aria-hidden="true" class="size-8 rounded-full ring-1 ring-ink/20" style="background-color: {{ $value->swatch }}"></span>

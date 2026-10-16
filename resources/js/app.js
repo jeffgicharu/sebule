@@ -157,6 +157,25 @@ document.addEventListener('pointermove', (event) => {
     }
 });
 
+// Pointing at a piece or at a colour starts loading the large photo its page opens with, at the size
+// that page shows it (the main photo in shop/product.blade.php), so it is there when the photo lands.
+const looked = new Set();
+
+const lookAhead = (event) => {
+    const srcset = event.target.closest?.('[data-look]')?.dataset.look ?? event.target.closest?.('article')?.querySelector('[data-inspect] img')?.srcset;
+
+    if (srcset && !looked.has(srcset)) {
+        looked.add(srcset);
+
+        const ahead = new Image();
+        ahead.sizes = '(min-width: 64rem) 58vw, 100vw';
+        ahead.srcset = srcset;
+    }
+};
+
+document.addEventListener('pointerover', lookAhead);
+document.addEventListener('focusin', lookAhead);
+
 // Adding to the cart: the photo of the piece flies up into the cart, and then the cart page opens.
 // The form is sent as it would be without script, only a moment later.
 document.addEventListener('submit', (event) => {
