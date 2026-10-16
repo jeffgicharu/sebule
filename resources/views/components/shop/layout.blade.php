@@ -79,15 +79,63 @@
 
         @fonts
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        {{-- Moving between pages, the photo of the piece being opened glides from where it was to where it lands,
+             and back again. It has to be in the page itself: a new page names what it shows before its first frame. --}}
+        <script>
+            (() => {
+                const pieceAt = (address) => {
+                    const path = address ? new URL(address, location.href).pathname : '';
+
+                    return path.startsWith('/p/') ? path : null;
+                };
+                const inView = (element) => {
+                    const box = element?.getBoundingClientRect();
+
+                    return Boolean(box && box.width > 0 && box.bottom > 0 && box.top < innerHeight);
+                };
+                const photoOf = (path) => path && [...document.querySelectorAll('[data-piece]')].find((element) => element.dataset.piece === path && inView(element));
+                const mainPhoto = () => [document.querySelector('[data-piece-main]')].find(inView);
+
+                // The banner and the header stay still while the page under them changes. Only the photo
+                // itself travels, not the labels laid over it.
+                const hold = (transition, piece) => {
+                    const named = [[document.querySelector('[data-ribbon]'), 'ribbon'], [document.querySelector('[data-masthead]'), 'masthead'], [piece?.querySelector('img') ?? piece, 'piece']]
+                        .filter(([element]) => element);
+
+                    named.forEach(([element, name]) => element.style.viewTransitionName = name);
+                    transition.finished.finally(() => named.forEach(([element]) => element.style.viewTransitionName = ''));
+                };
+
+                let chosen = null;
+                addEventListener('click', (event) => chosen = event.target.closest?.('a[href]')?.href ?? null, true);
+
+                // Leaving: the photo of the piece about to open, or the photo of the piece being left. A piece
+                // just added to the cart has already flown there, so it does not travel a second time.
+                addEventListener('pageswap', (event) => {
+                    if (event.viewTransition) {
+                        const sent = document.querySelector('form[data-to-cart][data-sent]');
+                        hold(event.viewTransition, sent ? null : photoOf(pieceAt(event.activation?.entry?.url ?? chosen)) || mainPhoto());
+                    }
+                });
+
+                // Arriving: the piece's own photo, or, back from a piece, its photo in the list.
+                addEventListener('pagereveal', (event) => {
+                    if (event.viewTransition) {
+                        hold(event.viewTransition, mainPhoto() || photoOf(pieceAt(window.navigation?.activation?.from?.url ?? document.referrer)));
+                    }
+                });
+            })();
+        </script>
     </head>
     <body class="flex min-h-screen flex-col">
         <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">Skip to the content</a>
 
-        <p class="bg-forest px-4 py-2 text-center text-[0.8125rem] font-medium tracking-wide text-paper">
+        <p class="bg-forest px-4 py-2 text-center text-[0.8125rem] font-medium tracking-wide text-paper" data-ribbon>
             Delivery across Kenya <span aria-hidden="true" class="mx-2 text-sand">/</span> Pay with M-Pesa
         </p>
 
-        <header class="border-b border-rule bg-paper">
+        <header class="border-b border-rule bg-paper" data-masthead>
             <div class="wrap flex items-center justify-between gap-6 py-4 lg:py-5">
                 <a href="{{ route('home') }}" class="font-display text-[1.75rem] leading-none lg:text-[2rem]">{{ config('app.name') }}</a>
 
@@ -131,7 +179,7 @@
                     <span class="hidden max-w-[7rem] truncate sm:inline lg:hidden xl:inline">{{ $shopper ? Str::of($shopper->name)->before(' ') : 'Sign in' }}</span>
                 </a>
 
-                <a href="{{ route('cart.show') }}" class="flex min-h-11 items-center gap-2 px-1 text-[0.95rem] font-medium"
+                <a href="{{ route('cart.show') }}" class="flex min-h-11 items-center gap-2 px-1 text-[0.95rem] font-medium" data-cart
                     aria-label="Cart, {{ $cartPieces }} {{ Str::plural('piece', $cartPieces) }}">
                     <svg aria-hidden="true" viewBox="0 0 24 24" class="size-[1.35rem]" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M5 8h14l-1 12H6L5 8Z" />
@@ -139,7 +187,8 @@
                     </svg>
                     <span class="hidden sm:inline lg:hidden xl:inline">Cart</span>
                     @if ($cartPieces > 0)
-                        <span class="grid h-5 min-w-5 place-items-center rounded-full bg-forest px-1.5 text-xs font-semibold leading-none text-paper">{{ $cartPieces }}</span>
+                        {{-- Just after something is added, the count springs up to say so. --}}
+                        <span @class(['grid h-5 min-w-5 place-items-center rounded-full bg-forest px-1.5 text-xs font-semibold leading-none text-paper', 'count-pop' => session()->has('shop.added')])>{{ $cartPieces }}</span>
                     @endif
                 </a>
 
@@ -150,7 +199,7 @@
                         <span class="hidden group-open:inline">Close</span>
                     </summary>
 
-                    <nav aria-label="Shop" class="absolute inset-x-0 z-40 mt-4 max-h-[75vh] overflow-y-auto border-y border-rule bg-paper shadow-[0_30px_40px_-24px_rgb(31_29_26/0.4)]">
+                    <nav aria-label="Shop" class="menu-drop absolute inset-x-0 z-40 mt-4 max-h-[75vh] overflow-y-auto border-y border-rule bg-paper shadow-[0_30px_40px_-24px_rgb(31_29_26/0.4)]">
                         <ul class="wrap divide-y divide-rule py-2">
                             @foreach ($menuRooms as $room)
                                 <li class="py-3">

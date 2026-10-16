@@ -12,6 +12,7 @@ use App\Models\ProductVariant;
 use Database\Seeders\CatalogueSeeder;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -67,6 +68,27 @@ class CartTest extends TestCase
 
         $this->assertSame(1, CartItem::count());
         $this->assertSame(3, CartItem::first()->quantity);
+    }
+
+    public function test_the_cart_marks_the_piece_that_has_just_arrived_and_only_then(): void
+    {
+        $sand = $this->variant('amani-3-seater-sofa', 'Sand');
+        $forest = $this->variant('amani-3-seater-sofa', 'Forest');
+
+        $first = $this->post('/cart/items', ['variant' => $sand->id]);
+        $second = $this->carry($first)->post('/cart/items', ['variant' => $forest->id])
+            ->assertSessionHas('shop.added', CartItem::where('product_variant_id', $forest->id)->value('id'));
+
+        $page = $this->carry($second)->get('/cart')->assertOk()->getContent();
+
+        $this->assertSame(1, substr_count($page, 'data-just-added'));
+        $this->assertStringContainsString('Forest', Str::before(Str::after($page, 'data-just-added'), '</li>'));
+        $this->assertStringContainsString('count-pop', $page);
+
+        // Coming back to the cart later, nothing is new.
+        $this->carry($second)->get('/cart')->assertOk()
+            ->assertDontSee('data-just-added', escape: false)
+            ->assertDontSee('count-pop', escape: false);
     }
 
     public function test_the_cart_never_holds_more_than_is_in_stock(): void

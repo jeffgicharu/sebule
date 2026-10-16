@@ -184,6 +184,25 @@ class BrowsingTest extends TestCase
         $this->get('/p/amani-3-seater-sofa')->assertOk()->assertDontSeeText('The room photo shows');
     }
 
+    public function test_a_card_and_the_product_page_name_the_same_piece_so_its_photo_can_travel_between_them(): void
+    {
+        Storage::fake('public');
+
+        $sofa = Product::where('slug', 'amani-3-seater-sofa')->firstOrFail();
+        $sofa->addMedia(UploadedFile::fake()->image('amani-sofa-3s_sand_studio-34.jpg', 64, 64))->toMediaCollection(Product::GALLERY);
+
+        $this->get('/c/sofas')->assertOk()
+            ->assertSee('data-piece="/p/amani-3-seater-sofa"', escape: false)
+            ->assertSee('data-inspect', escape: false);
+
+        // The page waits for its main photo before its first frame, the photo the card's glides into.
+        $page = $this->get('/p/amani-3-seater-sofa')->assertOk()
+            ->assertSee('<link rel="expect" href="#piece-photo" blocking="render">', escape: false)
+            ->assertSee('data-to-cart', escape: false);
+
+        $this->assertSame(1, preg_match_all('/id="piece-photo" data-piece-main/', $page->getContent()));
+    }
+
     public function test_a_list_can_be_narrowed_by_material_and_only_offers_the_materials_it_holds(): void
     {
         $living = $this->get(route('shop.category', 'living-room'))->assertOk();

@@ -74,6 +74,12 @@ A room shot is attached to the product; every other shot is attached to the colo
 
 A category page can be narrowed by price, colour or finish, material, width and availability, and sorted by price, newest or most popular (units paid for in the last 90 days). Every choice is in the address, so a filtered page can be shared, and the form works without script (`App\Catalogue\ProductListing`).
 
+## Movement
+
+Moving from page to page uses the browser's own page transitions. A product's photo glides from its card into place on the product page and back again while the header stays still; a short script in the page itself (`components/shop/layout.blade.php`) names the photo before the new page's first frame. Further down a page, sections and cards rise into place as they come into view. Only what is still below the screen is held back, so nothing already in view is ever hidden. Adding to the cart sends the photo flying into the cart before the form is sent as usual, and the cart page then marks the new line and the count. With a mouse, a product photo comes closer wherever the pointer is.
+
+All of it is extra. Without script, in a browser without page transitions, or for a visitor whose device asks for less motion, every page is the same and still.
+
 ## Search
 
 Search runs in PostgreSQL with the `pg_trgm` extension, so there is no search service to run beside the database. Each product carries a `search_text` column holding the words it might be looked for by: its name, category and room, collections, colours and finishes, materials and description, plus everyday words for the store's own colour names, so that "green" finds Forest and Olive. `App\Catalogue\SearchIndex` rewrites it whenever a product, a colour or a category name changes, and `catalogue:index-search` rewrites all of them each night.

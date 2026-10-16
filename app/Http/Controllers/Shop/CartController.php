@@ -41,7 +41,8 @@ class CartController extends Controller
             return back()->with('shop.problem', "Sorry, the {$name} has just sold out.");
         }
 
-        return redirect()->route('cart.show')->with('shop.notice', $limited
+        // The cart page marks the line that just arrived, and the count beside the cart in the header.
+        return redirect()->route('cart.show')->with('shop.added', $item->getKey())->with('shop.notice', $limited
             ? "Only {$item->quantity} of the {$name} ".($item->quantity === 1 ? 'is' : 'are').' in stock, so that is how many are in your cart.'
             : "The {$name} is in your cart.");
     }

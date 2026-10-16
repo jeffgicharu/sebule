@@ -24,6 +24,11 @@
 }
 
 @layer base {
+    :root {
+        /* Movement that starts briskly and comes gently to rest, used by everything that moves. */
+        --ease-glide: cubic-bezier(0.22, 0.8, 0.24, 1);
+    }
+
     html {
         background-color: var(--color-paper);
         color: var(--color-ink);
@@ -293,5 +298,208 @@
         & p + p {
             margin-top: 0.9em;
         }
+    }
+}
+
+/* Movement. All of it is extra: without it every page is the same, only still, and a visitor
+   whose device asks for less motion gets them still. */
+@media (prefers-reduced-motion: no-preference) {
+    /* Moving from page to page, the new page eases in under a header that stays put. */
+    @view-transition {
+        navigation: auto;
+    }
+
+    /* Arriving on the home page: the words rise one after another and the photo settles. */
+    .rise-in {
+        animation: rise-in 0.9s var(--ease-glide) both;
+        animation-delay: calc(var(--order, 0) * 110ms + 100ms);
+    }
+
+    .settle {
+        animation: settle 2.4s var(--ease-glide) both;
+    }
+
+    /* Further down a page, things rise into place as they come into view. The script only
+       holds back what is still below the screen, so nothing in view is ever hidden. */
+    [data-reveal] {
+        transition:
+            opacity 0.8s var(--ease-glide) var(--rise-delay, 0ms),
+            translate 0.9s var(--ease-glide) var(--rise-delay, 0ms);
+    }
+
+    [data-reveal].is-waiting {
+        opacity: 0;
+        translate: 0 2rem;
+        transition: none;
+    }
+
+    /* Just after a piece goes into the cart: the count springs and its line glows for a moment. */
+    .count-pop {
+        animation: count-pop 0.7s var(--ease-glide) 0.25s both;
+    }
+
+    [data-just-added] {
+        animation: just-added 2.4s ease-out 0.3s both;
+    }
+
+    details[open] > .menu-drop {
+        animation: menu-drop 0.28s var(--ease-glide);
+    }
+
+    .zoom[open] {
+        animation: fade-in 0.25s ease-out;
+
+        & img {
+            animation: grow-in 0.45s var(--ease-glide);
+        }
+    }
+
+    /* With a mouse, a product photo comes closer wherever the pointer is, to show the grain and the weave. */
+    @media (hover: hover) and (pointer: fine) {
+        .inspect-photo {
+            transform-origin: var(--look-x, 50%) var(--look-y, 50%);
+            transition:
+                scale 0.7s var(--ease-glide),
+                transform-origin 0.35s ease-out;
+        }
+
+        .group:hover .inspect-photo {
+            scale: 1.18;
+        }
+
+        .group:hover .card-cue,
+        .group:focus-within .card-cue {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+}
+
+.card-cue {
+    position: absolute;
+    left: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    translate: 0 0.5rem;
+    pointer-events: none;
+    transition:
+        opacity 0.3s ease,
+        translate 0.45s var(--ease-glide);
+}
+
+/* The photo on its way to the cart: the outer box carries it across, the photo itself rises and shrinks. */
+.flyer {
+    position: fixed;
+    z-index: 60;
+    pointer-events: none;
+
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: var(--color-tile);
+        border-radius: 0.25rem;
+        box-shadow: 0 24px 48px -20px rgb(31 29 26 / 0.5);
+    }
+}
+
+::view-transition-old(root) {
+    animation: fade-out 0.18s ease-in both;
+}
+
+::view-transition-new(root) {
+    animation: page-arrive 0.45s var(--ease-glide) 0.08s both;
+}
+
+/* The header can change between pages (the count beside the cart), so it changes at once instead of
+   showing both versions over each other. */
+::view-transition-old(ribbon),
+::view-transition-old(masthead) {
+    display: none;
+}
+
+::view-transition-new(ribbon),
+::view-transition-new(masthead) {
+    animation: none;
+}
+
+::view-transition-group(piece),
+::view-transition-old(piece),
+::view-transition-new(piece) {
+    animation-duration: 0.55s;
+    animation-timing-function: var(--ease-glide);
+}
+
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        translate: 0 1.5rem;
+    }
+}
+
+@keyframes settle {
+    from {
+        scale: 1.08;
+    }
+}
+
+@keyframes page-arrive {
+    from {
+        opacity: 0;
+        translate: 0 0.75rem;
+    }
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes grow-in {
+    from {
+        opacity: 0;
+        scale: 0.94;
+    }
+}
+
+@keyframes menu-drop {
+    from {
+        opacity: 0;
+        translate: 0 -0.5rem;
+    }
+}
+
+@keyframes count-pop {
+    35% {
+        scale: 1.6;
+        background-color: var(--color-clay);
+    }
+
+    65% {
+        scale: 0.9;
+    }
+}
+
+@keyframes just-added {
+    from {
+        background-color: rgb(47 74 58 / 0.14);
+    }
+
+    to {
+        background-color: transparent;
     }
 }

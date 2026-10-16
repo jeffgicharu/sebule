@@ -41,6 +41,8 @@
         <meta property="product:availability" content="{{ $availability === Availability::OutOfStock ? 'out of stock' : ($availability === Availability::MadeToOrder ? 'available for order' : 'in stock') }}">
         <meta property="product:condition" content="new">
         <meta property="product:retailer_item_id" content="{{ $selected->sku }}">
+        {{-- Arriving from another page, the first frame waits for the main photo, which the photo being opened glides into. --}}
+        <link rel="expect" href="#piece-photo" blocking="render">
     </x-slot:head>
 
     <div class="wrap pt-6 lg:pt-8">
@@ -54,7 +56,8 @@
                     @forelse ($photos as $photo)
                         @php $alt = $loop->first ? $product->name.($option ? ' in '.$selected->label() : '') : $product->name.', photo '.$loop->iteration; @endphp
                         {{-- An odd one out at the end takes the full width, so no half of the grid is left empty. --}}
-                        <li class="tile {{ $loop->first || ($loop->last && $loop->count % 2 === 0) ? 'col-span-2' : '' }} aspect-square">
+                        <li class="tile {{ $loop->first || ($loop->last && $loop->count % 2 === 0) ? 'col-span-2' : '' }} aspect-square"
+                            @if ($loop->first) id="piece-photo" data-piece-main @endif>
                             <a href="{{ $photo->hasGeneratedConversion('large') ? $photo->getUrl('large') : $photo->getUrl() }}" data-zoom
                                 class="block h-full w-full cursor-zoom-in" aria-label="Look closer: {{ $alt }}">
                                 <x-shop.photo :media="$photo" :eager="$loop->first" :alt="$alt"
@@ -150,9 +153,9 @@
                         </div>
                     @endif
 
-                    {{-- A plain form: the piece goes into the cart with or without script. --}}
+                    {{-- A plain form: the piece goes into the cart with or without script. With it, the photo flies to the cart first. --}}
                     @if ($availability->canBeBought())
-                        <form method="post" action="{{ route('cart.items.store') }}" class="mt-7 flex gap-3">
+                        <form method="post" action="{{ route('cart.items.store') }}" class="mt-7 flex gap-3" data-to-cart>
                             @csrf
                             <input type="hidden" name="variant" value="{{ $selected->getKey() }}">
 
@@ -212,9 +215,9 @@
 
         {{-- The longer read, set like a catalogue entry. --}}
         <section class="mt-16 grid gap-10 border-t border-rule pt-12 lg:mt-24 lg:grid-cols-12">
-            <h2 class="text-3xl lg:col-span-4">About this piece</h2>
+            <h2 class="text-3xl lg:col-span-4" data-reveal>About this piece</h2>
 
-            <div class="space-y-8 lg:col-span-8">
+            <div class="space-y-8 lg:col-span-8" data-reveal>
                 @if ($product->description)
                     <div class="prose-shop max-w-2xl text-lg">{!! str($product->description)->sanitizeHtml() !!}</div>
                 @endif
@@ -238,7 +241,7 @@
 
         @if ($related->isNotEmpty())
             <section class="mt-16 lg:mt-24">
-                <div class="flex items-end justify-between gap-6 border-b border-rule pb-5">
+                <div class="flex items-end justify-between gap-6 border-b border-rule pb-5" data-reveal>
                     <h2 class="text-3xl">More {{ strtolower($category->name) }}</h2>
                     <a href="{{ route('shop.category', $category) }}" class="link shrink-0 font-semibold">See all</a>
                 </div>

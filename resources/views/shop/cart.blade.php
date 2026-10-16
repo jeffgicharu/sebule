@@ -39,8 +39,10 @@
                             $limit = $item->limit();
                             $availability = $variant->availability();
                         @endphp
-                        <li class="grid grid-cols-[5.5rem_1fr] gap-x-4 gap-y-3 py-6 sm:grid-cols-[8rem_1fr_auto] sm:gap-x-6">
-                            <a href="{{ $address }}" class="tile block aspect-square self-start" tabindex="-1" aria-hidden="true">
+                        <li class="grid grid-cols-[5.5rem_1fr] gap-x-4 gap-y-3 py-6 sm:grid-cols-[8rem_1fr_auto] sm:gap-x-6"
+                            @if (session('shop.added') === $item->getKey()) data-just-added @endif>
+                            <a href="{{ $address }}" class="tile block aspect-square self-start" tabindex="-1" aria-hidden="true"
+                                data-piece="{{ parse_url(route('shop.product', $product), PHP_URL_PATH) }}">
                                 @if ($photo)
                                     <x-shop.photo :media="$photo" alt="" sizes="8rem" class="h-full w-full object-contain {{ $problem ? 'opacity-60' : '' }}" />
                                 @endif

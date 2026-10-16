@@ -12,12 +12,15 @@
 
 {{-- The name takes whatever height the tallest card in its row needs, so prices and
      swatches line up across the row even when one name runs to a second line. --}}
-<article class="group relative flex h-full flex-col">
-    <div class="tile relative aspect-square">
+<article class="group relative flex h-full flex-col" data-reveal>
+    {{-- The photo glides into place on the product's own page, and with a mouse it comes closer where the pointer is. --}}
+    <div class="tile relative aspect-square" data-piece="{{ parse_url(route('shop.product', $product), PHP_URL_PATH) }}" data-inspect>
         @if ($photo)
             <x-shop.photo :media="$photo" :alt="$product->name" :sizes="$sizes" :eager="$eager"
-                class="h-full w-full object-contain transition duration-500 ease-out group-hover:scale-[1.04] {{ $soldOut ? 'opacity-60' : '' }}" />
+                class="inspect-photo h-full w-full object-contain {{ $soldOut ? 'opacity-60' : '' }}" />
         @endif
+
+        <span aria-hidden="true" class="card-cue">View the piece</span>
 
         <p class="absolute left-3 top-3 flex flex-col items-start gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em]">
             @if ($onSale)
