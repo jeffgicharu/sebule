@@ -220,9 +220,11 @@ document.addEventListener('submit', (event) => {
         from = { left: pressed.left + pressed.width / 2 - 44, top: pressed.top + pressed.height / 2 - 44, width: 88, height: 88 };
     }
 
+    // Towards the cart, or, when the page has scrolled past the header, to the top of the screen below it,
+    // so the whole flight is seen.
     const to = cart.getBoundingClientRect();
     const across = to.left + to.width / 2 - (from.left + from.width / 2);
-    const up = to.top + to.height / 2 - (from.top + from.height / 2);
+    const up = Math.max(to.top + to.height / 2, 28) - (from.top + from.height / 2);
     const time = 850;
 
     const flyer = document.createElement('div');
