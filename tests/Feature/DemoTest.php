@@ -150,6 +150,18 @@ class DemoTest extends TestCase
         $this->assertSame(0, Order::where('status', OrderStatus::Delivered)->whereHas('items', fn ($items) => $items->where('stock_taken', true))->count());
     }
 
+    public function test_an_older_order_still_in_the_workshop_holds_only_stock_that_is_there(): void
+    {
+        // On this night an order from five weeks back, still waiting on a piece made to order, also held a
+        // tallboy that had already gone, and the reset stopped.
+        $this->travelTo(now()->setDate(2026, 10, 16)->setTime(3, 30));
+
+        $this->artisan('demo:reset')->assertSuccessful();
+
+        $this->assertSame(0, ProductVariant::where('stock_on_hand', '<', 0)->count());
+        $this->assertGreaterThan(0, Order::where('status', OrderStatus::InProduction)->where('created_at', '<', now()->subDays(14))->count());
+    }
+
     public function test_the_reset_gives_the_same_store_every_night_and_clears_what_visitors_left(): void
     {
         $this->artisan('demo:reset')->assertSuccessful();

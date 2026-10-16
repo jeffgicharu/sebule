@@ -305,11 +305,18 @@ class DemoData
         };
         $takesStock = in_array($status, [OrderStatus::PendingPayment, OrderStatus::Paid, OrderStatus::InProduction, OrderStatus::Ready, OrderStatus::OutForDelivery], true);
 
+        // A piece made to order keeps even an older order in the workshop, and whatever else is in it then
+        // holds stock as well. That can only be stock that is there.
+        if ($takesStock) {
+            $lines = array_values(array_filter($lines, fn (array $line) => $line['variant']->made_to_order || ($this->stock[$line['variant']->id] ?? 0) >= $line['quantity']));
+        }
+
         $subtotal = (int) collect($lines)->sum(fn (array $line) => $line['variant']->price * $line['quantity']);
         $fee = $collect ? 0 : $county->zone->fee;
         $total = $subtotal + $fee;
         $rate = (int) config('store.vat_rate');
-        $wasPaid = $status->isPaid() || $refund || ($status === OrderStatus::Cancelled && $this->chance(40));
+        // Other orders cancelled after paying are old enough that their refunds have gone, so yesterday's is the one left to send.
+        $wasPaid = $status->isPaid() || $refund || ($status === OrderStatus::Cancelled && $age >= 6 && $this->chance(40));
         // Now and then the first prompt goes unanswered and the second is paid; an order never paid for had one that failed, or none.
         $failedAt = $awaiting === null && $this->chance($wasPaid ? 12 : 55) ? $placed->copy()->addSeconds($this->random->getInt(25, 70)) : null;
         $paidAt = $wasPaid ? ($failedAt ?? $placed)->copy()->addSeconds($this->random->getInt(40, 420)) : null;
@@ -454,7 +461,8 @@ class DemoData
         $event(OrderEventType::Paid, $paidAt, 'M-Pesa, receipt '.$payment->receipt);
 
         if ($order->status === OrderStatus::Cancelled) {
-            $closed = $paidAt->copy()->addHours($this->random->getInt(2, 30));
+            // Some hours after paying, and never later than a little before the reset, which runs in the night.
+            $closed = $paidAt->copy()->addHours($this->random->getInt(2, 30))->min(now()->subMinutes(20));
             $event(OrderEventType::Cancelled, $closed, $this->pick(self::CANCEL_REASONS), $this->fulfiller);
             $event(OrderEventType::RefundDue, $closed, CancelOrder::owed($payment->charged, $payment->phone));
             // Refunds older than a few days have been sent; a recent one is still to do.
