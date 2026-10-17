@@ -41,8 +41,9 @@ class CustomerMessagesTest extends TestCase
     {
         parent::setUp();
 
-        // Example addresses are never sent to, so these customers have addresses that could be real.
-        $this->customerEmail = 'wanjiru@kamau.co.ke';
+        // Example addresses are never sent to, so these customers have addresses at the store's own domain,
+        // which could be real. The mailer is faked, so nothing leaves.
+        $this->customerEmail = 'wanjiru@sebule.jeffgicharu.com';
 
         // Tests run with a mailer that keeps mail in memory; the store treats that as "not set up to send".
         config(['mail.default' => 'smtp', 'store.email.reply_to' => 'hello@sebule.test']);
@@ -59,7 +60,7 @@ class CustomerMessagesTest extends TestCase
 
         $email = $this->emails($order)->sole();
 
-        $this->assertSame(['placed', 'wanjiru@kamau.co.ke', "We have your order {$order->number}", MessageStatus::Sent],
+        $this->assertSame(['placed', 'wanjiru@sebule.jeffgicharu.com', "We have your order {$order->number}", MessageStatus::Sent],
             [$email->kind, $email->recipient, $email->subject, $email->status]);
         $this->assertNotNull($email->sent_at);
 
@@ -73,7 +74,7 @@ class CustomerMessagesTest extends TestCase
             $this->assertStringContainsString('KSh 6,413.79 VAT', $written);
         }
 
-        Mail::assertSent(CustomerEmail::class, fn (CustomerEmail $mail) => $mail->hasTo('wanjiru@kamau.co.ke')
+        Mail::assertSent(CustomerEmail::class, fn (CustomerEmail $mail) => $mail->hasTo('wanjiru@sebule.jeffgicharu.com')
             && $mail->hasSubject("We have your order {$order->number}")
             && $mail->hasReplyTo('hello@sebule.test'));
     }
@@ -89,7 +90,7 @@ class CustomerMessagesTest extends TestCase
 
     public function test_account_emails_say_nothing_about_prices(): void
     {
-        $customer = Customer::create(['name' => 'Wanjiru Kamau', 'email' => 'wanjiru@kamau.co.ke', 'password' => 'a-good-password']);
+        $customer = Customer::create(['name' => 'Wanjiru Kamau', 'email' => 'wanjiru@sebule.jeffgicharu.com', 'password' => 'a-good-password']);
 
         $this->post(route('account.password.email'), ['email' => $customer->email]);
 
@@ -230,7 +231,7 @@ class CustomerMessagesTest extends TestCase
         Mail::assertSentCount(2);
 
         // Another customer is still written to.
-        $other = $this->placeOrder(['email' => 'achieng@kamau.co.ke']);
+        $other = $this->placeOrder(['email' => 'achieng@sebule.jeffgicharu.com']);
         $this->assertSame(MessageStatus::Sent, $this->emails($other)->sole()->status);
     }
 
@@ -238,8 +239,8 @@ class CustomerMessagesTest extends TestCase
     {
         config(['store.email.daily_limit' => 1]);
 
-        $first = $this->placeOrder(['email' => 'achieng@kamau.co.ke']);
-        $second = $this->placeOrder(['email' => 'kamau@kamau.co.ke']);
+        $first = $this->placeOrder(['email' => 'achieng@sebule.jeffgicharu.com']);
+        $second = $this->placeOrder(['email' => 'kamau@sebule.jeffgicharu.com']);
 
         $this->assertSame(MessageStatus::Sent, $this->emails($first)->sole()->status);
         $this->assertSame([MessageStatus::NotSent, 'The store has reached its limit of emails for today.'],
@@ -247,7 +248,7 @@ class CustomerMessagesTest extends TestCase
 
         // Yesterday's mail does not count against today.
         Message::query()->update(['created_at' => now()->subDay()]);
-        $this->assertSame(MessageStatus::Sent, $this->emails($this->placeOrder(['email' => 'njeri@kamau.co.ke']))->sole()->status);
+        $this->assertSame(MessageStatus::Sent, $this->emails($this->placeOrder(['email' => 'njeri@sebule.jeffgicharu.com']))->sole()->status);
     }
 
     public function test_an_email_the_service_refuses_is_marked_as_not_delivered(): void

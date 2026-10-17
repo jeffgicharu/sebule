@@ -1,10 +1,10 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "jeffgicharu/sebule",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
-    "license": "MIT",
+    "description": "Sebule's furniture shop: the storefront, the back office and M-Pesa payments.",
+    "keywords": ["laravel", "filament", "e-commerce", "m-pesa"],
+    "license": "proprietary",
     "require": {
         "php": "^8.3",
         "filament/filament": "^5.10",
